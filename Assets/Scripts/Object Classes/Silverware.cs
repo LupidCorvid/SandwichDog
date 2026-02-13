@@ -35,7 +35,11 @@ public class Silverware : ObjClass
         if (col.tag == "Grabbable")
         {
             if (col.GetComponent<Jar>() != null && currentSpread == Spread.NOSPREAD)
+            {
                 addSpread(col.GetComponent<Jar>().availSpread);
+                print("Adding spread");
+            }
+                
         }
     }
 }
