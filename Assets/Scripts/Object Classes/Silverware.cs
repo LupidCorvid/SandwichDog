@@ -34,12 +34,20 @@ public class Silverware : ObjClass
         GameObject col = collision.gameObject;
         if (col.tag == "Grabbable")
         {
+            //If getting from a jar
             if (col.GetComponent<Jar>() != null && currentSpread == Spread.NOSPREAD)
             {
                 addSpread(col.GetComponent<Jar>().availSpread);
-                print("Adding spread");
+                return;
             }
-                
+
+            //If Putting on food
+            if (col.GetComponent<Food>() != null && currentSpread != Spread.NOSPREAD)
+            {
+                col.GetComponent<Food>().addSpread(currentSpread);
+                removeSpread();
+                return;
+            }
         }
     }
 }

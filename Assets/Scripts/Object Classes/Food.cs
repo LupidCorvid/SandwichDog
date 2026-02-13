@@ -4,6 +4,9 @@ using UnityEngine;
 public class Food : ObjClass
 {
     public Spread currentSpread;
+    public GameObject mesh;
+    public Material[] matSpreads;
+
     public Food() : base(ObjType.PICKUP)
     {
         currentSpread = Spread.NOSPREAD;
@@ -12,11 +15,18 @@ public class Food : ObjClass
     public void addSpread(Spread s)
     {
         currentSpread = s;
-        //TODO: change material
+        if (mesh != null)
+        {
+            int index = (int)(s);
+            mesh.GetComponent<MeshRenderer>().material = matSpreads[index];
+        }
     }
     public void removeSpread()
     {
         currentSpread = Spread.NOSPREAD;
-        //TODO: remove material
+        if (mesh != null)
+        {
+            mesh.GetComponent<MeshRenderer>().material = matSpreads[0];
+        }
     }
 }
