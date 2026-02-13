@@ -714,6 +714,18 @@ PrefabInstance:
       propertyPath: m_PermittedDisplacementAxes
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 7517549319329480228, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
+      propertyPath: m_MovementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7517549319329480228, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
+      propertyPath: m_Colliders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7517549319329480228, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
+      propertyPath: 'm_Colliders.Array.data[0]'
+      value: 
+      objectReference: {fileID: 939280205}
     - target: {fileID: 7517549319329480229, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -804,6 +816,11 @@ MonoBehaviour:
   matSpreads:
   - {fileID: 2100000, guid: d686185341da9ad4a9bb0af9e4f663ed, type: 2}
   - {fileID: 2100000, guid: cc313785b232cc24a899eda354df8696, type: 2}
+--- !u!64 &939280205 stripped
+MeshCollider:
+  m_CorrespondingSourceObject: {fileID: 1086821822815542845, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
+  m_PrefabInstance: {fileID: 939280201}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1034930640
 GameObject:
   m_ObjectHideFlags: 0
@@ -1821,11 +1838,11 @@ PrefabInstance:
     - target: {fileID: 780201921469275857, guid: 3549fdaf258e11846b85a316c16c699c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 4c2ef866e237dd541ba38a30cafdbc93, type: 2}
+      objectReference: {fileID: 2100000, guid: d686185341da9ad4a9bb0af9e4f663ed, type: 2}
     - target: {fileID: 780201921469275857, guid: 3549fdaf258e11846b85a316c16c699c, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: 4c2ef866e237dd541ba38a30cafdbc93, type: 2}
+      objectReference: {fileID: 2100000, guid: d686185341da9ad4a9bb0af9e4f663ed, type: 2}
     - target: {fileID: 1284416445487218436, guid: 3549fdaf258e11846b85a316c16c699c, type: 3}
       propertyPath: m_Name
       value: BK mesh
