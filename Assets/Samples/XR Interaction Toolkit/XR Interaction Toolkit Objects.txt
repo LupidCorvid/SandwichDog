@@ -1,0 +1,105 @@
+https://youtu.be/kbBYcVrGZus?si=9OPIC9uE8BXvn49G
+
+
+
+XR Interaction Toolkit -- Essential Scene Objects:
+--------------------------------------------------
+
+XR Origin: Where the player, camera, and tracking is
+--> Character controller: The character body and collider
+--> Input action manager: Handles inputs
+	Click XRI Default Input Actions in the project window to modify inputs
+--> XR Input modality Manager: Handles swapping from hand tracking to use of the controller
+
+XR Interaction Manager: A script that manages interactions between the player and interactable objects in the scene
+
+Event System: Contains an XR UI Input Module, allows translating XR inputs to Unity's canvas system
+
+
+
+
+Implementation Notes:
+-------------------------------------------------
+Remove the main camera when you make a new scene
+
+Must connect headset through meta's developer hub in order to test in play mode
+
+Must get another application for building to the headset: https://developers.meta.com/horizon/documentation/unity/unity-env-device-setup/#development-environment-setup
+
+The locomotion mediator attached to the XR origin locomotion object contains a priority queue for which actions go in what order
+
+A tunneling vignette object helps reduce motion sickness. It can be turned off in XR origin.
+
+Snap turn helps with motion sickness but continuous turn looks nicer. You can turn these on and off in the left/right controller objects under the controller input action manager
+
+
+
+Teleportation:
+-------------------------------------------------
+
+When adding a teleportation area or anchor, make sure you go to the teleportation area component and change the interaction layer mask to teleport only. Change the Match Orientation component to "target up and forward" on a telep. anchor, so that the y and z axes can be used to orient the player when they teleport. Make sure one of the controllers has a teleportation provider and has smooth motion set to enabled.
+
+
+
+
+Interactables:
+-------------------------------------------------
+Ineractors are on the controllers, which triggers on objects to see if you can grab/poke objects. The near-far interactor combines the ability to interact with both close and far objects. Use interaction layers to specify what can be interacted with.
+
+On the near-far interactor, theres a cast radius on the sphere interaction caster component, which is the "interactable" range of an object. Aka how close you have to be to do something with an object.
+
+The curve interaction caster component is for the ray portion, mostly for far objects. If you want this to only interact with UI, set the raycast mask to UI only. Make sure you go to the UI sample object and make sure the layers for all child objects are set to UI for this to work.
+
+In the interaction sample object (in the demo scene), there's interactable objects that have XR grab interactable components. Make sure the interaction layer mask is set to default on both the controller and the object.
+
+Throw on detach: If the object is released, it will launch as if thrown
+Force gravity on detach: Adds gravity to the object once released
+Far attach mode: How to set if the object is a near or far interactable
+	Near: Snaps to the player's hand when picked up
+	Far: Remains in the air when picked up
+Use dynamic attach: Lets you interact with the object anywhere on the mesh
+
+---
+
+Grab interactable movement types:
+
+-Kinematic Movement - When grabbed, turns off rigidbody's isKinematic. Smooth movement that can track velocity of your hand as you move it. Goes through objects. When released, isKinematic is turned back on so it can interact with objects again. Beware of it getting stuck in colliders. Good for throwables and making sure it doesn't get stuck on stuff in the scene.
+
+-Instantaneous Movement - Moves instantly with the controller movement, no velocity tracking. Same deal with isKinematic. Good if you need the object to track 1:1 with the controller movement.
+
+-Velocity Tracked Movement - Tracks velocity AND collides with objects while being held. Good for realism or small area movement
+
+---
+
+Far grab Interactable Object settings:
+
+-Dynamic Attach - Lets you interact with the object anywhere on the mesh
+
+-Single Fixed Attach - You can add an attach transform to the object and the player can only grab it from that anchor, and its snapped to that point in your hand.
+
+-Dual Fixed Attach - You can add two attach points, and two hand an object.
+
+-By default are set to near attach so it snaps to your habd
+
+---
+
+UI:
+
+-The canvas must be in world space for VR
+-The interactor must be set to interact with the UI, set this in the curve interaction caster. Can be set to both default and UI.
+
+---
+
+Poke Interactions:
+
+-Attach transform: A gameobject that detects where the poke is initiated, called a poke point. Could be put, for example, at the tip of your finger/controller
+
+-The pokeable object has an XR simple interactable component handles selecting and deselecting
+
+-The poke filter component lets you refine the poke, like specifying the expected interaction angle and direction
+
+-The poke follow affordance component is for specifying the visuals of what happens with the poke (movement speen, smoothing, etc). The poke follow transform is the object that moves when the poke happens. Max distance is the cap of how far the transform can move when poked.
+
+-When you have a poke follow transform, the actual object should be a child of an empty object. The empty object is what's sent to the poke follow affordance component.
+
+-In the poke interaction sample object, the xr simple interactable component has things that happen on events. Select entered and select exited are like on mouse click and on mouse up events. The object can tell when its on enter or exit from the poke filter component.
