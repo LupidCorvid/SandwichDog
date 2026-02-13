@@ -7,4 +7,12 @@ public class Silverware : ObjClass
     {
         currentSpread = Spread.NOSPREAD;
     }
+    public void addSpread(Spread s)
+    {
+        currentSpread = s;
+    }
+    public void removeSpread()
+    {
+        currentSpread = Spread.NOSPREAD;
+    }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 // You must derive the base class form monobehavior to attach it to objects in the scene
 public class ObjClass : MonoBehaviour
 {
-    public enum ObjType { GRABBABLE, PICKUP };
+    public enum ObjType { GRABBABLE, PICKUP, INTERACTABLE };
     public enum Spread { NOSPREAD, PEANUTBUTTER, JELLY}
 
     public bool inHand;
