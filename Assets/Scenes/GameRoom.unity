@@ -1810,6 +1810,9 @@ MonoBehaviour:
   m_type: 0
   currentSpread: 0
   mesh: {fileID: 0}
+  matSpreads:
+  - {fileID: 2100000, guid: 4c2ef866e237dd541ba38a30cafdbc93, type: 2}
+  - {fileID: 2100000, guid: 1109ae4c1c4eb3348b5d1b7311f95c0a, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
