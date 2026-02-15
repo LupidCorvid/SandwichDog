@@ -1402,14 +1402,14 @@ PrefabInstance:
     - target: {fileID: 7517549319329480228, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
       propertyPath: 'm_Colliders.Array.data[0]'
       value: 
-      objectReference: {fileID: 4226822879694372444}
+      objectReference: {fileID: 0}
     - target: {fileID: 7517549319329480229, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7517549319329480229, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.201
+      value: 1.116
       objectReference: {fileID: 0}
     - target: {fileID: 7517549319329480229, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1417,7 +1417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7517549319329480229, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.926
+      value: -1.829
       objectReference: {fileID: 0}
     - target: {fileID: 7517549319329480229, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1500,7 +1500,7 @@ MonoBehaviour:
   inMouth: 0
   m_type: 1
   currentSpread: 0
-  mesh: {fileID: 1955126375}
+  mesh: {fileID: 3594824332525528289}
   matSpreads:
   - {fileID: 2100000, guid: 6a7dbe5aba0836d449272a7b719b25c9, type: 2}
   - {fileID: 2100000, guid: cc313785b232cc24a899eda354df8696, type: 2}
@@ -2276,7 +2276,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ab0c3f34f3d16214485801af877fed94, type: 2}
+  - {fileID: 2100000, guid: 6a7dbe5aba0836d449272a7b719b25c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
