@@ -32,6 +32,7 @@ public class Silverware : ObjClass
     private void OnCollisionEnter(Collision collision)
     {
         GameObject col = collision.gameObject;
+
         if (col.tag == "Grabbable")
         {
             //If getting from a jar
@@ -40,7 +41,9 @@ public class Silverware : ObjClass
                 addSpread(col.GetComponent<Jar>().availSpread);
                 return;
             }
-
+        }
+        else if (col.tag == "Pickup")
+        {
             //If Putting on food
             if (col.GetComponent<Food>() != null && currentSpread != Spread.NOSPREAD)
             {
