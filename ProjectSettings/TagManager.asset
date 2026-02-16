@@ -9,6 +9,7 @@ TagManager:
   - Grabbable
   - Pickup
   - Interactable
+  - Sink
   layers:
   - Default
   - TransparentFX

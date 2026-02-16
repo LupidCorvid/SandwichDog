@@ -39,7 +39,6 @@ public class Silverware : ObjClass
             if (col.GetComponent<Jar>() != null && currentSpread == Spread.NOSPREAD)
             {
                 addSpread(col.GetComponent<Jar>().availSpread);
-                return;
             }
         }
         else if (col.tag == "Pickup")
@@ -47,10 +46,17 @@ public class Silverware : ObjClass
             //If Putting on food
             if (col.GetComponent<Food>() != null && currentSpread != Spread.NOSPREAD && inHand)
             {
-                col.GetComponent<Food>().addSpread(currentSpread);
-                removeSpread();
-                return;
+                //Check if the food already has a spread before applying
+                if (col.GetComponent<Food>().currentSpread == Spread.NOSPREAD)
+                {
+                    col.GetComponent<Food>().addSpread(currentSpread);
+                    removeSpread();
+                }
             }
+        }
+        else if (col.tag == "Sink")
+        {
+            removeSpread();
         }
     }
 }
