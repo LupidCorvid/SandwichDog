@@ -79,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 0}
+  - {fileID: 2887590269251395377}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -116,7 +116,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9063749816396167146}
         m_TargetAssemblyTypeName: Food, Assembly-CSharp
-        m_MethodName: PutInHand
+        m_MethodName: CheckTwoHanded
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9063749816396167146}
         m_TargetAssemblyTypeName: Food, Assembly-CSharp
-        m_MethodName: DropFromHand
+        m_MethodName: ReleaseCostraints
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

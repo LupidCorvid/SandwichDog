@@ -1,4 +1,8 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using System.Collections;
 
 // You must derive the base class form monobehavior to attach it to objects in the scene
 public class ObjClass : MonoBehaviour
@@ -8,6 +12,7 @@ public class ObjClass : MonoBehaviour
 
     public bool inHand;
     public bool inMouth;
+    private float grabBuffer = .05f; //Coyote time for 2 handed grab
     public ObjType m_type;
 
     //Object manager or subclass should pass in the object type
@@ -17,7 +22,29 @@ public class ObjClass : MonoBehaviour
         m_type = t;
     }
 
-    //Callable by the player
+    //Debug
+    //Only allows pickups to be picked up with two hands. Constrains rigidbody if it detects that only one hand is picking it up
+    public void CheckTwoHanded()
+    {
+        //Wait for the player to get a chance to pick the item up with both hands before doing checks
+        if (m_type == ObjType.PICKUP) StartCoroutine(BufferGrab()); 
+    }
+    IEnumerator BufferGrab()
+    {
+        yield return new WaitForSeconds(grabBuffer);
+        XRGrabInteractable xrgi = gameObject.GetComponent<XRGrabInteractable>();
+        if (xrgi.interactorsSelecting.Count == 1) xrgi.interactionLayers = 0;
+        if (xrgi.interactorsSelecting.Count == 2) xrgi.interactionLayers = 3;
+    }
+
+    //Debug
+    public void ReleaseCostraints()
+    {
+        XRGrabInteractable xrgi = gameObject.GetComponent<XRGrabInteractable>();
+        if (xrgi.interactorsSelecting.Count == 1) xrgi.interactionLayers = 0;
+        else xrgi.interactionLayers = 3;
+    }
+
     //TODO: Is it more fun to be able to hotswap hand and mouth? Currently set up so that hotswap is a thing
     //TODO: Can these be called by the xr manager?
     public void PutInHand() {
