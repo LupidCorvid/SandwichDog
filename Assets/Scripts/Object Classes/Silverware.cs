@@ -45,7 +45,7 @@ public class Silverware : ObjClass
         else if (col.tag == "Pickup")
         {
             //If Putting on food
-            if (col.GetComponent<Food>() != null && currentSpread != Spread.NOSPREAD)
+            if (col.GetComponent<Food>() != null && currentSpread != Spread.NOSPREAD && inHand)
             {
                 col.GetComponent<Food>().addSpread(currentSpread);
                 removeSpread();

@@ -20,26 +20,22 @@ public class ObjClass : MonoBehaviour
     //Callable by the player
     //TODO: Is it more fun to be able to hotswap hand and mouth? Currently set up so that hotswap is a thing
     //TODO: Can these be called by the xr manager?
-    public bool PutInHand() {
+    public void PutInHand() {
         if (!inHand && m_type == ObjType.GRABBABLE)
         {
             inHand = true;
             if (inMouth) inMouth = false;
-            return true;
         }
-        return false;
     }
     public void DropFromHand() { 
         if(inHand) inHand = false;  
     }
-    public bool PutInMouth() { 
+    public void PutInMouth() { 
         if(!inMouth)
         {
             inMouth = true;
             if (inHand) inHand = false;
-            return true;
         }
-        return false;
     }
     public void DropFromMouth() { }
     
