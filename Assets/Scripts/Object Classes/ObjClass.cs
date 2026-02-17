@@ -14,6 +14,7 @@ public class ObjClass : MonoBehaviour
     public bool inMouth;
     private float grabBuffer = .05f; //Coyote time for 2 handed grab
     public ObjType m_type;
+    public Vector3 startingPosition = new Vector3 (0, 0, 0);
 
     //Object manager or subclass should pass in the object type
     public ObjClass(ObjType t) 
