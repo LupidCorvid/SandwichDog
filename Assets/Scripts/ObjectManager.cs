@@ -16,7 +16,7 @@ The way the public array works, is you set the array initialization here,
 then add the prefabs to the ObjectManager script in the inspector window
 
  */
-public class ObjectManager
+public class ObjectManager : MonoBehaviour
 {
     
 }
