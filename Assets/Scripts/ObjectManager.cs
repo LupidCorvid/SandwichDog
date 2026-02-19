@@ -18,5 +18,20 @@ then add the prefabs to the ObjectManager script in the inspector window
  */
 public class ObjectManager : MonoBehaviour
 {
+    public ObjClass[] objects;
+
+    void Start()
+    {
+        objects = FindObjectsByType<ObjClass>(FindObjectsSortMode.None);
+        foreach (ObjClass obj in objects)
+        {
+            SetLocation(obj);
+        }
+    }
     
+    void SetLocation(ObjClass obj)
+    {
+        obj.transform.position = obj.startingPosition;
+        Debug.Log("Object " + obj.name + " spawned at " + obj.startingPosition);
+    }
 }
