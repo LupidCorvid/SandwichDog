@@ -7869,10 +7869,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1600323696878981109, guid: 73927221fd8d4194f9e258ee31485b8a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3270557094530996597, guid: 73927221fd8d4194f9e258ee31485b8a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3270557094530996597, guid: 73927221fd8d4194f9e258ee31485b8a, type: 3}
+      propertyPath: m_TagString
+      value: Pickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 4559262707703179348, guid: 73927221fd8d4194f9e258ee31485b8a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5455123237930974020, guid: 73927221fd8d4194f9e258ee31485b8a, type: 3}
       propertyPath: m_Renderer
       value: 
       objectReference: {fileID: 2020345566}
+    - target: {fileID: 5461486705369084457, guid: 73927221fd8d4194f9e258ee31485b8a, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 6721747999892982578, guid: 73927221fd8d4194f9e258ee31485b8a, type: 3}
       propertyPath: m_Renderer
       value: 
