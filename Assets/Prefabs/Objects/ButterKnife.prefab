@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2688474643575265637}
   - component: {fileID: 5541559596074454143}
   - component: {fileID: 5167443872559440560}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Material Affordance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 6730844023585251411}
   - component: {fileID: 2132145874542678610}
   - component: {fileID: 5659394256648653357}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7281225168132344216}
   - component: {fileID: 8482574894413227866}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Highlight Interaction Affordance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 9213876007533012891}
   - component: {fileID: 8010835687030930129}
   - component: {fileID: 4235901819724077502}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ButterKnife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,6 +634,7 @@ MonoBehaviour:
   inHand: 0
   inMouth: 0
   m_type: 0
+  startingPosition: {x: 0, y: 0, z: 0}
   currentSpread: 0
   mesh: {fileID: 3068017310363232332}
   matSpreads:
