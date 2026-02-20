@@ -79,11 +79,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 2887590269251395377}
+  - {fileID: 0}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
-  m_SelectMode: 0
+  m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
   m_AllowGazeInteraction: 0
@@ -250,6 +250,7 @@ MonoBehaviour:
   inHand: 0
   inMouth: 0
   m_type: 1
+  startingPosition: {x: 0, y: 0, z: 0}
   currentSpread: 0
   mesh: {fileID: 2517505009190160203}
   matSpreads:
@@ -267,7 +268,7 @@ GameObject:
   - component: {fileID: 809181827872939391}
   - component: {fileID: 894002370662800690}
   - component: {fileID: 4469151601212577193}
-  - component: {fileID: 2887590269251395377}
+  - component: {fileID: 4010948865592074759}
   m_Layer: 0
   m_Name: bread
   m_TagString: Untagged
@@ -343,8 +344,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2887590269251395377
-BoxCollider:
+--- !u!64 &4010948865592074759
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -361,9 +362,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.16209766, y: 0.019188512, z: 0.17529401}
-  m_Center: {x: -0.00084029883, y: 0.00025794146, z: 0.000010203537}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -462981019419857548, guid: b862cc565375f3f4a801384f9edee5c4, type: 3}
 --- !u!1 &4584914355777700473
 GameObject:
   m_ObjectHideFlags: 0

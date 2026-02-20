@@ -29,11 +29,10 @@ public class Silverware : ObjClass
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        GameObject col = collision.gameObject;
-
-        if (col.tag == "Grabbable")
+        GameObject col = other.gameObject;
+        if (col.tag == "Spread")
         {
             //If getting from a jar
             if (col.GetComponent<Jar>() != null && currentSpread == Spread.NOSPREAD)
@@ -41,7 +40,13 @@ public class Silverware : ObjClass
                 addSpread(col.GetComponent<Jar>().availSpread);
             }
         }
-        else if (col.tag == "Pickup")
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject col = collision.gameObject;
+        
+        if (col.tag == "Pickup")
         {
             //If Putting on food
             if (col.GetComponent<Food>() != null && currentSpread != Spread.NOSPREAD && inHand)
