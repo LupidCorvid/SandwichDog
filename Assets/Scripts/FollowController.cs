@@ -14,7 +14,9 @@ public class FollowController : MonoBehaviour
     {
         if (target != null)
         {
-            gameObject.transform.position = target.transform.position;
+            Vector3 newPos = target.transform.position;
+            newPos.y = gameObject.transform.position.y;
+            gameObject.transform.position = newPos;
             //gameObject.transform.rotation = target.transform.rotation;
         }
     }
