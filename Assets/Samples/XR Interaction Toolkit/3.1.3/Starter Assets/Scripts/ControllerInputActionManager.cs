@@ -308,12 +308,12 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
 
             var manipulateAttachTransform = false;
             var attachController = m_NearFarInteractor.interactionAttachController as InteractionAttachController;
-            if (attachController != null)
-            {
-                manipulateAttachTransform = attachController.useManipulationInput &&
-                    (attachController.manipulationInput.inputSourceMode == XRInputValueReader.InputSourceMode.InputActionReference && attachController.manipulationInput.inputActionReference != null) ||
-                    (attachController.manipulationInput.inputSourceMode != XRInputValueReader.InputSourceMode.InputActionReference && attachController.manipulationInput.inputSourceMode != XRInputValueReader.InputSourceMode.Unused);
-            }
+            //if (attachController != null)
+            //{
+            //    manipulateAttachTransform = attachController.useManipulationInput &&
+            //        (attachController.manipulationInput.inputSourceMode == XRInputValueReader.InputSourceMode.InputActionReference && attachController.manipulationInput.inputActionReference != null) ||
+            //        (attachController.manipulationInput.inputSourceMode != XRInputValueReader.InputSourceMode.InputActionReference && attachController.manipulationInput.inputSourceMode != XRInputValueReader.InputSourceMode.Unused);
+            //}
 
             if (selectionRegion == NearFarInteractor.Region.Far)
             {
@@ -347,7 +347,7 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
             if (m_RayInteractor.manipulateAttachTransform)
             {
                 // Disable locomotion and turn actions
-                DisableAllLocomotionActions();
+                //DisableAllLocomotionActions(); //Turned off by ky
             }
         }
 
