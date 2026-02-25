@@ -28,16 +28,16 @@ public class GameplayManager : MonoBehaviour
         //Check that one object has peanutbutter and one has jelly from Food (I.e. Food.Spread.JELLY)
         if (currentLevel == 1)
         {
-            if (objectsToScore[objectsToScore.Length - 1].name == "Bread")
-            {/*
-                if (objectsToScore[0].GetComponent<Food>().spread == Food.Spread.PEANUTBUTTER && objectsToScore[1].GetComponent<Food>().spread == Food.Spread.JELLY)
+            if (objectsToScore[objectsToScore.Length].name == "Bread")
+            {
+                if (objectsToScore[0].GetComponent<Food>().currentSpread == Food.Spread.PEANUTBUTTER && objectsToScore[0].GetComponent<Food>().currentSpread == Food.Spread.JELLY)
                 {
                     Debug.Log("You win!");
                 }
                 else
                 {
                     Debug.Log("You lose! You need peanut butter and jelly on your bread.");
-                }*/
+                }
             }
             else
             {
@@ -52,8 +52,10 @@ public class GameplayManager : MonoBehaviour
         //When the player enters the end game area, add the object they are holding to the objectsToScore array
         if (other.gameObject.CompareTag("Pickup"))
         {
+            CalculateScore();
             Debug.Log("Object added to score: " + other.gameObject.name);
             objectsToScore[objectsToScore.Length - 1] = other.gameObject;
+            
         }
     }
 }
