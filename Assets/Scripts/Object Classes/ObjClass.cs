@@ -23,6 +23,11 @@ public class ObjClass : MonoBehaviour
         m_type = t;
     }
 
+    public void setStartingPos()
+    {
+        startingPosition = gameObject.transform.position;
+    }
+
     //Debug
     //Only allows pickups to be picked up with two hands. Constrains rigidbody if it detects that only one hand is picking it up
     public void CheckTwoHanded()

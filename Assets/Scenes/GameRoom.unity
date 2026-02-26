@@ -1143,6 +1143,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bread (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 473051291963197727, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8471135834149622809, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.78819335
@@ -1188,6 +1192,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+--- !u!1 &185265341 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 473051291963197727, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+  m_PrefabInstance: {fileID: 185265340}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &246896277
 GameObject:
   m_ObjectHideFlags: 0
@@ -2921,6 +2930,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bread (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 473051291963197727, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8471135834149622809, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.3888283
@@ -2966,6 +2979,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+--- !u!1 &605607872 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 473051291963197727, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+  m_PrefabInstance: {fileID: 605607871}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &610779963
 GameObject:
   m_ObjectHideFlags: 0
@@ -5881,7 +5899,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1191169965}
   - component: {fileID: 1191169964}
-  - component: {fileID: 1191169963}
   m_Layer: 0
   m_Name: ObjectManager
   m_TagString: Untagged
@@ -5889,19 +5906,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1191169963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1191169962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e13c56e9db18bc48af5b7b9c07efccc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objects: []
 --- !u!114 &1191169964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5914,7 +5918,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e13c56e9db18bc48af5b7b9c07efccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objects: []
+  objects:
+  - {fileID: 5224141558797110033}
+  - {fileID: 456900767020487002}
+  - {fileID: 1814054115}
+  - {fileID: 185265341}
+  - {fileID: 605607872}
+  - {fileID: 1081035128094490665}
+  - {fileID: 7372221560223328805}
+  - {fileID: 1690678144}
 --- !u!4 &1191169965
 Transform:
   m_ObjectHideFlags: 0
@@ -8635,6 +8647,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bread (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 473051291963197727, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8471135834149622809, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.734437
@@ -8680,6 +8696,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+--- !u!1 &1814054115 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 473051291963197727, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+  m_PrefabInstance: {fileID: 1814054114}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1828138776
 GameObject:
   m_ObjectHideFlags: 0
@@ -10496,6 +10517,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bread
       objectReference: {fileID: 0}
+    - target: {fileID: 473051291963197727, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8471135834149622809, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.617
@@ -10541,6 +10566,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+--- !u!1 &456900767020487002 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 473051291963197727, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+  m_PrefabInstance: {fileID: 456900767020487001}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &543450651633564148
 Transform:
   m_ObjectHideFlags: 0
@@ -10565,7 +10595,7 @@ Transform:
   m_GameObject: {fileID: 919132148796511401}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.37, y: 0.357, z: 5.537}
+  m_LocalPosition: {x: 3.37, y: 0.357, z: 5.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10965,11 +10995,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jelly Jar
       objectReference: {fileID: 0}
+    - target: {fileID: 8394387138457392922, guid: 73927221fd8d4194f9e258ee31485b8a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73927221fd8d4194f9e258ee31485b8a, type: 3}
+--- !u!1 &1081035128094490665 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8394387138457392922, guid: 73927221fd8d4194f9e258ee31485b8a, type: 3}
+  m_PrefabInstance: {fileID: 1081035128094490664}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1105270686044737927
 GameObject:
   m_ObjectHideFlags: 0
@@ -12366,6 +12405,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: plate
       objectReference: {fileID: 0}
+    - target: {fileID: 6599440070184774975, guid: f0be77243169b864484e492ac6b21480, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8855966991650193496, guid: f0be77243169b864484e492ac6b21480, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.3857452
@@ -12629,11 +12672,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButterKnife
       objectReference: {fileID: 0}
+    - target: {fileID: 7861188016737763862, guid: 759045f762922bc4494b608cc72541b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 759045f762922bc4494b608cc72541b5, type: 3}
+--- !u!1 &5224141558797110033 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7861188016737763862, guid: 759045f762922bc4494b608cc72541b5, type: 3}
+  m_PrefabInstance: {fileID: 5224141558797110032}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5314137059659791577
 GameObject:
   m_ObjectHideFlags: 0
@@ -13784,6 +13836,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ' PB jar'
       objectReference: {fileID: 0}
+    - target: {fileID: 6476875876270790308, guid: 3d68264d0d25e2f42acb1cc076714f14, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9155833118522266348, guid: 3d68264d0d25e2f42acb1cc076714f14, type: 3}
       propertyPath: m_Renderer
       value: 
@@ -13793,6 +13849,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d68264d0d25e2f42acb1cc076714f14, type: 3}
+--- !u!1 &7372221560223328805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6476875876270790308, guid: 3d68264d0d25e2f42acb1cc076714f14, type: 3}
+  m_PrefabInstance: {fileID: 7372221560223328804}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &7377080400416023601
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14867,6 +14928,8 @@ MeshRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1191169965}
+  - {fileID: 136499261}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1034930643}
@@ -14875,7 +14938,6 @@ SceneRoots:
   - {fileID: 1239231545}
   - {fileID: 753239151}
   - {fileID: 747736981}
-  - {fileID: 1191169965}
   - {fileID: 1272203871}
   - {fileID: 1102414921}
   - {fileID: 5224141558797110032}
@@ -14887,4 +14949,3 @@ SceneRoots:
   - {fileID: 7372221560223328804}
   - {fileID: 4836395241216599692}
   - {fileID: 6104746950964626938}
-  - {fileID: 136499261}
