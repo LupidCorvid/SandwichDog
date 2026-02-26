@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8308438178525704236}
   - component: {fileID: 1112612340531866924}
   - component: {fileID: 9063749816396167146}
+  - component: {fileID: 8842463228930606790}
   m_Layer: 0
   m_Name: Bread
   m_TagString: Pickup
@@ -264,6 +265,7 @@ MonoBehaviour:
   inHand: 0
   inMouth: 0
   m_type: 1
+  m_name: bread
   startingPosition: {x: 0, y: 0, z: 0}
   currentSpread: 2
   mesh: {fileID: 2517505009190160203}
@@ -271,6 +273,27 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 6a7dbe5aba0836d449272a7b719b25c9, type: 2}
   - {fileID: 2100000, guid: cc313785b232cc24a899eda354df8696, type: 2}
   - {fileID: 2100000, guid: e5c59bef7c3eae84b877c96a0d5598cd, type: 2}
+--- !u!65 &8842463228930606790
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473051291963197727}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.16690719, y: 0.18624353, z: 0.03434238}
+  m_Center: {x: 0.5113327, y: 2.110088, z: -0.30042213}
 --- !u!1 &2517505009190160203
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +398,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30

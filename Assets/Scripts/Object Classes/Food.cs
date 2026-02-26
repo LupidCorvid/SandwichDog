@@ -7,9 +7,10 @@ public class Food : ObjClass
     public GameObject mesh;
     public Material[] matSpreads;
 
-    public Food() : base(ObjType.PICKUP)
+    public Food(string n = "") : base(ObjType.PICKUP)
     {
         currentSpread = Spread.NOSPREAD;
+        m_name = n;
     }
 
     public void addSpread(Spread s)
@@ -28,5 +29,12 @@ public class Food : ObjClass
         {
             mesh.GetComponent<MeshRenderer>().material = matSpreads[0];
         }
+    }
+
+    //Compares all member variables of this object and the argument for equality and returns true if all of them match
+    public bool compareMemberVars(Food rhs)
+    {
+        if (this.currentSpread != rhs.currentSpread) return false;
+        return true;
     }
 }

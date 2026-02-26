@@ -14,13 +14,15 @@ public class ObjClass : MonoBehaviour
     public bool inMouth;
     private float grabBuffer = .1f; //Coyote time for 2 handed grab
     public ObjType m_type;
+    public string m_name;
     public Vector3 startingPosition = new Vector3 (0, 0, 0);
 
     //Object manager or subclass should pass in the object type
-    public ObjClass(ObjType t) 
+    public ObjClass(ObjType t, string n = "") 
     {
         inHand = false;
         m_type = t;
+        m_name = n;
     }
 
     public void setStartingPos()
