@@ -13,6 +13,7 @@ public class GameplayManager : MonoBehaviour
     public List<Food> lvlReqs; //The food objects required for scoring 
     public List<GameObject> objectsToScore = new List<GameObject>(); //The objects the player brought to the end game area (should be added via this script)
     public Text scoreText;
+    public Text displayText;
 
     private float timer = 5; //Time to wait for the player to stand in the box before scoring objects
     public int score = 0;
@@ -22,12 +23,14 @@ public class GameplayManager : MonoBehaviour
     {
         LoadReqs(currentLevel);
         gameOver = false;
+        displayText.text = "Stand here";
     }
 
     void Update()
     {
         if (timer <= 0 && !gameOver)
         {
+            displayText.text = "Score:";
             CalculateScore();
             gameOver = true;
         }
@@ -92,6 +95,10 @@ public class GameplayManager : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             timer -= Time.deltaTime;
+            if(timer > 4) displayText.text = "Hold still";
+            else if(timer > 3) displayText.text = "Hold still.";
+            else if (timer > 2) displayText.text = "Hold still..";
+            else if (timer > 1) displayText.text = "Hold still...";
         }
     }
 
@@ -101,6 +108,7 @@ public class GameplayManager : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && timer > 0)
         {
             timer = 5;
+            displayText.text = "Stand here";
         }
     }
 
