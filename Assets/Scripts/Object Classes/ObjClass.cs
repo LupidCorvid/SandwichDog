@@ -12,7 +12,7 @@ public class ObjClass : MonoBehaviour
 
     public bool inHand;
     public bool inMouth;
-    private float grabBuffer = .05f; //Coyote time for 2 handed grab
+    private float grabBuffer = .1f; //Coyote time for 2 handed grab
     public ObjType m_type;
     public Vector3 startingPosition = new Vector3 (0, 0, 0);
 
