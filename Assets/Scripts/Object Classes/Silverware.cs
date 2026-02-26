@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Silverware : ObjClass
@@ -40,6 +41,10 @@ public class Silverware : ObjClass
                 addSpread(col.GetComponent<Jar>().availSpread);
             }
         }
+        else if (col.tag == "Sink")
+        {
+            removeSpread();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -58,10 +63,6 @@ public class Silverware : ObjClass
                     removeSpread();
                 }
             }
-        }
-        else if (col.tag == "Sink")
-        {
-            removeSpread();
         }
     }
 }
