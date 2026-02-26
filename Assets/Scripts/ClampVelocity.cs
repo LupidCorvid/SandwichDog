@@ -11,6 +11,6 @@ public class ClampVelocity : MonoBehaviour
     private void FixedUpdate()
     {
         rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, maxVel);
-        if (rb.linearVelocity.magnitude > .005f) print(rb.linearVelocity.magnitude);
+        //if (rb.linearVelocity.magnitude > .005f) print(rb.linearVelocity.magnitude);
     }
 }

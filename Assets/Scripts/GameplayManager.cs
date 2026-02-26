@@ -1,23 +1,25 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 
 public class GameplayManager : MonoBehaviour
 {
-    public const int maxLevels = 2; //How many levels the game has
+    public const int maxLevels = 1; //How many levels the game has
     public int currentLevel = 1; //The current level the player is playing
-    public GameObject[] lvl1Reqs; //The objects required for scoring (prefabs dragged in via inspector)
-    public GameObject[] lvl2Reqs; //The objects required for scoring (prefabs dragged in via inspector)
-    public GameObject[] objectsToScore; //The objects the player brought to the end game area (should be added via this script)
 
+    private List<ObjClass> lvlReqs; //The objects required for scoring 
+    private List<GameObject> objectsToScore = new List<GameObject>(); //The objects the player brought to the end game area (should be added via this script)
 
+    private float timer = 5; //Time to wait for the player to stand in the box before scoring objects
 
     void Start()
     {
+        LoadReqs(currentLevel);
     }
 
     void Update()
     {
-        
+        if (timer <= 0) CalculateScore();
     }
 
     public void CalculateScore()
@@ -47,15 +49,56 @@ public class GameplayManager : MonoBehaviour
         //If level 2...
     }
 
+    //When the player enters, wait for 5 seconds and then score
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            timer -= Time.deltaTime;
+        }
+    }
+
+    //If the player leaves too early, reset the timer
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && timer > 0)
+        {
+            timer = 5;
+        }
+    }
+
+    //Add objects to the objectsToScore array
+    //TODO: Curretly doesn't remove objects that leave onTriggerExit
     void OnTriggerEnter(Collider other)
     {
-        //When the player enters the end game area, add the object they are holding to the objectsToScore array
         if (other.gameObject.CompareTag("Pickup"))
         {
             CalculateScore();
             Debug.Log("Object added to score: " + other.gameObject.name);
-            objectsToScore[objectsToScore.Length - 1] = other.gameObject;
-            
+
+            objectsToScore.Add(other.gameObject);
+        }
+    }
+
+    //Loads the required objects for the level
+    void LoadReqs(int lvl)
+    {
+        switch (lvl)
+        {
+            case 1:
+            {
+                    //PB bread
+                    Food bread1 = new Food();
+                    bread1.currentSpread = ObjClass.Spread.PEANUTBUTTER;
+                    lvlReqs.Add(bread1);
+
+                    //Jelly Bread
+                    Food bread2 = new Food();
+                    bread2.currentSpread = ObjClass.Spread.JELLY;
+                    lvlReqs.Add(bread2);
+
+                    break;
+            }  
         }
     }
 }
