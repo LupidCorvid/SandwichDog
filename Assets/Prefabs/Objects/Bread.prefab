@@ -94,7 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 4010948865592074759}
+  - {fileID: 8842463228930606790}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_type: 1
   m_name: bread
   startingPosition: {x: 0, y: 0, z: 0}
-  currentSpread: 2
+  currentSpread: 0
   mesh: {fileID: 2517505009190160203}
   matSpreads:
   - {fileID: 2100000, guid: 6a7dbe5aba0836d449272a7b719b25c9, type: 2}
