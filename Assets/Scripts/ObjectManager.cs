@@ -26,10 +26,10 @@ public ObjectAssignment_SO levelObjects;
     {
         foreach (ObjectSpawner spawner in levelObjects.objectAssignments)
         {
-            GameObject spawnedObject = Instantiate(spawner.prefabToSpawn, spawner.positionToSpawn, spawner.rotationToSpawn);
+            GameObject spawnedObject = Instantiate(spawner.prefabToSpawn);
 
-            //spawnedObject.transform.position = spawner.positionToSpawn;
-            //spawnedObject.transform.rotation = spawner.rotationToSpawn;
+            spawnedObject.transform.position = spawner.positionToSpawn;
+            spawnedObject.transform.rotation = spawner.rotationToSpawn;
             spawnedObject.transform.localScale = spawner.scaleToSpawn;
         }
     }
