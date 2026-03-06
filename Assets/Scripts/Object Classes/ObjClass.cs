@@ -15,7 +15,6 @@ public class ObjClass : MonoBehaviour
     private float grabBuffer = .1f; //Coyote time for 2 handed grab
     public ObjType m_type;
     public string m_name;
-    public Vector3 startingPosition = new Vector3 (0, 0, 0);
 
     //Object manager or subclass should pass in the object type
     public ObjClass(ObjType t, string n = "") 
@@ -23,11 +22,6 @@ public class ObjClass : MonoBehaviour
         inHand = false;
         m_type = t;
         m_name = n;
-    }
-
-    public void setStartingPos()
-    {
-        startingPosition = gameObject.transform.position;
     }
 
     //Debug

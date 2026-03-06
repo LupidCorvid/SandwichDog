@@ -1,5 +1,5 @@
+using UnityEditor;
 using UnityEngine;
-
 
 /*
  Details about this script:
@@ -16,24 +16,21 @@ The way the public array works, is you set the array initialization here,
 then add the prefabs to the ObjectManager script in the inspector window
 
  */
+
 public class ObjectManager : MonoBehaviour
 {
-    //public ObjClass[] objects;
-    public GameObject[] objects;
+
+public ObjectAssignment_SO levelObjects;
 
     void Start()
     {
-        //objects = FindObjectsByType<ObjClass>(FindObjectsSortMode.None);
-        foreach (GameObject obj in objects)
+        foreach (ObjectSpawner spawner in levelObjects.objectAssignments)
         {
-            SetLocation(obj);
+            GameObject spawnedObject = Instantiate(spawner.prefabToSpawn);
+
+            spawnedObject.transform.position = spawner.positionToSpawn;
+            spawnedObject.transform.rotation = spawner.rotationToSpawn;
+            spawnedObject.transform.localScale = spawner.scaleToSpawn;
         }
-    }
-    
-    void SetLocation(GameObject obj)
-    {
-        //obj.transform.position = obj.startingPosition;
-        //Debug.Log("Object " + obj.name + " spawned at " + obj.startingPosition);
-        Instantiate(obj, obj.GetComponent<ObjClass>().startingPosition, Quaternion.identity);
     }
 }

@@ -185,6 +185,7 @@ MonoBehaviour:
   inHand: 0
   inMouth: 0
   m_type: 1
+  m_name: 
   startingPosition: {x: 0, y: 0, z: 0}
   availSpread: 2
 --- !u!64 &3936458451293586216
@@ -789,6 +790,7 @@ MonoBehaviour:
   inHand: 0
   inMouth: 0
   m_type: 1
+  m_name: 
   startingPosition: {x: 0, y: 0, z: 0}
 --- !u!64 &2386299009111894240
 MeshCollider:
@@ -1400,6 +1402,7 @@ MonoBehaviour:
   inHand: 0
   inMouth: 0
   m_type: 1
+  m_name: 
   startingPosition: {x: 0, y: 0, z: 0}
 --- !u!64 &816775957021160949
 MeshCollider:
@@ -1503,7 +1506,7 @@ Transform:
   m_GameObject: {fileID: 8394387138457392922}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.18, y: 1.147, z: -3.033}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 17, y: 17, z: 17}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1553,6 +1556,7 @@ MonoBehaviour:
   inHand: 0
   inMouth: 0
   m_type: 0
+  m_name: 
   startingPosition: {x: 2.563324, y: 1.41, z: -3.033}
 --- !u!1 &9125704233413182342
 GameObject:
