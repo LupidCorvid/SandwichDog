@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
 
     public ObjClass highlighted;
+    public GameObject dog;
     public bool standing;
 
     private float standScale = 1f;
@@ -38,6 +39,9 @@ public class Player : MonoBehaviour
 
                 //Set camera
                 gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, crouchScale, gameObject.transform.localScale.z);
+
+                //Set animation
+                dog.GetComponent<Animation>().Play("CrouchWalk");
             }
             else
             {
@@ -45,6 +49,9 @@ public class Player : MonoBehaviour
 
                 //Set camera
                 gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, standScale, gameObject.transform.localScale.z);
+
+                //Set animation
+                dog.GetComponent<Animation>().Play("StandWalk");
             }
         }
     }
