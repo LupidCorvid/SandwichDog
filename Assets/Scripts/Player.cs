@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEngine.Animations;
 
 public class Player : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         highlighted = null;
-        standing = true;
+        standing = false;
     }
 
     // Update is called once per frame
@@ -41,17 +42,20 @@ public class Player : MonoBehaviour
                 gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, crouchScale, gameObject.transform.localScale.z);
 
                 //Set animation
-                dog.GetComponent<Animation>().Play("CrouchWalk");
+                //dog.GetComponent<Animator>().Play("CrouchWalk");
+                dog.GetComponent<Animator>().SetBool("standing", false);
             }
             else
             {
                 standing = true;
+                dog.GetComponent<Animator>().SetBool("standing", true);
 
                 //Set camera
                 gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, standScale, gameObject.transform.localScale.z);
 
                 //Set animation
-                dog.GetComponent<Animation>().Play("StandWalk");
+                //dog.GetComponent<Animator>().Play("StandWalk");
+                
             }
         }
     }
