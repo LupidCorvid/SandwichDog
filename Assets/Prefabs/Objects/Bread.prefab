@@ -266,7 +266,6 @@ MonoBehaviour:
   inMouth: 0
   m_type: 1
   m_name: bread
-  startingPosition: {x: 0, y: 0, z: 0}
   currentSpread: 0
   mesh: {fileID: 2517505009190160203}
   matSpreads:
