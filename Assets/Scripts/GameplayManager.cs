@@ -1,9 +1,7 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
 
 public class GameplayManager : MonoBehaviour
 {
@@ -19,21 +17,23 @@ public class GameplayManager : MonoBehaviour
     public int score = 0;
     public bool gameOver;
 
-    void Start()
+    public static event Action onScoreCalculate;
+
+    private void Start()
     {
         LoadReqs(currentLevel);
         gameOver = false;
         displayText.text = "Stand here";
     }
 
+    private void OnEnable()
+    {
+        onScoreCalculate += CalculateScore;
+    }
+
     void Update()
     {
-        if (timer <= 0 && !gameOver)
-        {
-            displayText.text = "Score:";
-            CalculateScore();
-            gameOver = true;
-        }
+
     }
 
     public void CalculateScore()
@@ -99,6 +99,11 @@ public class GameplayManager : MonoBehaviour
             else if(timer > 3) displayText.text = "Hold still.";
             else if (timer > 2) displayText.text = "Hold still..";
             else if (timer > 1) displayText.text = "Hold still...";
+
+            if (timer <= 0)
+            {
+                onScoreCalculate?.Invoke();
+            }
         }
     }
 
