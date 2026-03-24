@@ -3397,6 +3397,54 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "customActions",
+            "id": "1dc5fb00-0c71-47c3-88fc-c795e591da5e",
+            "actions": [
+                {
+                    "name": "swapCamera",
+                    "type": "Button",
+                    "id": "89e52e6c-1e3a-4108-820b-09c84803d79a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "e3514e38-4344-4eec-8f57-06d0df01bb10",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bd6b6e80-7149-4712-8a1e-0ca9a7d3c187",
+                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "swapCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eac34514-b2f6-448b-844a-09d09f247566",
+                    "path": "<XRController>{LeftHand}/joystick",
+                    "interactions": "",
+                    "processors": "StickDeadzone",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
