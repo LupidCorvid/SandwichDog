@@ -20,16 +20,6 @@ public class Player : MonoBehaviour
         standing = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //if (action)
-        //{
-        //    if (standing) Crouch();
-        //    else Stand();
-        //}
-    }
-
     public void ToggleStand(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -43,7 +33,6 @@ public class Player : MonoBehaviour
                 gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, crouchScale, gameObject.transform.localScale.z);
 
                 //Set animation
-                //dog.GetComponent<Animator>().Play("CrouchWalk");
                 dog.GetComponent<Animator>().SetBool("standing", false);
             }
             else
@@ -58,6 +47,18 @@ public class Player : MonoBehaviour
                 dog.GetComponent<Animator>().Play("StandWalk");
 
             }
+        }
+    }
+
+    public void WalkingStarted(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            dog.GetComponent<Animator>().SetBool("walking", true);
+        }
+        else if (context.canceled)
+        {
+            dog.GetComponent<Animator>().SetBool("walking", false);
         }
     }
 }
