@@ -2590,6 +2590,10 @@ PrefabInstance:
       propertyPath: 'm_Bones.Array.data[50]'
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8923558708088613710, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: bfef860c051b2bc40b64c81c64424ae8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
