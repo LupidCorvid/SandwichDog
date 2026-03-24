@@ -6,7 +6,7 @@ public class FollowController : MonoBehaviour
 {
     public float forwardOffset = 0.2f;
     public float rotationOffset = 180;
-    public float fourLeg_YOffset = 10f;   //Offset to add when player is not standing
+    private float fourLeg_ZOffset = 0.4f;   //Offset to add when player is not standing
     public GameObject target;           //What the player object should follow
     public bool matchXRotation = false;
     public bool matchYRotation = true;
@@ -27,8 +27,8 @@ public class FollowController : MonoBehaviour
         {
             //Match position
             Vector3 newPos = target.transform.position;
-            newPos.y = gameObject.transform.position.y + currYOffset;
-            newPos.z -= forwardOffset;
+            newPos.y = gameObject.transform.position.y;
+            newPos.z -= forwardOffset - currYOffset;
             gameObject.transform.position = newPos;
 
 
@@ -46,6 +46,6 @@ public class FollowController : MonoBehaviour
     public void ToggleYOffset(bool isStanding)
     {
         if (isStanding) currYOffset = 0f;
-        else currYOffset = fourLeg_YOffset;
+        else currYOffset = fourLeg_ZOffset;
     }
 }

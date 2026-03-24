@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public bool standing;
 
     private float standScale = 1f;
-    private float crouchScale = .5f;
+    private float crouchScale = .85f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
