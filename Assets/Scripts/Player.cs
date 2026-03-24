@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
                 dog.GetComponent<FollowController>().ToggleYOffset(standing);
 
                 //TODO: test after testing y offset
-                //ToggleHandTracking();
+                ToggleHandTracking();
             }
             else
             {
@@ -55,14 +55,14 @@ public class Player : MonoBehaviour
                 dog.GetComponent<FollowController>().ToggleYOffset(standing);
 
                 //TODO: test after testing y offset
-                //ToggleHandTracking();
+                ToggleHandTracking();
             }
         }
     }
 
     public void ToggleHandTracking()
     {
-        gameObject.GetComponent<RigBuilder>().enabled = !gameObject.GetComponent<RigBuilder>().enabled;
+        dog.GetComponent<RigBuilder>().enabled = !dog.GetComponent<RigBuilder>().enabled;
     }
 
     public void WalkingStarted(InputAction.CallbackContext context)
