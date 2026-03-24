@@ -3436,7 +3436,7 @@
                 {
                     "name": "",
                     "id": "eac34514-b2f6-448b-844a-09d09f247566",
-                    "path": "<XRController>{LeftHand}/{Primary2DAxis}",
+                    "path": "<XRController>{LeftHand}/joystick",
                     "interactions": "",
                     "processors": "StickDeadzone",
                     "groups": "",
