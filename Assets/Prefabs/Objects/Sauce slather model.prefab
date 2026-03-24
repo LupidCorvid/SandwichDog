@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8629385004300463389}
   - component: {fileID: 5277346319597694774}
   - component: {fileID: 1887508486000492841}
+  - component: {fileID: 6214825241056556310}
+  - component: {fileID: 6889284333337315801}
   m_Layer: 0
   m_Name: Sauce slather model
   m_TagString: Untagged
@@ -86,3 +88,41 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6214825241056556310
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926464554182834245}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4536773283001372330, guid: b29535798d4757e49b814a6ad58182e0, type: 3}
+--- !u!114 &6889284333337315801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926464554182834245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f320b2b728604174baf9b0d73ff3f514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inHand: 0
+  inMouth: 0
+  m_type: 0
+  m_name: slather
