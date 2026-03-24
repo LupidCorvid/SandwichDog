@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         highlighted = null;
-        standing = false;
+        standing = true;
     }
 
     public void ToggleStand(InputAction.CallbackContext context)
@@ -52,13 +52,21 @@ public class Player : MonoBehaviour
 
     public void WalkingStarted(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
+            print("walking");
             dog.GetComponent<Animator>().SetBool("walking", true);
         }
         else if (context.canceled)
         {
+            print("stopped walking");
             dog.GetComponent<Animator>().SetBool("walking", false);
         }
+    }
+
+    public void ToggleWalk()
+    {
+        Animator anim = dog.GetComponent<Animator>();
+        anim.SetBool("walking", !anim.GetBool("walking"));
     }
 }
