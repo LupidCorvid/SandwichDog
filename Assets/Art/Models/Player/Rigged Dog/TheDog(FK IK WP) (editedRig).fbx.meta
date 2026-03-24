@@ -3,7 +3,22 @@ guid: 95fa252502e044572b936ba9598d0214
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DogMat_
+    second: {fileID: 2100000, guid: 56a643993f28e70418dc8488a226c333, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EyeMat
+    second: {fileID: 2100000, guid: f6209011a1561b448821ea71808eef07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Paws Mat_
+    second: {fileID: 2100000, guid: 4a572d612bb45964d8734c21284a6c9d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -33,7 +48,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.15
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -88,7 +103,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.15
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
