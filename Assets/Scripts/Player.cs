@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
                 gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, standScale, gameObject.transform.localScale.z);
 
                 //Set animation
-                dog.GetComponent<Animator>().Play("StandWalk");
+                //dog.GetComponent<Animator>().Play("StandWalk");
 
             }
         }
@@ -62,11 +62,5 @@ public class Player : MonoBehaviour
             print("stopped walking");
             dog.GetComponent<Animator>().SetBool("walking", false);
         }
-    }
-
-    public void ToggleWalk()
-    {
-        Animator anim = dog.GetComponent<Animator>();
-        anim.SetBool("walking", !anim.GetBool("walking"));
     }
 }
