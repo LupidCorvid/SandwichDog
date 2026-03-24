@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.Animations;
+using UnityEngine.Animations.Rigging;
 
 public class Player : MonoBehaviour
 {
@@ -24,7 +25,6 @@ public class Player : MonoBehaviour
     {
         if (context.performed)
         {
-            print("Toggled!");
             if (standing)
             {
                 standing = false;
@@ -32,34 +32,47 @@ public class Player : MonoBehaviour
                 //Set camera
                 gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, crouchScale, gameObject.transform.localScale.z);
 
-                //Set animation
+                //Set animation bool
                 dog.GetComponent<Animator>().SetBool("standing", false);
+
+                //Set player Y follow offset
+                dog.GetComponent<FollowController>().ToggleYOffset(standing);
+
+                //TODO: test after testing y offset
+                //ToggleHandTracking();
             }
             else
             {
                 standing = true;
-                dog.GetComponent<Animator>().SetBool("standing", true);
 
                 //Set camera
                 gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, standScale, gameObject.transform.localScale.z);
 
-                //Set animation
-                //dog.GetComponent<Animator>().Play("StandWalk");
+                //Set animation bool
+                dog.GetComponent<Animator>().SetBool("standing", true);
 
+                //Set player Y follow offset
+                dog.GetComponent<FollowController>().ToggleYOffset(standing);
+
+                //TODO: test after testing y offset
+                //ToggleHandTracking();
             }
         }
+    }
+
+    public void ToggleHandTracking()
+    {
+        gameObject.GetComponent<RigBuilder>().enabled = !gameObject.GetComponent<RigBuilder>().enabled;
     }
 
     public void WalkingStarted(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            print("walking");
             dog.GetComponent<Animator>().SetBool("walking", true);
         }
         else if (context.canceled)
         {
-            print("stopped walking");
             dog.GetComponent<Animator>().SetBool("walking", false);
         }
     }
