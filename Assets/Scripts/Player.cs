@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     {
         if (context.performed)
         {
+            print("Toggled!");
             if (standing)
             {
                 standing = false;
