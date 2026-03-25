@@ -1,5 +1,8 @@
+using NUnit.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,22 +11,53 @@ public class GameplayManager : MonoBehaviour
     public const int maxLevels = 1; //How many levels the game has
     public int currentLevel = 1; //The current level the player is playing
 
-    public List<Food> lvlReqs; //The food objects required for scoring 
-    public List<GameObject> objectsToScore = new List<GameObject>(); //The objects the player brought to the end game area (should be added via this script)
+    public Recipe_SO levelRecipe;
+
+    //The objects the player brought to the end game area, added via end area OnTriggerEnter
+    public List<ItemRequirement> objectsToScore = new List<ItemRequirement>();
+
     public Text scoreText;
     public Text displayText;
 
-    private float timer = 5; //Time to wait for the player to stand in the box before scoring objects
-    public int score = 0;
+    public float timer; //Time to wait in seconds for the player to stand in the box before scoring objects
+    public float scoreMax = 0.0f;
+    public float score = 0;
     public bool gameOver;
 
     public static event Action onScoreCalculate;
 
-    private void Start()
+    private void Awake()
     {
-        LoadReqs(currentLevel);
         gameOver = false;
         displayText.text = "Stand here";
+        scoreMax = levelRecipe.requirements.Length;
+
+
+        //scoreText.text = "Recipe Food:\n";
+        //foreach (ItemRequirement itemRequirement in levelRecipe.requirements)
+        //{
+        //    scoreText.text += itemRequirement.item.m_name;
+
+        //    Food food = itemRequirement.item as Food;
+
+        //    if (food)
+        //    {
+        //        switch (food.currentSpread)
+        //        {
+        //            case ObjClass.Spread.NOSPREAD:
+        //                break;
+        //            case ObjClass.Spread.PEANUTBUTTER:
+        //                scoreText.text += " with peanut butter";
+        //                break;
+        //            case ObjClass.Spread.JELLY:
+        //                scoreText.text += " with jelly";
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //    scoreText.text += ": " + itemRequirement.quantity + "\n";
+        //}
     }
 
     private void OnEnable()
@@ -38,31 +72,21 @@ public class GameplayManager : MonoBehaviour
 
     public void CalculateScore()
     {
-        for (int j = 0; j < objectsToScore.Count; j++)
+        List<ItemRequirement> itemRequirements = levelRecipe.requirements.ToList();
+
+        float scoreCount = 0;
+        foreach (ItemRequirement objectToScore in objectsToScore)
         {
-            Debug.Log(objectsToScore[j].gameObject.GetComponent<Rigidbody>() == null);
+            //Debug.Log(objectToScore.item.gameObject.GetComponent<Rigidbody>() == null);
+
+            Debug.Log(objectToScore.item.m_condition);
+            scoreCount += objectToScore.item.m_condition * objectToScore.quantity;
         }
-        //Check the list of reqs and see if the object is in objectsToScore
-        for(int i = 0; i < lvlReqs.Count; i++)
-        {
-            //Loop through gameobject list and compare against current req
-            for(int j = 0; j < objectsToScore.Count; j++)
-            {
-                //Check if the name matches and all member vars are equal
-                Food curr = objectsToScore[j].GetComponent<Food>();
-                if (curr != null)
-                {
-                    if (curr.m_name == lvlReqs[i].m_name && curr.compareMemberVars(lvlReqs[i]))
-                    {
-                        score += 1;
-                    }
-                }
-            }
-        }
+        score = (scoreCount / scoreMax) * 100.0f;
 
         //Update score text
         Debug.Log("Score:" + score);
-        scoreText.text = score.ToString();
+        scoreText.text = score.ToString("F2").Truncate(5) + "%";
 
         //First check which level the game is on
         //If level 1...
@@ -110,6 +134,8 @@ public class GameplayManager : MonoBehaviour
     //If the player leaves too early, reset the timer
     private void OnTriggerExit(Collider other)
     {
+        Debug.Log("removing item in scoring area: " + other.gameObject.name);
+
         if (other.gameObject.CompareTag("Player") && timer > 0)
         {
             timer = 5;
@@ -119,36 +145,26 @@ public class GameplayManager : MonoBehaviour
 
     //Add objects to the objectsToScore array
     //TODO: Curretly doesn't remove objects that leave onTriggerExit
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Pickup"))
+        ObjClass obj = other.gameObject.GetComponentInChildren<ObjClass>();
+
+        if (obj)
         {
+            Debug.Log("new item in scoring area: " + other.gameObject.name);
             //CalculateScore();
             //Debug.Log("Object added to score: " + other.gameObject.name);
 
-            objectsToScore.Add(other.gameObject);
-        }
-    }
-
-    //Loads the required objects for the level
-    void LoadReqs(int lvl)
-    {
-        switch (lvl)
-        {
-            case 1:
+            if (objectsToScore.Contains(new ItemRequirement(obj, 1)))
             {
-                    //PB bread
-                    Food bread1 = new Food("bread");
-                    bread1.currentSpread = ObjClass.Spread.PEANUTBUTTER;
-                    lvlReqs.Add(bread1);
-
-                    //Jelly Bread
-                    Food bread2 = new Food("bread");
-                    bread2.currentSpread = ObjClass.Spread.JELLY;
-                    lvlReqs.Add(bread2);
-
-                    break;
-            }  
+                int foundIdx = objectsToScore.FindIndex(requirement => requirement.Equals(obj));
+                objectsToScore[foundIdx].quantity += 1;
+            }
+            else
+            {
+                objectsToScore.Add(new ItemRequirement(obj, 1));
+                Debug.Log("new requirement added, total # of objs now " + objectsToScore.Count);
+            }
         }
     }
 }

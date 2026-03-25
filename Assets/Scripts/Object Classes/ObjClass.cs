@@ -4,6 +4,38 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using System.Collections;
 
+public class FoodRequirement
+{
+    
+}
+
+[System.Serializable]
+public class ItemRequirement
+{
+    public ObjClass item;
+    public ObjClass.Spread spread;
+    public int quantity;
+
+    public ItemRequirement(ObjClass inItem, int inQuantity)
+    {
+        item = inItem;
+        quantity = inQuantity;
+    }
+
+    public override bool Equals(object other)
+    {
+        ObjClass otherObj = other as ObjClass;
+
+        if (otherObj)
+        {
+            ItemRequirement otherReq = new ItemRequirement(otherObj, 1);
+
+            return item == otherReq.item && quantity == otherReq.quantity;
+        }
+        return false;
+    }
+}
+
 // You must derive the base class form monobehavior to attach it to objects in the scene
 public class ObjClass : MonoBehaviour
 {
@@ -13,8 +45,19 @@ public class ObjClass : MonoBehaviour
     public bool inHand;
     public bool inMouth;
     private float grabBuffer = .1f; //Coyote time for 2 handed grab
+
     public ObjType m_type;
     public string m_name;
+
+    // Used for calculating score
+    public float m_condition { get; private set; }
+
+    private void Awake()
+    {
+        inHand = false;
+        inMouth = false;
+        m_condition = 1.0f;
+    }
 
     //Object manager or subclass should pass in the object type
     public ObjClass(ObjType t, string n = "") 
@@ -22,6 +65,19 @@ public class ObjClass : MonoBehaviour
         inHand = false;
         m_type = t;
         m_name = n;
+        m_condition = 1.0f;
+    }
+
+    public override bool Equals(object other)
+    {
+        ObjClass otherObj = other as ObjClass;
+
+        if (otherObj)
+        {
+            return this.m_name == otherObj.m_name && 
+                this.m_type == otherObj.m_type;
+        }
+        return false;
     }
 
     //Debug
@@ -68,4 +124,10 @@ public class ObjClass : MonoBehaviour
     }
     public void DropFromMouth() { }
     
+    public void ReduceObjectCondition(float newCondition)
+    {
+        Debug.Log(newCondition);
+        m_condition = Mathf.Clamp(newCondition, 0f, 1.0f);
+        Debug.Log(m_condition);
+    }
 }

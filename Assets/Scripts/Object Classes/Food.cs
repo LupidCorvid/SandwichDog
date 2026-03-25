@@ -1,16 +1,36 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
+public enum FoodCondition
+{
+    Normal, // non-cookable food
+    Raw,
+    Cooked, 
+    Burnt
+}
+
 public class Food : ObjClass
 {
     public Spread currentSpread;
     public GameObject mesh;
     public Material[] matSpreads;
 
+    public FoodCondition condition;
+
+    public bool isCookable;
+    [SerializeField] private float timeToCook;
+    [SerializeField] private float timeToBurn;
+    public float cookTimeStart;
+    public float cookAmount;
+
     public Food(string n = "") : base(ObjType.PICKUP)
     {
         currentSpread = Spread.NOSPREAD;
         m_name = n;
+
+        isCookable = false;
+        cookTimeStart = 0.0f;
+        cookAmount = 0.0f;
     }
 
     public void addSpread(Spread s)
@@ -36,5 +56,19 @@ public class Food : ObjClass
     {
         if (this.currentSpread != rhs.currentSpread) return false;
         return true;
+    }
+
+    public void Cook()
+    {
+        cookAmount += Time.deltaTime;
+
+        if (cookAmount >= timeToBurn)
+        {
+            condition = FoodCondition.Burnt;
+        }
+        else if (cookAmount >= timeToCook)
+        {
+            condition = FoodCondition.Cooked;
+        }
     }
 }
