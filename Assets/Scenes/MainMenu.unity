@@ -647,16 +647,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '
-
-    Programming               - Ky
-
-    Programming, 3D art  - Chloe
-
-    2D
-    art, 3D art              - Riley
-
-    2D art, 3D art              - Sophie'
+  m_Text: "\nProgramming               - Ky\nProgramming\t        - Luke\nProgramming,
+    3D art  - Chloe\n2D art, 3D art              - Riley\n2D art, 3D art             
+    - Sophie\n2D art, 3D art \t       - Maria\n3D art                          -
+    Derek"
 --- !u!222 &552627503
 CanvasRenderer:
   m_ObjectHideFlags: 0
