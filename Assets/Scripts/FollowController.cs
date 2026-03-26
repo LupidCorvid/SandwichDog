@@ -1,13 +1,18 @@
 using UnityEngine;
 
+//Note: this script is specialized for the Player prefab
+
 public class FollowController : MonoBehaviour
 {
     public float forwardOffset = 0.2f;
     public float rotationOffset = 180;
-    public GameObject target;
+    private float fourLeg_ZOffset = 0.4f;   //Offset to add when player is not standing
+    public GameObject target;           //What the player object should follow
     public bool matchXRotation = false;
     public bool matchYRotation = true;
     public bool matchZRotation = false;
+
+    float currYOffset = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,7 +28,7 @@ public class FollowController : MonoBehaviour
             //Match position
             Vector3 newPos = target.transform.position;
             newPos.y = gameObject.transform.position.y;
-            newPos.z -= forwardOffset;
+            newPos.z -= forwardOffset - currYOffset;
             gameObject.transform.position = newPos;
 
 
@@ -36,5 +41,11 @@ public class FollowController : MonoBehaviour
             gameObject.transform.eulerAngles = newRot;
             //gameObject.transform.rotation = target.transform.rotation;
         }
+    }
+
+    public void ToggleYOffset(bool isStanding)
+    {
+        if (isStanding) currYOffset = 0f;
+        else currYOffset = fourLeg_ZOffset;
     }
 }
