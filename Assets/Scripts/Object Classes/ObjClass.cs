@@ -49,6 +49,12 @@ public class ObjClass : MonoBehaviour
     public ObjType m_type;
     public string m_name;
 
+    public Color objDirtyColor;
+    private Color objCleanColor;
+    private Vector3 colorDifference;
+
+    private Renderer rendererComponent;
+
     // Used for calculating score
     public float m_condition { get; private set; }
 
@@ -57,6 +63,13 @@ public class ObjClass : MonoBehaviour
         inHand = false;
         inMouth = false;
         m_condition = 1.0f;
+        rendererComponent = GetComponent<Renderer>();
+        objCleanColor = rendererComponent.material.GetColor("_BaseColor");
+        colorDifference = new Vector3(
+            objDirtyColor.r - objCleanColor.r,
+            objDirtyColor.g - objCleanColor.g,
+            objDirtyColor.b - objCleanColor.b
+            );
     }
 
     //Object manager or subclass should pass in the object type
@@ -123,11 +136,22 @@ public class ObjClass : MonoBehaviour
         }
     }
     public void DropFromMouth() { }
-    
-    public void ReduceObjectCondition(float newCondition)
+
+    public void ReduceObjectCondition(float amountToReduce)
     {
-        Debug.Log(newCondition);
-        m_condition = Mathf.Clamp(newCondition, 0f, 1.0f);
-        Debug.Log(m_condition);
+        m_condition = Mathf.Clamp(m_condition - amountToReduce, 0.0f, 1.0f);
+
+        float fraction_dirtied = 1.0f - m_condition;
+
+        // max condition & Color RGB value is 1.0f
+        Color dirtyColor = new Color(
+            objCleanColor.r + (fraction_dirtied * colorDifference.x),
+            objCleanColor.g + (fraction_dirtied * colorDifference.y),
+            objCleanColor.b + (fraction_dirtied * colorDifference.z)
+           );
+        Debug.Log(objCleanColor.r + " " + colorDifference.x);
+        Debug.Log(fraction_dirtied + " " + colorDifference.x + " " + objCleanColor.r + (fraction_dirtied * colorDifference.x));
+
+        rendererComponent.material.SetColor("_BaseColor", dirtyColor);
     }
 }
