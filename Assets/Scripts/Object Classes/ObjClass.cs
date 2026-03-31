@@ -12,6 +12,8 @@ public class FoodRequirement
 [System.Serializable]
 public class ItemRequirement
 {
+    protected const float MAX_CONDITION = 1.0f;
+
     public ObjClass item;
     public ObjClass.Spread spread;
     public int quantity;
@@ -39,46 +41,63 @@ public class ItemRequirement
 // You must derive the base class form monobehavior to attach it to objects in the scene
 public class ObjClass : MonoBehaviour
 {
-    public enum ObjType { GRABBABLE, PICKUP, INTERACTABLE };
-    public enum Spread { NOSPREAD, PEANUTBUTTER, JELLY}
+    public enum ObjType
+    { 
+        GRABBABLE, 
+        PICKUP, 
+        INTERACTABLE 
+    }
 
-    public bool inHand;
-    public bool inMouth;
+    public enum Spread
+    {
+        NOSPREAD,
+        PEANUTBUTTER,
+        JELLY
+    }
+
+    // === INTERACTION === //
+    public bool inHand { get; protected set; }
+    public bool inMouth { get; protected set; }
     private float grabBuffer = .1f; //Coyote time for 2 handed grab
 
-    public ObjType m_type;
-    public string m_name;
+    // === BASIC INFO === //
+    public ObjType objType { get; protected set; }
+    public string objName {  get; protected set; }
 
-    public Color objDirtyColor;
-    private Color objCleanColor;
-    private Vector3 colorDifference;
+    // === SCORING === //
+    // Used for calculating score
+    protected float objCondition;
 
+    public bool canGetDirty;
+    public bool canGetClean;
+
+    [SerializeField] private float amountToDirtyPerSecond;
+    [SerializeField] private float amountToCleanPerSecond;
+
+    // === VISUALS === //
     private Renderer rendererComponent;
 
-    // Used for calculating score
-    public float m_condition { get; private set; }
+    [SerializeField] private Color objDirtyColor;
+    private Color objCleanColor;
+    private Vector3 colorDifference;
 
     private void Awake()
     {
         inHand = false;
         inMouth = false;
-        m_condition = 1.0f;
-        rendererComponent = GetComponent<Renderer>();
-        objCleanColor = rendererComponent.material.GetColor("_BaseColor");
-        colorDifference = new Vector3(
-            objDirtyColor.r - objCleanColor.r,
-            objDirtyColor.g - objCleanColor.g,
-            objDirtyColor.b - objCleanColor.b
-            );
+
+        objCondition = MAX_CONDITION;
+
+        InitializeCleanColor();
     }
 
     //Object manager or subclass should pass in the object type
-    public ObjClass(ObjType t, string n = "") 
+    public ObjClass(ObjType inObjType, string inObjName = "") 
     {
         inHand = false;
-        m_type = t;
-        m_name = n;
-        m_condition = 1.0f;
+        objType = inObjType;
+        objName = inObjName;
+        objCondition = 1.0f;
     }
 
     public override bool Equals(object other)
@@ -87,10 +106,23 @@ public class ObjClass : MonoBehaviour
 
         if (otherObj)
         {
-            return this.m_name == otherObj.m_name && 
-                this.m_type == otherObj.m_type;
+            return this.objName == otherObj.objName && 
+                this.objType == otherObj.objType;
         }
         return false;
+    }
+
+    private void InitializeCleanColor()
+    {
+        rendererComponent = GetComponent<Renderer>();
+
+        objCleanColor = rendererComponent.material.GetColor("_BaseColor");
+
+        colorDifference = new Vector3(
+            objDirtyColor.r - objCleanColor.r,
+            objDirtyColor.g - objCleanColor.g,
+            objDirtyColor.b - objCleanColor.b
+            );
     }
 
     //Debug
@@ -98,7 +130,7 @@ public class ObjClass : MonoBehaviour
     public void CheckTwoHanded()
     {
         //Wait for the player to get a chance to pick the item up with both hands before doing checks
-        if (m_type == ObjType.PICKUP) StartCoroutine(BufferGrab()); 
+        if (objType == ObjType.PICKUP) StartCoroutine(BufferGrab()); 
     }
     IEnumerator BufferGrab()
     {
@@ -119,7 +151,7 @@ public class ObjClass : MonoBehaviour
     //TODO: Is it more fun to be able to hotswap hand and mouth? Currently set up so that hotswap is a thing
     //TODO: Can these be called by the xr manager?
     public void PutInHand() {
-        if (!inHand && m_type == ObjType.GRABBABLE)
+        if (!inHand && objType == ObjType.GRABBABLE)
         {
             inHand = true;
             if (inMouth) inMouth = false;
@@ -137,11 +169,13 @@ public class ObjClass : MonoBehaviour
     }
     public void DropFromMouth() { }
 
-    public void ReduceObjectCondition(float amountToReduce)
+    public virtual void ReduceObjectCondition()
     {
-        m_condition = Mathf.Clamp(m_condition - amountToReduce, 0.0f, 1.0f);
+        float amountToReduce = Time.deltaTime * amountToDirtyPerSecond;
 
-        float fraction_dirtied = 1.0f - m_condition;
+        objCondition = Mathf.Clamp(objCondition - amountToReduce, 0.0f, 1.0f);
+
+        float fraction_dirtied = 1.0f - objCondition;
 
         // max condition & Color RGB value is 1.0f
         Color dirtyColor = new Color(

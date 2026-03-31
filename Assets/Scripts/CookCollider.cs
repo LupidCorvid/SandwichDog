@@ -10,20 +10,16 @@ public enum CookType
 
 public class CookCollider : MonoBehaviour
 {
-    public CookType cookType;
+    [SerializeField] private CookType cookType;
 
     private List<Food> cookingFood = new List<Food>();
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("new item in pan: " + other.gameObject.name);
+        Debug.Log("new item in cooker: " + other.gameObject.name);
 
         Food newFood = other.gameObject.GetComponent<ObjClass>() as Food;
-
-        if (!newFood)
-        {
-            return;
-        }
+        if (!newFood) return;
 
         if (newFood.isCookable)
         {
@@ -34,14 +30,10 @@ public class CookCollider : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("removing item in pan: " + other.gameObject.name);
+        Debug.Log("removing item in cooker: " + other.gameObject.name);
 
         Food newFood = other.gameObject.GetComponent<ObjClass>() as Food;
-
-        if (!newFood)
-        {
-            return;
-        }
+        if (!newFood) return;
 
         if (newFood.isCookable)
         {

@@ -3,71 +3,47 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-[SerializeField]
-public class DirtStopwatch
-{
-    public ObjClass objectToDirty;
-    private float startTime;
-
-    public DirtStopwatch(ObjClass inObject, float inStartTime)
-    {
-        objectToDirty = inObject;
-        startTime = inStartTime;
-    }
-
-    public float GetTimePassed()
-    {
-        return Time.deltaTime - startTime;
-    }
-}
-
 public class FloorCollider : MonoBehaviour
 {
-    private List<DirtStopwatch> dirtStopwatches = new List<DirtStopwatch>();
-    public float amountToDirtyPerSecond;
+    private List<Timer<ObjClass>> dirtTimers = new List<Timer<ObjClass>>();
 
     private void OnTriggerEnter(Collider other)
     {
         ObjClass obj = other.gameObject.GetComponentInChildren<ObjClass>();
+        if (!obj) return;
 
-        if (obj)
+        // add new timer for new objs
+        if (!dirtTimers.Any(timer => timer.GetObject() == obj))
         {
-            // add new stopwatch for new objs
-            if (!dirtStopwatches.Any(stopwatch => stopwatch.objectToDirty == obj))
-            {
-                Debug.Log("object " + other.gameObject.name + " has hit the floor");
-                dirtStopwatches.Add(new DirtStopwatch(obj, Time.deltaTime));
-            }
+            Debug.Log("object " + other.gameObject.name + " has hit the floor");
+            dirtTimers.Add(new Timer<ObjClass>(obj));
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Pickup"))
+        ObjClass obj = other.gameObject.GetComponentInChildren<ObjClass>();
+        if (!obj) return;
+
+        foreach (Timer<ObjClass> dirtTimer in dirtTimers)
         {
-            foreach (DirtStopwatch dirtStopwatch in dirtStopwatches)
+            if (dirtTimer.GetObject().gameObject == other.gameObject)
             {
-                if (dirtStopwatch.objectToDirty.gameObject == other.gameObject)
-                {
-                    dirtStopwatches.Remove(dirtStopwatch);
-                    Debug.Log("object " + dirtStopwatch.objectToDirty.name + "'s quality is now " + dirtStopwatch.objectToDirty.m_condition);
-                }
+                dirtTimers.Remove(dirtTimer);
             }
         }
     }
 
     private void FixedUpdate()
     {
-        for (int i=0; i < dirtStopwatches.Count; i++)
+        for (int i=0; i < dirtTimers.Count; i++)
         {
-            dirtStopwatches[i].objectToDirty.ReduceObjectCondition(
-                amountToDirtyPerSecond * Time.deltaTime
-                );
+            dirtTimers[i].GetObject().ReduceObjectCondition();
 
-            if (dirtStopwatches[i].objectToDirty.m_condition <= 0)
+            if (dirtTimers[i].GetObject().m_condition <= 0)
             {
-                Debug.Log("object " + dirtStopwatches[i].objectToDirty.name + "'s quality is now " + dirtStopwatches[i].objectToDirty.m_condition);                
-                dirtStopwatches.RemoveAt(i);
+                Debug.Log("object " + dirtTimers[i].GetObject().name + "'s quality is now " + dirtTimers[i].GetObject().m_condition);                
+                dirtTimers.RemoveAt(i);
             }
         }
     }

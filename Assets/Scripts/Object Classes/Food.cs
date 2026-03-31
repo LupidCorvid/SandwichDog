@@ -21,12 +21,12 @@ public class Food : ObjClass
     [SerializeField] private float timeToCook;
     [SerializeField] private float timeToBurn;
     public float cookTimeStart;
-    public float cookAmount;
+    public float cookAmount = 0.0f;
 
-    public Food(string n = "") : base(ObjType.PICKUP)
+    public Food(string inObjName = "") : base(ObjType.PICKUP)
     {
         currentSpread = Spread.NOSPREAD;
-        m_name = n;
+        objName = inObjName;
 
         isCookable = false;
         cookTimeStart = 0.0f;
