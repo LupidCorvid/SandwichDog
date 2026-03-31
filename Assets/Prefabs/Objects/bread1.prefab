@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 1055270508630881268}
   m_Layer: 0
   m_Name: bread1
-  m_TagString: Untagged
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -603,7 +603,7 @@ MonoBehaviour:
   m_type: 1
   m_name: bread
   currentSpread: 0
-  mesh: {fileID: 0}
+  mesh: {fileID: 7689749912656311809}
   matSpreads:
   - {fileID: 2100000, guid: 6a7dbe5aba0836d449272a7b719b25c9, type: 2}
   - {fileID: 2100000, guid: cc313785b232cc24a899eda354df8696, type: 2}

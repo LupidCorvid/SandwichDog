@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1410cbaaadf84a7aaa6459d37ad21b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Renderer: {fileID: 0}
+  m_Renderer: {fileID: 6377052293164715517}
   m_MaterialIndex: 0
 --- !u!114 &5357051072512097728
 MonoBehaviour:
@@ -635,4 +635,3 @@ MonoBehaviour:
   inMouth: 0
   m_type: 1
   m_name: 
-  startingPosition: {x: 0, y: 0, z: 0}
