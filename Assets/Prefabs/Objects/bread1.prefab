@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 1055270508630881268}
   m_Layer: 0
   m_Name: bread1
-  m_TagString: Untagged
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -307,14 +307,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7689749912656311809}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.65458906, w: 0.75598496}
-  m_LocalPosition: {x: 2.1756132, y: 1.366, z: -2.651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6864120585377756481}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -81.777}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &649298267199926794
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -603,7 +603,7 @@ MonoBehaviour:
   m_type: 1
   m_name: bread
   currentSpread: 0
-  mesh: {fileID: 0}
+  mesh: {fileID: 7689749912656311809}
   matSpreads:
   - {fileID: 2100000, guid: 6a7dbe5aba0836d449272a7b719b25c9, type: 2}
   - {fileID: 2100000, guid: cc313785b232cc24a899eda354df8696, type: 2}
