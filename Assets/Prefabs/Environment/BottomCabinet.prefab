@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 3247574466790785872}
   m_Layer: 0
   m_Name: Handle_R
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1267,7 +1267,7 @@ GameObject:
   - component: {fileID: 7668480744977009602}
   m_Layer: 0
   m_Name: Handle_L
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
