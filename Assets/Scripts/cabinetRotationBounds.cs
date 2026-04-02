@@ -37,10 +37,6 @@ public class cabinetRotationBounds : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
             rb.linearVelocity = Vector3.zero;
             gameObject.transform.localEulerAngles = new Vector3(0, snapLoc, 0);
-
-            //print("attempt");
         }
-
-        //upperBound
     }
 }
