@@ -19,11 +19,16 @@ public class GameplayManager : MonoBehaviour
     public int score = 0;
     public bool gameOver;
 
+    [SerializeField] TutorialManager tutorialManager;
+    private int maxLvlWithTutorial = 2;
+
     void Start()
     {
         LoadReqs(currentLevel);
         gameOver = false;
         displayText.text = "Stand here";
+
+        if (currentLevel <= maxLvlWithTutorial) tutorialManager.startTutorial(currentLevel);
     }
 
     void Update()
