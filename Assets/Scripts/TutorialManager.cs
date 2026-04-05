@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -9,6 +11,15 @@ public class TutorialManager : MonoBehaviour
     int cursor = -1; //Where you currently are in the tutorial
 
     public TutorialAssignment levelTutorialObjects;
+
+    public string[] lvl1Text = {
+        "Press and Hold both Side Triggers at the same time to pick up objects.",
+        "Press B to turn the page forward, and Y to turn the page backward.",
+        "Press X to swap walking style.",
+        "Press and Hold both Side Triggers at the same time to pick up objects.",
+        "Silverware can be held in one paw with the left or right Side Trigger.",
+        "Cabinets can be opened with one paw with the left or right Side Trigger.",
+        "When your sandwich is done, put it on a plate and place it on the table in the living room."};
 
     void Start()
     {
