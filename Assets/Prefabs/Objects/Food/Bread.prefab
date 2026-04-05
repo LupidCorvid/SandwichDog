@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 1204370549364847952}
   - component: {fileID: 1055270508630881268}
   m_Layer: 0
-  m_Name: bread1
+  m_Name: Bread
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -598,13 +598,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 916437776017b404894ef3af2a3ea0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inHand: 0
-  inMouth: 0
-  m_type: 1
-  m_name: bread
-  currentSpread: 0
-  mesh: {fileID: 7689749912656311809}
-  matSpreads:
-  - {fileID: 2100000, guid: 6a7dbe5aba0836d449272a7b719b25c9, type: 2}
-  - {fileID: 2100000, guid: cc313785b232cc24a899eda354df8696, type: 2}
-  - {fileID: 2100000, guid: e5c59bef7c3eae84b877c96a0d5598cd, type: 2}
+  objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
+  overrideGlobalSettings: 1
+  canGetDirty: 1
+  canGetClean: 0
+  amountToDirtyPerSecond: 0.1
+  amountToCleanPerSecond: 0
+  dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
+  possibleSpreads: {fileID: 0}
+  isCookable: 1
+  timeToCook: 10
+  timeToBurn: 10
+  cookAmount: 0
+  cookedColor: {r: 0.6509434, g: 0.30031347, b: 0, a: 0}

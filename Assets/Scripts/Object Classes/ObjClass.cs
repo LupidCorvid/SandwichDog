@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.XR.CoreUtils;
+using System.Linq;
 
 public class FoodRequirement
 {
@@ -12,10 +15,8 @@ public class FoodRequirement
 [System.Serializable]
 public class ItemRequirement
 {
-    protected const float MAX_CONDITION = 1.0f;
-
     public ObjClass item;
-    public ObjClass.Spread spread;
+    public Spread spread;
     public int quantity;
 
     public ItemRequirement(ObjClass inItem, int inQuantity)
@@ -38,66 +39,76 @@ public class ItemRequirement
     }
 }
 
+public enum ObjType
+{
+    GRABBABLE,
+    PICKUP,
+    INTERACTABLE
+}
+
+public enum Spread
+{
+    NOSPREAD,
+    PEANUTBUTTER,
+    JELLY
+}
+
 // You must derive the base class form monobehavior to attach it to objects in the scene
 public class ObjClass : MonoBehaviour
 {
-    public enum ObjType
-    { 
-        GRABBABLE, 
-        PICKUP, 
-        INTERACTABLE 
-    }
-
-    public enum Spread
-    {
-        NOSPREAD,
-        PEANUTBUTTER,
-        JELLY
-    }
-
-    // === INTERACTION === //
-    public bool inHand { get; protected set; }
-    public bool inMouth { get; protected set; }
-    private float grabBuffer = .1f; //Coyote time for 2 handed grab
+    protected const float MAX_CONDITION = 1.0f;
 
     // === BASIC INFO === //
-    public ObjType objType { get; protected set; }
-    public string objName {  get; protected set; }
+    [SerializeField]  public ObjType objType { get; private set; }
+    [SerializeField]  public string objName {  get; private set; }
+    [SerializeField] public GlobalObjSettings_SO objSettings;
+    [SerializeField] private bool overrideGlobalSettings;
 
-    // === SCORING === //
-    // Used for calculating score
-    protected float objCondition;
+    [HideInInspector] public float objCleanliness { get; private set; }
+    [SerializeField] protected bool canGetDirty;
+    public bool CanGetDirty { get { return canGetDirty; } }
+    [SerializeField] protected bool canGetClean;
+    public bool CanGetClean { get { return canGetClean; } }
 
-    public bool canGetDirty;
-    public bool canGetClean;
+    [SerializeField] protected float amountToDirtyPerSecond;
+    [SerializeField] protected float amountToCleanPerSecond;
 
-    [SerializeField] private float amountToDirtyPerSecond;
-    [SerializeField] private float amountToCleanPerSecond;
+    // === INTERACTION === //
+    public bool inHand { get; private set; }
+    public bool inMouth { get; private set; }
+    private float grabBuffer = .1f; //Coyote time for 2 handed grab
 
     // === VISUALS === //
-    private Renderer rendererComponent;
+    public Renderer objRenderer { get; private set; }
 
-    [SerializeField] private Color objDirtyColor;
-    private Color objCleanColor;
-    private Vector3 colorDifference;
+    public Spread currentSpread { get; protected set; }
+    protected Color cleanColor;
+    [SerializeField] protected Material dirtMaterial;
+    [SerializeField] protected ObjSpreads_SO possibleSpreads;
+    private int dirtMatIndex;
 
-    private void Awake()
+
+    protected void Awake()
     {
         inHand = false;
         inMouth = false;
 
-        objCondition = MAX_CONDITION;
+        objCleanliness = MAX_CONDITION;
+        InitializeAppearanceLogic();
 
-        InitializeCleanColor();
+        if (!overrideGlobalSettings)
+        {
+            InitializeSettings();
+        }
     }
 
     //Object manager or subclass should pass in the object type
-    public ObjClass(ObjType inObjType, string inObjName = "") 
+    public ObjClass(ObjType inObjType, string inObjName = "")
     {
         inHand = false;
         objType = inObjType;
         objName = inObjName;
-        objCondition = 1.0f;
+        objCleanliness = 1.0f;;
     }
 
     public override bool Equals(object other)
@@ -112,18 +123,16 @@ public class ObjClass : MonoBehaviour
         return false;
     }
 
-    private void InitializeCleanColor()
+    public void InitializeSettings()
     {
-        rendererComponent = GetComponent<Renderer>();
-
-        objCleanColor = rendererComponent.material.GetColor("_BaseColor");
-
-        colorDifference = new Vector3(
-            objDirtyColor.r - objCleanColor.r,
-            objDirtyColor.g - objCleanColor.g,
-            objDirtyColor.b - objCleanColor.b
-            );
+        dirtMaterial = objSettings.dirtMaterial;
+        amountToCleanPerSecond = objSettings.amountToCleanPerSecond; 
+        amountToDirtyPerSecond = objSettings.amountToDirtyPerSecond;
     }
+
+    ///=============================================================================
+    ///                             INTERACTION
+    ///=============================================================================
 
     //Debug
     //Only allows pickups to be picked up with two hands. Constrains rigidbody if it detects that only one hand is picking it up
@@ -169,23 +178,90 @@ public class ObjClass : MonoBehaviour
     }
     public void DropFromMouth() { }
 
-    public virtual void ReduceObjectCondition()
+    ///=============================================================================
+    ///                             APPEARANCE
+    ///=============================================================================
+
+    protected virtual void InitializeAppearanceLogic()
     {
-        float amountToReduce = Time.deltaTime * amountToDirtyPerSecond;
+        objRenderer = GetComponent<Renderer>();
+        cleanColor = objRenderer.material.GetColor("_BaseColor");
 
-        objCondition = Mathf.Clamp(objCondition - amountToReduce, 0.0f, 1.0f);
+        if (currentSpread != Spread.NOSPREAD)
+        {
+            AddSpread(currentSpread);
+        }
+        if (canGetDirty)
+        {
+            AddDirtMaterial();
+        }
+    }
 
-        float fraction_dirtied = 1.0f - objCondition;
+    //===================
+    //       DIRT
+    // ==================
 
-        // max condition & Color RGB value is 1.0f
-        Color dirtyColor = new Color(
-            objCleanColor.r + (fraction_dirtied * colorDifference.x),
-            objCleanColor.g + (fraction_dirtied * colorDifference.y),
-            objCleanColor.b + (fraction_dirtied * colorDifference.z)
-           );
-        Debug.Log(objCleanColor.r + " " + colorDifference.x);
-        Debug.Log(fraction_dirtied + " " + colorDifference.x + " " + objCleanColor.r + (fraction_dirtied * colorDifference.x));
+    public virtual void DirtyObject(float timeDirtied)
+    {
+        objCleanliness = Mathf.Clamp(objCleanliness - (timeDirtied * amountToDirtyPerSecond), 0.0f, 1.0f);
 
-        rendererComponent.material.SetColor("_BaseColor", dirtyColor);
+        Color dirtColor = objRenderer.material.GetColor("_BaseColor");
+        dirtColor.a = (MAX_CONDITION - objCleanliness);
+        objRenderer.materials[dirtMatIndex].color = dirtColor;
+    }
+
+    public virtual void CleanObject(float timeCleaned, float cleanCap = 1.0f)
+    {
+        // ensure clamp max isn't above max condition
+        float maxObjCondition = cleanCap > MAX_CONDITION ? MAX_CONDITION : cleanCap;
+
+        objCleanliness = Mathf.Clamp(objCleanliness - (timeCleaned * amountToCleanPerSecond), 0.0f, maxObjCondition);
+    }
+
+    public void AddDirtMaterial()
+    {
+        List<Material> materials = objRenderer.materials.ToList();
+        dirtMatIndex = materials.Count;
+        materials.Add(dirtMaterial);
+        objRenderer.materials = materials.ToArray();
+    }
+
+    //===================
+    //       SPREADS
+    // ==================
+
+    /// <summary>
+    /// Adds new material that adds a material for the incoming spread and removes the previous one. 
+    /// </summary>
+    /// <returns>Returns if the add was successful or not</returns>
+    public bool AddSpread(Spread spreadToAdd)
+    {
+        if (spreadToAdd == Spread.NOSPREAD)
+        {
+            RemoveSpreads();
+            return true;
+        }
+
+        Material spreadMaterial;
+        if (possibleSpreads.GetSpread(spreadToAdd, out spreadMaterial))
+        {
+            RemoveSpreads();
+            objRenderer.AddMaterial(spreadMaterial);
+            return true;
+        }
+        return false;
+    }
+
+    public bool RemoveSpreads()
+    {
+        Material spreadMaterial;
+        if (possibleSpreads.GetSpread(currentSpread, out spreadMaterial))
+        {
+            List<Material> materials = objRenderer.materials.ToList();
+            materials.Remove(spreadMaterial);
+            objRenderer.materials = materials.ToArray();
+            return true;
+        }
+        return false;
     }
 }

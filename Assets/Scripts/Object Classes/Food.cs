@@ -1,53 +1,40 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-public enum FoodCondition
-{
-    Normal, // non-cookable food
-    Raw,
-    Cooked, 
-    Burnt
-}
-
 public class Food : ObjClass
 {
-    public Spread currentSpread;
-    public GameObject mesh;
-    public Material[] matSpreads;
+    [SerializeField] protected bool isCookable;
+    [SerializeField] protected float timeToCook;
+    [SerializeField] protected float timeToBurn;
+    [SerializeField] protected float cookAmount;
 
-    public FoodCondition condition;
+    public bool IsCookable => isCookable;
+    public float TimeToCook => timeToCook;
+    public float TimeToBurn => timeToBurn;
+    public float CookAmount => cookAmount;
 
-    public bool isCookable;
-    [SerializeField] private float timeToCook;
-    [SerializeField] private float timeToBurn;
-    public float cookTimeStart;
-    public float cookAmount = 0.0f;
 
-    public Food(string inObjName = "") : base(ObjType.PICKUP)
+    [SerializeField] Color cookedColor;
+    private Color burntColor = Color.black;
+
+    public Food(string inObjName = "", bool canCook = false) : base(ObjType.PICKUP, inObjName)
     {
         currentSpread = Spread.NOSPREAD;
-        objName = inObjName;
 
-        isCookable = false;
-        cookTimeStart = 0.0f;
-        cookAmount = 0.0f;
+        isCookable = canCook;
     }
 
-    public void addSpread(Spread s)
+    protected new void Awake()
     {
-        currentSpread = s;
-        if (mesh != null)
+        base.Awake();
+
+        if (isCookable)
         {
-            int index = (int)(s);
-            mesh.GetComponent<MeshRenderer>().material = matSpreads[index];
+            cookAmount = 0.0f;
         }
-    }
-    public void removeSpread()
-    {
-        currentSpread = Spread.NOSPREAD;
-        if (mesh != null)
+        else
         {
-            mesh.GetComponent<MeshRenderer>().material = matSpreads[0];
+            cookAmount = 1.0f;
         }
     }
 
@@ -58,17 +45,20 @@ public class Food : ObjClass
         return true;
     }
 
-    public void Cook()
+    public void Cook(float timePassed)
     {
-        cookAmount += Time.deltaTime;
+        cookAmount += timePassed;
 
-        if (cookAmount >= timeToBurn)
+        if (cookAmount < timeToCook)
         {
-            condition = FoodCondition.Burnt;
+            Color cookColor = Color.Lerp(cleanColor, cookedColor, (cookAmount / TimeToCook));
+            objRenderer.material.SetColor("_BaseColor", cookColor);
         }
-        else if (cookAmount >= timeToCook)
+        else if (cookAmount < (timeToCook + timeToBurn))
         {
-            condition = FoodCondition.Cooked;
+            Color burnColor = Color.Lerp(cookedColor, burntColor, ((cookAmount-timeToCook) / (timeToBurn)));
+            objRenderer.material.SetColor("_BaseColor", burnColor);
         }
     }
+
 }

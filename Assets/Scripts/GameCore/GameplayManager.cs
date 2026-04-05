@@ -79,8 +79,8 @@ public class GameplayManager : MonoBehaviour
         {
             //Debug.Log(objectToScore.item.gameObject.GetComponent<Rigidbody>() == null);
 
-            Debug.Log(objectToScore.item.m_condition);
-            scoreCount += objectToScore.item.m_condition * objectToScore.quantity;
+            Debug.Log(objectToScore.item.objCleanliness);
+            scoreCount += objectToScore.item.objCleanliness * objectToScore.quantity;
         }
         score = (scoreCount / scoreMax) * 100.0f;
 
