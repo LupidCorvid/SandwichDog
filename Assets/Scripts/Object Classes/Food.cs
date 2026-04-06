@@ -3,31 +3,38 @@ using UnityEngine;
 
 public class Food : ObjClass
 {
-    public Spread currentSpread;
-    public GameObject mesh;
-    public Material[] matSpreads;
+    [SerializeField] protected bool isCookable;
+    [SerializeField] protected float timeToCook;
+    [SerializeField] protected float timeToBurn;
+    [SerializeField] protected float cookAmount;
 
-    public Food(string n = "") : base(ObjType.PICKUP)
+    public bool IsCookable => isCookable;
+    public float TimeToCook => timeToCook;
+    public float TimeToBurn => timeToBurn;
+    public float CookAmount => cookAmount;
+
+
+    [SerializeField] Color cookedColor;
+    private Color burntColor = Color.black;
+
+    public Food(string inObjName = "", bool canCook = false) : base(ObjType.PICKUP, inObjName)
     {
         currentSpread = Spread.NOSPREAD;
-        m_name = n;
+
+        isCookable = canCook;
     }
 
-    public void addSpread(Spread s)
+    protected new void Awake()
     {
-        currentSpread = s;
-        if (mesh != null)
+        base.Awake();
+
+        if (isCookable)
         {
-            int index = (int)(s);
-            mesh.GetComponent<MeshRenderer>().material = matSpreads[index];
+            cookAmount = 0.0f;
         }
-    }
-    public void removeSpread()
-    {
-        currentSpread = Spread.NOSPREAD;
-        if (mesh != null)
+        else
         {
-            mesh.GetComponent<MeshRenderer>().material = matSpreads[0];
+            cookAmount = 1.0f;
         }
     }
 
@@ -37,4 +44,21 @@ public class Food : ObjClass
         if (this.currentSpread != rhs.currentSpread) return false;
         return true;
     }
+
+    public void Cook(float timePassed)
+    {
+        cookAmount += timePassed;
+
+        if (cookAmount < timeToCook)
+        {
+            Color cookColor = Color.Lerp(cleanColor, cookedColor, (cookAmount / TimeToCook));
+            objRenderer.material.SetColor("_BaseColor", cookColor);
+        }
+        else if (cookAmount < (timeToCook + timeToBurn))
+        {
+            Color burnColor = Color.Lerp(cookedColor, burntColor, ((cookAmount-timeToCook) / (timeToBurn)));
+            objRenderer.material.SetColor("_BaseColor", burnColor);
+        }
+    }
+
 }
