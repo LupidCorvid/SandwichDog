@@ -8,7 +8,7 @@ public class TutorialManager : MonoBehaviour
     int tutorialLevel = 0; //Different instructions for different levels
 
     int maxSize = 0;
-    int cursor = -1; //Where you currently are in the tutorial
+    public int cursor = -1; //Where you currently are in the tutorial
 
     public TutorialAssignment levelTutorialObjects;
 
