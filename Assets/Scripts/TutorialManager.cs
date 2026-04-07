@@ -47,8 +47,10 @@ public class TutorialManager : MonoBehaviour
         {
             //Spawn new stuff
             TutorialObj spawner = levelTutorialObjects.assignedTutorialObjs[cursor];
-            Instantiate(spawner.arrow, spawner.arrowPositionToSpawn, Quaternion.identity);
             Instantiate(spawner.instructionUI, spawner.UIPositionToSpawn, Quaternion.identity);
+
+            //Some tutorial prompts dont require an arrow. Position (0, 0, 0) signifies this.
+            if (spawner.arrowPositionToSpawn != Vector3.zero) Instantiate(spawner.arrow, spawner.arrowPositionToSpawn, Quaternion.identity);
         }
         else tutorialActive = false;
     }

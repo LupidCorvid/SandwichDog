@@ -39,3 +39,14 @@ MonoBehaviour:
     arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
     instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
     UIText: Silverware can be held in one paw with the left or right Side Trigger.
+  - arrowPositionToSpawn: {x: 3.014, y: 1.596, z: -2.409}
+    UIPositionToSpawn: {x: 2.42, y: 1.66, z: -3.32}
+    arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
+    instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
+    UIText: Cabinets can be opened with one paw with the left or right Side Trigger.
+  - arrowPositionToSpawn: {x: -1.18, y: 2.41, z: 9.93}
+    UIPositionToSpawn: {x: 3.74, y: 1.66, z: -3.32}
+    arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
+    instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
+    UIText: When your sandwich is done, put it on a plate and place it on the table
+      in the living room.
