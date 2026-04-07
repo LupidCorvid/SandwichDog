@@ -10,6 +10,7 @@ public class TutorialManager : MonoBehaviour
 
     int maxSize = 0;
     public int cursor = -1; //Where you currently are in the tutorial
+    GameObject lastArrow = null;
 
     public TutorialAssignment levelTutorialObjects;
 
@@ -59,8 +60,13 @@ public class TutorialManager : MonoBehaviour
             GameObject instructionUI = Instantiate(spawner.instructionUI, spawner.UIPositionToSpawn, Quaternion.identity);
             instructionUI.GetComponentInChildren<Text>().text = spawner.UIText;
 
+            if (lastArrow  != null) Destroy(lastArrow);
+
             //Some tutorial prompts dont require an arrow. Position (0, 0, 0) signifies this.
-            if (spawner.arrowPositionToSpawn != Vector3.zero) Instantiate(spawner.arrow, spawner.arrowPositionToSpawn, Quaternion.identity);
+            if (spawner.arrowPositionToSpawn != Vector3.zero)
+            {
+                lastArrow = Instantiate(spawner.arrow, spawner.arrowPositionToSpawn, Quaternion.identity);
+            }
         }
         else tutorialActive = false;
     }
