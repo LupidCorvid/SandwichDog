@@ -1,9 +1,7 @@
 using UnityEngine;
 
-public class Cookware : ContainerCollider<Food>
+public class CookwareCollider : ContainerCollider<Food>
 {
-    public float cookMultiplier = 1.0f;
-
     public void CookFood(float amountToCook)
     {
         foreach (Food food in items)
