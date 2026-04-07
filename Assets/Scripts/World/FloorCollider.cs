@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public class FloorCollider : TimerHolder<ObjClass>
+public class FloorCollider : TimerCollider<ObjClass>
 {
     protected override void TickTimer(ObjClass obj, float timePassed)
     {

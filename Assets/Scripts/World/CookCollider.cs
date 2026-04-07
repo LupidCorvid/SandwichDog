@@ -27,7 +27,7 @@ class CookCollider : MonoBehaviour
     }
 }
 
-public class CookwareCooker : TimerHolder<Cookware>
+public class CookwareCooker : TimerCollider<Cookware>
 {
     public float cookMultiplier = 1.0f;
     public float heatLevel;
@@ -38,7 +38,7 @@ public class CookwareCooker : TimerHolder<Cookware>
     }
 }
 
-public class FoodCooker : TimerHolder<Food>
+public class FoodCooker : TimerCollider<Food>
 {
     public float cookMultiplier = 1.0f;
     public float heatLevel;

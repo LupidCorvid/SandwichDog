@@ -25,7 +25,7 @@ public struct Timer<T> where T : MonoBehaviour
     }
 }
 
-public class TimerHolder<T> : MonoBehaviour 
+public class TimerCollider<T> : MonoBehaviour 
     where T : MonoBehaviour
 {
     protected List<Timer<T>> timers = new List<Timer<T>>();
