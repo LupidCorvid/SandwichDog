@@ -45,7 +45,7 @@ public class ObjClassEditor : Editor
             targetObj.InitializeSettings();
         }
 
-            serializedObject.ApplyModifiedProperties();
+        serializedObject.ApplyModifiedProperties();
     }
 
     protected virtual void DrawProperties()

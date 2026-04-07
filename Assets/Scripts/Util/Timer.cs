@@ -1,4 +1,3 @@
-using Mono.Cecil.Cil;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -29,7 +28,7 @@ public struct Timer<T> where T : MonoBehaviour
 public class TimerHolder<T> : MonoBehaviour 
     where T : MonoBehaviour
 {
-    private List<Timer<T>> timers = new List<Timer<T>>();
+    protected List<Timer<T>> timers = new List<Timer<T>>();
 
     /// <summary>
     /// Inherited classes determine what their timers do here
@@ -79,7 +78,7 @@ public class TimerHolder<T> : MonoBehaviour
     {
         T script = other as T;
         if (!script) return;
-        if (!CanAddTimer(script)) return;
+        if (!CanAddTimer(script)) return; // if it couldn't be added then there's no reason to search for it when removing
 
         foreach (Timer<T> timer in timers)
         {

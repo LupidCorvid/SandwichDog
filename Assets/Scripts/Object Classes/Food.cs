@@ -12,7 +12,9 @@ public class Food : ObjClass
     public float TimeToCook => timeToCook;
     public float TimeToBurn => timeToBurn;
     public float CookAmount => cookAmount;
-
+    public bool CanBeFurtherCooked => (cookAmount < (timeToCook + timeToBurn));
+    public bool IsBurnt => (cookAmount > (timeToBurn + timeToBurn));
+    public bool IsCooked => (cookAmount >= timeToCook && cookAmount <= (timeToCook + timeToBurn));
 
     [SerializeField] Color cookedColor;
     private Color burntColor = Color.black;

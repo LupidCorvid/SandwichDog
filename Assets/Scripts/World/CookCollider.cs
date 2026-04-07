@@ -1,21 +1,51 @@
-using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 
-public enum CookType
+class CookCollider : MonoBehaviour
 {
-    Pan,
-    Bake
+    private const float MAX_HEAT = 1.0f;
+
+    // cook workers for each class
+    [SerializeField] private CookwareCooker indirectCooker;
+    [SerializeField] private FoodCooker directCooker;
+    //[SerializeField] private float timeToHeatUp;
+    //[SerializeField] private float timeToCoolDown;
+    private float heatLevel = 1.0f;
+    //private bool heatUp;
+    //private bool coolDown;
+
+    private void Awake()
+    {
+        directCooker.heatLevel = this.heatLevel;
+        indirectCooker.heatLevel = this.heatLevel;
+    }
+
+    public void UpdateCookerHeat()
+    {
+        directCooker.heatLevel = heatLevel;
+        indirectCooker.heatLevel = heatLevel;
+    }
 }
 
-public class CookCollider : TimerHolder<Food>
+public class CookwareCooker : TimerHolder<Cookware>
 {
-    [SerializeField] private CookType cookType;
+    public float cookMultiplier = 1.0f;
+    public float heatLevel;
+
+    protected override void TickTimer(Cookware cookware, float timePassed)
+    {
+        cookware.CookFood(timePassed * heatLevel * cookMultiplier);
+    }
+}
+
+public class FoodCooker : TimerHolder<Food>
+{
+    public float cookMultiplier = 1.0f;
+    public float heatLevel;
 
     protected override void TickTimer(Food food, float timePassed)
     {
-        food.Cook(timePassed);
+        food.Cook(timePassed * heatLevel * cookMultiplier);
     }
 
     protected override bool ShouldRemoveTimer(Food food)
