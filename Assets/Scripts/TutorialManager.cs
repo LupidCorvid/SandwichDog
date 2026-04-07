@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -27,10 +28,18 @@ public class TutorialManager : MonoBehaviour
         maxSize = levelTutorialObjects.assignedTutorialObjs.Length; //7
     }
 
+    float timer = 0f;
     
     void Update()
     {
-        
+
+        //Debug
+        timer += Time.deltaTime;
+        if (timer >= 3)
+        {
+            timer = 0;
+            advanceTutorial();
+        }
     }
 
     public void startTutorial(int level)
@@ -47,7 +56,8 @@ public class TutorialManager : MonoBehaviour
         {
             //Spawn new stuff
             TutorialObj spawner = levelTutorialObjects.assignedTutorialObjs[cursor];
-            Instantiate(spawner.instructionUI, spawner.UIPositionToSpawn, Quaternion.identity);
+            GameObject instructionUI = Instantiate(spawner.instructionUI, spawner.UIPositionToSpawn, Quaternion.identity);
+            instructionUI.GetComponentInChildren<Text>().text = spawner.UIText;
 
             //Some tutorial prompts dont require an arrow. Position (0, 0, 0) signifies this.
             if (spawner.arrowPositionToSpawn != Vector3.zero) Instantiate(spawner.arrow, spawner.arrowPositionToSpawn, Quaternion.identity);
