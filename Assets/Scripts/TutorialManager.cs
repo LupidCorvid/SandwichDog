@@ -12,6 +12,8 @@ public class TutorialManager : MonoBehaviour
     public int cursor = -1; //Where you currently are in the tutorial
     GameObject lastArrow = null;
 
+    List<string> itemsThatTriggeredTutorial = new List<string>();
+
     public TutorialAssignment levelTutorialObjects;
 
     public string[] lvl1Text = {
@@ -27,6 +29,7 @@ public class TutorialManager : MonoBehaviour
     {
         tutorialActive = false;
         maxSize = levelTutorialObjects.assignedTutorialObjs.Length; //7
+        startTutorial(1);
     }
 
     float timer = 0f;
@@ -35,12 +38,12 @@ public class TutorialManager : MonoBehaviour
     {
 
         //Debug
-        timer += Time.deltaTime;
-        if (timer >= 3)
-        {
-            timer = 0;
-            advanceTutorial();
-        }
+        //timer += Time.deltaTime;
+        //if (timer >= 3)
+        //{
+        //    timer = 0;
+        //    advanceTutorial();
+        //}
     }
 
     public void startTutorial(int level)
@@ -48,6 +51,18 @@ public class TutorialManager : MonoBehaviour
         tutorialActive = true;
         tutorialLevel = level;
         advanceTutorial();
+    }
+
+    //TODO test on book
+    public void askToAdvanceTutorial(string ID)
+    {
+        if (!itemsThatTriggeredTutorial.Contains(ID))
+        {
+            advanceTutorial();
+            itemsThatTriggeredTutorial.Add(ID);
+            //if (ID == "book") advanceTutorial(); //debug
+            if (ID == "butterknife") advanceTutorial(); //debug
+        }
     }
 
     public void advanceTutorial()
