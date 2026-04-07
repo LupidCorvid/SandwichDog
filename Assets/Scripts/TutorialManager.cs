@@ -57,10 +57,16 @@ public class TutorialManager : MonoBehaviour
         {
             //Spawn new stuff
             TutorialObj spawner = levelTutorialObjects.assignedTutorialObjs[cursor];
-            GameObject instructionUI = Instantiate(spawner.instructionUI, spawner.UIPositionToSpawn, Quaternion.identity);
-            instructionUI.GetComponentInChildren<Text>().text = spawner.UIText;
+            
+            //Delete the last arrow (keep UI text on screen for players to reference again)
+            if (lastArrow != null) Destroy(lastArrow);
 
-            if (lastArrow  != null) Destroy(lastArrow);
+            //Some tutorial prompts dont require UI text. Position (0, 0, 0) signifies this.
+            if (spawner.UIPositionToSpawn != Vector3.zero)
+            {
+                GameObject instructionUI = Instantiate(spawner.instructionUI, spawner.UIPositionToSpawn, Quaternion.identity);
+                instructionUI.GetComponentInChildren<Text>().text = spawner.UIText;
+            }
 
             //Some tutorial prompts dont require an arrow. Position (0, 0, 0) signifies this.
             if (spawner.arrowPositionToSpawn != Vector3.zero)

@@ -50,3 +50,8 @@ MonoBehaviour:
     instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
     UIText: When your sandwich is done, put it on a plate and place it on the table
       in the living room.
+  - arrowPositionToSpawn: {x: 0, y: 0, z: 0}
+    UIPositionToSpawn: {x: 0, y: 0, z: 0}
+    arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
+    instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
+    UIText: No Text
