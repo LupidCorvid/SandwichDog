@@ -13,11 +13,29 @@ MonoBehaviour:
   m_Name: TutorialAssignment
   m_EditorClassIdentifier: 
   assignedTutorialObjs:
-  - arrowPositionToSpawn: {x: -0.9911085, y: 2.828, z: 9.79845}
-    UIPositionToSpawn: {x: -0.5932286, y: 2.26, z: 8.95664}
+  - arrowPositionToSpawn: {x: -1.18, y: 2.41, z: 9.93}
+    UIPositionToSpawn: {x: -2.07, y: 2.21, z: 9.38}
     arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
     instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
-  - arrowPositionToSpawn: {x: -0.45, y: 3.73, z: 12.48}
-    UIPositionToSpawn: {x: -0.2, y: 3.36, z: 10.8}
+    UIText: Press and Hold both Side Triggers at the same time to pick up objects
+  - arrowPositionToSpawn: {x: 0, y: 0, z: 0}
+    UIPositionToSpawn: {x: -0.442, y: 2.21, z: 9.38}
     arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
     instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
+    UIText: Press B to turn the page forward, and Y to turn the page backward.
+  - arrowPositionToSpawn: {x: 0, y: 0, z: 0}
+    UIPositionToSpawn: {x: 4.114, y: 1.346, z: 6.943}
+    arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
+    instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
+    UIText: Press X to swap walking style.
+  - arrowPositionToSpawn: {x: 1.83, y: 1.665, z: 2.16}
+    UIPositionToSpawn: {x: 0.83, y: 0.715, z: 1.938}
+    arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
+    instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
+    UIText: Press and Hold both Side Triggers at the same time to pick up objects.
+      You can only hold objects while standing.
+  - arrowPositionToSpawn: {x: 1.62, y: 1.99, z: -3.08}
+    UIPositionToSpawn: {x: 0.812, y: 1.78, z: -3.32}
+    arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
+    instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
+    UIText: Silverware can be held in one paw with the left or right Side Trigger.

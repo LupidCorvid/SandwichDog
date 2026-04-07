@@ -24,7 +24,7 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         tutorialActive = false;
-        maxSize = levelTutorialObjects.assignedTutorialObjs.Length;
+        maxSize = levelTutorialObjects.assignedTutorialObjs.Length; //7
     }
 
     
