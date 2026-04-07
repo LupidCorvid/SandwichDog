@@ -25,12 +25,15 @@ public class GameplayManager : MonoBehaviour
     public bool gameOver;
 
     public static event Action onScoreCalculate;
+    [SerializeField] TutorialManager tutorialManager;
 
     private void Awake()
     {
         gameOver = false;
         displayText.text = "Stand here";
         scoreMax = levelRecipe.requirements.Length;
+
+        
 
 
         //scoreText.text = "Recipe Food:\n";
@@ -58,6 +61,11 @@ public class GameplayManager : MonoBehaviour
         //    }
         //    scoreText.text += ": " + itemRequirement.quantity + "\n";
         //}
+    }
+
+    void Start()
+    {
+        /*if (currentLevel == 1) */tutorialManager.startTutorial(currentLevel);
     }
 
     private void OnEnable()

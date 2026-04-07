@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class TutorialManager : MonoBehaviour
 
     int maxSize = 0;
     public int cursor = -1; //Where you currently are in the tutorial
+    GameObject lastArrow = null;
+
+    List<string> itemsThatTriggeredTutorial = new List<string>();
 
     public TutorialAssignment levelTutorialObjects;
 
@@ -24,13 +28,22 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         tutorialActive = false;
-        maxSize = levelTutorialObjects.assignedTutorialObjs.Length;
+        maxSize = levelTutorialObjects.assignedTutorialObjs.Length; //7
+        startTutorial(1);
     }
 
+    float timer = 0f;
     
     void Update()
     {
-        
+
+        //Debug
+        //timer += Time.deltaTime;
+        //if (timer >= 3)
+        //{
+        //    timer = 0;
+        //    advanceTutorial();
+        //}
     }
 
     public void startTutorial(int level)
@@ -40,6 +53,18 @@ public class TutorialManager : MonoBehaviour
         advanceTutorial();
     }
 
+    //TODO test on book
+    public void askToAdvanceTutorial(string ID)
+    {
+        if (!itemsThatTriggeredTutorial.Contains(ID))
+        {
+            advanceTutorial();
+            itemsThatTriggeredTutorial.Add(ID);
+            //if (ID == "book") advanceTutorial(); //debug
+            if (ID == "butterknife") advanceTutorial(); //debug
+        }
+    }
+
     public void advanceTutorial()
     {
         cursor += 1;
@@ -47,8 +72,22 @@ public class TutorialManager : MonoBehaviour
         {
             //Spawn new stuff
             TutorialObj spawner = levelTutorialObjects.assignedTutorialObjs[cursor];
-            Instantiate(spawner.arrow, spawner.arrowPositionToSpawn, Quaternion.identity);
-            Instantiate(spawner.instructionUI, spawner.UIPositionToSpawn, Quaternion.identity);
+            
+            //Delete the last arrow (keep UI text on screen for players to reference again)
+            if (lastArrow != null) Destroy(lastArrow);
+
+            //Some tutorial prompts dont require UI text. Position (0, 0, 0) signifies this.
+            if (spawner.UIPositionToSpawn != Vector3.zero)
+            {
+                GameObject instructionUI = Instantiate(spawner.instructionUI, spawner.UIPositionToSpawn, Quaternion.identity);
+                instructionUI.GetComponentInChildren<Text>().text = spawner.UIText;
+            }
+
+            //Some tutorial prompts dont require an arrow. Position (0, 0, 0) signifies this.
+            if (spawner.arrowPositionToSpawn != Vector3.zero)
+            {
+                lastArrow = Instantiate(spawner.arrow, spawner.arrowPositionToSpawn, Quaternion.identity);
+            }
         }
         else tutorialActive = false;
     }
