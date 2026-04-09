@@ -87,6 +87,7 @@ public class TutorialManager : MonoBehaviour
             if (spawner.arrowPositionToSpawn != Vector3.zero)
             {
                 lastArrow = Instantiate(spawner.arrow, spawner.arrowPositionToSpawn, Quaternion.identity);
+                lastArrow.transform.eulerAngles = new Vector3(90, 90, 0);
             }
         }
         else tutorialActive = false;
