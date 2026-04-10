@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 //Note: this script is specialized for the Player prefab
@@ -7,7 +8,8 @@ public class FollowController : MonoBehaviour
     public float forwardOffset = 0.2f;
     public float rotationOffset = 180;
     private float fourLeg_ZOffset = 0.4f;   //Offset to add when player is not standing
-    public GameObject target;           //What the player object should follow
+    public GameObject targetPosition;           //What the player object should match position of
+    public GameObject targetRotation;           //What the player object should match rotation of
     public bool matchXRotation = false;
     public bool matchYRotation = true;
     public bool matchZRotation = false;
@@ -23,23 +25,10 @@ public class FollowController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (target != null)
+        if (targetPosition != null && targetRotation != null)
         {
-            //Match position
-            Vector3 newPos = target.transform.position;
-            newPos.y = gameObject.transform.position.y;
-            newPos.z -= forwardOffset - currYOffset;
-            gameObject.transform.position = newPos;
-
-
-            //Match rotation
-            Vector3 newRot = target.transform.eulerAngles;
-            if (!matchXRotation) newRot.x = gameObject.transform.eulerAngles.x;
-            if (!matchYRotation) newRot.y = gameObject.transform.eulerAngles.y;
-            if (!matchZRotation) newRot.z = gameObject.transform.eulerAngles.z;
-            newRot.y -= 180;
-            gameObject.transform.eulerAngles = newRot;
-            //gameObject.transform.rotation = target.transform.rotation;
+            MatchPosition(targetPosition);
+            MatchRotation(targetRotation);
         }
     }
 
@@ -47,5 +36,45 @@ public class FollowController : MonoBehaviour
     {
         if (isStanding) currYOffset = 0f;
         else currYOffset = fourLeg_ZOffset;
+    }
+
+    public void MatchPosition(GameObject target)
+    {
+        Vector3 newPos = target.transform.position;
+        newPos.y = gameObject.transform.position.y;
+        //newPos.z -= forwardOffset - currYOffset; //Needs to subtract more when in 4 leg mode
+        gameObject.transform.position = newPos;
+    }
+    public void MatchRotation(GameObject target)
+    {
+        Vector3 newRot = target.transform.eulerAngles;
+
+        //Locks rotation for specified axes
+        if (!matchXRotation) newRot.x = gameObject.transform.eulerAngles.x;
+        if (!matchYRotation) newRot.y = gameObject.transform.eulerAngles.y;
+        if (!matchZRotation) newRot.z = gameObject.transform.eulerAngles.z;
+
+        //Model always faces wrong way, this combats it
+        //newRot.y -= 180;
+
+        //Apply rotation
+        gameObject.transform.eulerAngles = newRot;
+        ApplyRotationOffset(target);
+    }
+
+    //Applies an X and Z positional offset that happens due to rotation
+    //Always want a forwardOffset distance away from center of target
+    public void ApplyRotationOffset(GameObject target)
+    {
+        double targetYRotation = target.transform.eulerAngles.y % 360;      //Bounds rotation to 360 in case it's been overshot
+        double targetYRotation_radians = targetYRotation * (Math.PI / 180); //Convert angle to radians
+        double zOffset = Math.Sin(targetYRotation_radians);                 
+        double xOffset = Math.Cos(targetYRotation_radians);
+
+        //Add a certain amount of x and z depending on what angle the target rotated by
+        Vector3 newPos = gameObject.transform.position;
+        newPos.z += (float)(xOffset) * forwardOffset;
+        newPos.x += (float)(zOffset) * forwardOffset;
+        gameObject.transform.position = newPos;
     }
 }
