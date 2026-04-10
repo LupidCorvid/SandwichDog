@@ -186,8 +186,8 @@ public class ObjClass : MonoBehaviour
 
     protected virtual void InitializeAppearanceLogic()
     {
-        objRenderer = GetComponent<MeshRenderer>();
-        cleanColor = objRenderer.material.GetColor("_BaseColor");
+        objRenderer ??= GetComponent<MeshRenderer>();
+        cleanColor = objRenderer != null ? objRenderer.material.GetColor("_BaseColor") : Color.red;
 
         if (currentSpread != Spread.NOSPREAD)
         {
