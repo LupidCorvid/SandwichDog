@@ -73,6 +73,8 @@ public class ObjClass : MonoBehaviour
     [SerializeField] protected float amountToDirtyPerSecond;
     [SerializeField] protected float amountToCleanPerSecond;
 
+    private Color overloadedDirtColor = new Color32(255, 110, 0, 0);
+
     // === INTERACTION === //
     public bool inHand { get; private set; }
     public bool inMouth { get; private set; }
@@ -206,6 +208,8 @@ public class ObjClass : MonoBehaviour
         objCleanliness = Mathf.Clamp(objCleanliness - (timeDirtied * amountToDirtyPerSecond), 0.0f, 1.0f);
 
         Color dirtColor = objRenderer.material.GetColor("_BaseColor");
+        if (overloadedDirtColor != null) dirtColor = overloadedDirtColor;
+
         dirtColor.a = (MAX_CONDITION - objCleanliness);
         objRenderer.materials[dirtMatIndex].color = dirtColor;
     }
