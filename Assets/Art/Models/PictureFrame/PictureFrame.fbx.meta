@@ -3,7 +3,27 @@ guid: e31ef0d25006f4542b025d895e4cb732
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: e805eb2b4f25849ddb6b2661ef506b8d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PictureFrame
+    second: {fileID: 2100000, guid: 0b6300d52a468490cb96a57d01198cc0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PictureFrameGlass
+    second: {fileID: 2100000, guid: f16bcd4ef6b7b4befb492b9982b612c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PictureMaterial
+    second: {fileID: 2100000, guid: a38c29cfeaef241bc9331594a8a813fd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
