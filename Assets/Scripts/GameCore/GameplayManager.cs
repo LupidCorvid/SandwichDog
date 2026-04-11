@@ -30,7 +30,7 @@ public class GameplayManager : MonoBehaviour
     private void Awake()
     {
         gameOver = false;
-        displayText.text = "Stand here";
+        displayText.text = "0%";
         scoreMax = levelRecipe.requirements.Length;
 
         
@@ -94,7 +94,7 @@ public class GameplayManager : MonoBehaviour
 
         //Update score text
         Debug.Log("Score:" + score);
-        scoreText.text = score.ToString("F2").Truncate(5) + "%";
+        displayText.text = score.ToString("F2").Truncate(5) + "%";
 
         //First check which level the game is on
         //If level 1...
@@ -124,13 +124,15 @@ public class GameplayManager : MonoBehaviour
     //When the player enters, wait for 5 seconds and then score
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        //DEBUG checks if the plate entered the scoring layer
+        //Change it to let the player click a UI element to start the scoring
+        if (other.gameObject.layer == 10) //if (other.gameObject.CompareTag("Player")) //if (other.gameObject.layer == 10)
         {
             timer -= Time.deltaTime;
-            if(timer > 4) displayText.text = "Hold still";
-            else if(timer > 3) displayText.text = "Hold still.";
-            else if (timer > 2) displayText.text = "Hold still..";
-            else if (timer > 1) displayText.text = "Hold still...";
+            //if(timer > 4) displayText.text = "Hold still";
+            //else if(timer > 3) displayText.text = "Hold still.";
+            //else if (timer > 2) displayText.text = "Hold still..";
+            //else if (timer > 1) displayText.text = "Hold still...";
 
             if (timer <= 0)
             {
