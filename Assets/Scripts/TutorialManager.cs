@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -81,6 +82,8 @@ public class TutorialManager : MonoBehaviour
             {
                 GameObject instructionUI = Instantiate(spawner.instructionUI, spawner.UIPositionToSpawn, Quaternion.identity);
                 instructionUI.GetComponentInChildren<Text>().text = spawner.UIText;
+                instructionUI.transform.Find("ControllerImage1").GetComponent<Image>().sprite = spawner.controllerImg1;
+                instructionUI.transform.Find("ControllerImage2").GetComponent<Image>().sprite = spawner.controllerImg2;
             }
 
             //Some tutorial prompts dont require an arrow. Position (0, 0, 0) signifies this.
@@ -89,6 +92,8 @@ public class TutorialManager : MonoBehaviour
                 lastArrow = Instantiate(spawner.arrow, spawner.arrowPositionToSpawn, Quaternion.identity);
                 lastArrow.transform.eulerAngles = new Vector3(90, 90, 0);
             }
+
+            
         }
         else tutorialActive = false;
     }
