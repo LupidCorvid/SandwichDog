@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3102438145443035523}
   - component: {fileID: 5357051072512097728}
   - component: {fileID: 1691243752028335798}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Material Affordance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7175287937435545982}
   - component: {fileID: 4777540749523095892}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Highlight Interaction Affordance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,9 +292,9 @@ GameObject:
   - component: {fileID: 8115878724846226486}
   - component: {fileID: 1286148539319498751}
   - component: {fileID: 3922237376685127097}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: plate
-  m_TagString: Untagged
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
