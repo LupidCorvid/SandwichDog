@@ -4343,9 +4343,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1114765986359337739, guid: 6033610b59755ff45a55d8eab7477848, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6118335021222159936, guid: 6033610b59755ff45a55d8eab7477848, type: 3}
       propertyPath: m_Name
       value: Clipboard
+      objectReference: {fileID: 0}
+    - target: {fileID: 6118335021222159936, guid: 6033610b59755ff45a55d8eab7477848, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6642864866693376089, guid: 6033610b59755ff45a55d8eab7477848, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4392,7 +4400,9 @@ PrefabInstance:
       value: 350.498
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8744470059343349247, guid: 6033610b59755ff45a55d8eab7477848, type: 3}
+    - {fileID: 5412516827275215014, guid: 6033610b59755ff45a55d8eab7477848, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6033610b59755ff45a55d8eab7477848, type: 3}
