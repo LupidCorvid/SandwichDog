@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class FollowController : MonoBehaviour
 {
-    public float forwardOffset = 0.2f;
-    public float rotationOffset = 180;
+    [SerializeField] public float forwardOffset; // = 0.2f;
+    //public float rotationOffset = 180;
     private float fourLeg_ZOffset = 0.4f;   //Offset to add when player is not standing
     public GameObject targetPosition;           //What the player object should match position of
     public GameObject targetRotation;           //What the player object should match rotation of
     public bool matchXRotation = false;
     public bool matchYRotation = true;
     public bool matchZRotation = false;
+    public bool matchXPos;
+    public bool matchYPos;
+    public bool matchZPos;
+    [SerializeField] public bool useRotationOffset;
 
     float currYOffset = 0f;
 
@@ -41,7 +45,11 @@ public class FollowController : MonoBehaviour
     public void MatchPosition(GameObject target)
     {
         Vector3 newPos = target.transform.position;
-        newPos.y = gameObject.transform.position.y;
+
+        if (!matchYPos) newPos.y = gameObject.transform.position.y;
+        if (!matchXPos) newPos.x = gameObject.transform.position.x;
+        if (!matchZPos) newPos.z = gameObject.transform.position.z;
+
         //newPos.z -= forwardOffset - currYOffset; //Needs to subtract more when in 4 leg mode
         gameObject.transform.position = newPos;
     }
@@ -55,11 +63,11 @@ public class FollowController : MonoBehaviour
         if (!matchZRotation) newRot.z = gameObject.transform.eulerAngles.z;
 
         //Model always faces wrong way, this combats it
-        //newRot.y -= 180;
+        newRot.y -= 180;
 
         //Apply rotation
         gameObject.transform.eulerAngles = newRot;
-        ApplyRotationOffset(target);
+        if (useRotationOffset) ApplyRotationOffset(target);
     }
 
     //Applies an X and Z positional offset that happens due to rotation
