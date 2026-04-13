@@ -252,6 +252,7 @@ public class ObjClass : MonoBehaviour
         {
             RemoveSpreads();
             objRenderer.AddMaterial(spreadMaterial);
+            Debug.Log(spreadMaterial);
             return true;
         }
         return false;

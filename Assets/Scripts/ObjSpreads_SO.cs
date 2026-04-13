@@ -1,10 +1,17 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
+[System.Serializable]
 public struct SpreadInfo
 {
     public Spread spread;
     public Material spreadMaterial;
+
+    SpreadInfo(Spread in_spread, Material in_mat)
+    {
+        spread = in_spread;
+        spreadMaterial = in_mat;
+    }
 }
 
 [CreateAssetMenu(fileName = "ObjSpreads_SO", menuName = "Scriptable Objects/ObjSpreads_SO")]
