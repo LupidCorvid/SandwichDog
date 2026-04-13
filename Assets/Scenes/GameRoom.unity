@@ -2955,6 +2955,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3920006991576347205, guid: ef11713166d8fe84a9f105d12938b80c, type: 3}
   m_PrefabInstance: {fileID: 590809179642112207}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1977687765 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7170677827669441536, guid: 6033610b59755ff45a55d8eab7477848, type: 3}
+  m_PrefabInstance: {fileID: 1827699005445227860}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2052062475
 GameObject:
   m_ObjectHideFlags: 0
@@ -3804,6 +3809,24 @@ PrefabInstance:
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 388639516}
+    - target: {fileID: 6754602548343499900, guid: 6033610b59755ff45a55d8eab7477848, type: 3}
+      propertyPath: m_text
+      value: 'Ingredients:
+
+        - 2 Bread
+
+        - Peanut butter
+
+        -
+        Jam
+
+        Steps:
+
+        - Slather peanut butter and jelly onto bread
+
+        -
+        Put bread together'
+      objectReference: {fileID: 0}
     - target: {fileID: 7475235846561200547, guid: 6033610b59755ff45a55d8eab7477848, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.563
@@ -3867,6 +3890,10 @@ PrefabInstance:
       propertyPath: displayText
       value: 
       objectReference: {fileID: 1090396958}
+    - target: {fileID: 2268975966801464197, guid: d410679e0d42aa0419271c9df060a00e, type: 3}
+      propertyPath: clipBoardTextGO
+      value: 
+      objectReference: {fileID: 1977687765}
     - target: {fileID: 2268975966801464197, guid: d410679e0d42aa0419271c9df060a00e, type: 3}
       propertyPath: tutorialManager
       value: 

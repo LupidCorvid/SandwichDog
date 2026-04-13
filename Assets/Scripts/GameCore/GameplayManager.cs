@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class GameplayManager : MonoBehaviour
         displayText.text = "0%";
         scoreMax = levelRecipe[currentLevel - 1].requirements.Length;
 
+        DontDestroyOnLoad(this);
         
 
 
@@ -79,7 +81,7 @@ public class GameplayManager : MonoBehaviour
 
     void Update()
     {
-
+        //print(currentLevel);
     }
 
     public void CalculateScore()
@@ -183,7 +185,7 @@ public class GameplayManager : MonoBehaviour
     {
         if (clipBoardTextGO != null)
         {
-            clipboardText.GetComponent<Text>().text = clipboardText.assignedRecipes[currentLevel - 1].combinedText;
+            clipboardText.GetComponent<TMPro.TextMeshProUGUI>().text = clipboardText.assignedRecipes[currentLevel - 1].combinedText;
         }
     }
 }

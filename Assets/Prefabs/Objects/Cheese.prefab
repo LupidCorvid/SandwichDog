@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 2059974495956493966}
   - component: {fileID: 6369125601780104600}
   - component: {fileID: 8085360884657659388}
+  - component: {fileID: 5904644210900341687}
   m_Layer: 0
   m_Name: Cheese
-  m_TagString: Untagged
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -309,6 +310,31 @@ MonoBehaviour:
   m_MinimumScaleRatio: 0.25
   m_MaximumScaleRatio: 2
   m_ScaleMultiplier: 0.25
+--- !u!114 &5904644210900341687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281516860660975838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 916437776017b404894ef3af2a3ea0ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
+  overrideGlobalSettings: 1
+  canGetDirty: 1
+  canGetClean: 0
+  amountToDirtyPerSecond: 0
+  amountToCleanPerSecond: 0
+  dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
+  possibleSpreads: {fileID: 0}
+  isCookable: 1
+  timeToCook: 0
+  timeToBurn: 0
+  cookAmount: 0
+  cookedColor: {r: 0.97735846, g: 0.45150864, b: 0.08667136, a: 0}
 --- !u!1 &4004485255313817416
 GameObject:
   m_ObjectHideFlags: 0

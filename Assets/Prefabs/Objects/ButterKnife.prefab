@@ -563,7 +563,7 @@ MonoBehaviour:
   amountToDirtyPerSecond: 0
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
-  possibleSpreads: {fileID: 0}
+  possibleSpreads: {fileID: 11400000, guid: 0d28a4f92dbb8a34ea04ffc9b9d3a21f, type: 2}
 --- !u!33 &4166646431315654009
 MeshFilter:
   m_ObjectHideFlags: 0
