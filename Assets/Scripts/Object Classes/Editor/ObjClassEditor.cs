@@ -6,17 +6,25 @@ using UnityEngine;
 [CustomEditor(typeof(ObjClass))]
 public class ObjClassEditor : Editor
 {
+    SerializedProperty objSettingsProperty;
     SerializedProperty overrideProperty;
+
+    SerializedProperty canHaveSpreadsProperty;
+    SerializedProperty possibleSpreadsProperty;
+    
     SerializedProperty canGetDirtyProperty;
     SerializedProperty dirtMaterialProperty;
     SerializedProperty amountToDirtyProperty;
     SerializedProperty canGetCleanProperty;
     SerializedProperty amountToCleanProperty;
-    SerializedProperty objSettingsProperty;
+    
 
     protected virtual void OnEnable()
     {
         AssignEditorSettings();
+
+        canHaveSpreadsProperty = serializedObject.FindProperty("canHaveSpreads");
+        possibleSpreadsProperty = serializedObject.FindProperty("possibleSpreads");
 
         objSettingsProperty = serializedObject.FindProperty("objSettings");
         overrideProperty = serializedObject.FindProperty("overrideGlobalSettings");
@@ -50,6 +58,12 @@ public class ObjClassEditor : Editor
 
     protected virtual void DrawProperties()
     {
+        EditorGUILayout.PropertyField(canHaveSpreadsProperty);
+        if (canHaveSpreadsProperty.boolValue)
+        {
+            EditorGUILayout.PropertyField(possibleSpreadsProperty);
+        }
+
         EditorGUILayout.PropertyField(canGetDirtyProperty);
         if (canGetDirtyProperty.boolValue)
         {

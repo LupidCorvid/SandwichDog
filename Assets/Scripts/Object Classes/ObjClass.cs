@@ -67,9 +67,9 @@ public class ObjClass : MonoBehaviour
     // === DIRTINESS + CLEANLINESS === ///
     [HideInInspector] public float objCleanliness { get; private set; }
     [SerializeField] protected bool canGetDirty;
-    public bool CanGetDirty { get { return canGetDirty; } }
+    public bool CanGetDirty => canGetDirty;
     [SerializeField] protected bool canGetClean;
-    public bool CanGetClean { get { return canGetClean; } }
+    public bool CanGetClean => canGetClean;
 
     [SerializeField] protected float amountToDirtyPerSecond;
     [SerializeField] protected float amountToCleanPerSecond;
@@ -88,8 +88,11 @@ public class ObjClass : MonoBehaviour
     private int dirtMatIndex;
 
     // === SPREADS === //
+    [SerializeField] protected bool canHaveSpreads;
     public Spread currentSpread { get; protected set; }
     [SerializeField] protected ObjSpreads_SO possibleSpreads;
+
+    public bool CanHaveSpreads => canHaveSpreads;
     public bool HasSpread => (currentSpread != Spread.NOSPREAD);
 
     protected void Awake()
