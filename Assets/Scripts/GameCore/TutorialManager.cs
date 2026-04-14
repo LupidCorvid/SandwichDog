@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 
-public class TutorialManager : MonoBehaviour
+public class TutorialManager : Singleton<TutorialManager>
 {
     bool tutorialActive = false;
-    int tutorialLevel = 0; //Different instructions for different levels
 
     int maxSize = 0;
     public int cursor = -1; //Where you currently are in the tutorial
@@ -50,7 +49,6 @@ public class TutorialManager : MonoBehaviour
     public void startTutorial(int level)
     {
         tutorialActive = true;
-        tutorialLevel = level;
         advanceTutorial();
     }
 

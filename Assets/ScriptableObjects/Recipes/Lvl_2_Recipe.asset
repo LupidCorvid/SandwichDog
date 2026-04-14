@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Lvl_2_Recipe
   m_EditorClassIdentifier: 
   requirements:
-  - item: {fileID: 6191959607592274193, guid: f0be77243169b864484e492ac6b21480, type: 3}
+  - item: {fileID: 5904644210900341687, guid: 53a18e9d008885c4badc4977b7d4babd, type: 3}
     spread: 0
     quantity: 1
-  - item: {fileID: 9063749816396167146, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+  - item: {fileID: 1055270508630881268, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
     spread: 0
     quantity: 1
-  - item: {fileID: 9063749816396167146, guid: 45e0a872e20c2af4f99f577235ef5625, type: 3}
+  - item: {fileID: 1055270508630881268, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
+    spread: 0
+    quantity: 1
+  - item: {fileID: 6191959607592274193, guid: 8c8309018b65fc24dbd72a2f8f19ffd8, type: 3}
     spread: 0
     quantity: 1
