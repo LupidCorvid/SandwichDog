@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 
-public class TutorialManager : MonoBehaviour
+public class TutorialManager : Singleton<TutorialManager>
 {
     bool tutorialActive = false;
-    int tutorialLevel = 0; //Different instructions for different levels
 
     int maxSize = 0;
     public int cursor = -1; //Where you currently are in the tutorial
     GameObject lastArrow = null;
 
-    List<string> itemsThatTriggeredTutorial = new List<string>();
+    //private List<string> itemsThatTriggeredTutorial = new List<string>();
+    private List<ObjClass> tutorialItems = new List<ObjClass>();
 
     public TutorialAssignment levelTutorialObjects;
 
@@ -30,7 +30,6 @@ public class TutorialManager : MonoBehaviour
     {
         tutorialActive = false;
         maxSize = levelTutorialObjects.assignedTutorialObjs.Length; //7
-        startTutorial(1);
     }
 
     float timer = 0f;
@@ -47,11 +46,18 @@ public class TutorialManager : MonoBehaviour
         //}
     }
 
-    public void startTutorial(int level)
+    public void AddTutorialItem(ObjClass itemToAdd)
     {
-        tutorialActive = true;
-        tutorialLevel = level;
-        advanceTutorial();
+        tutorialItems.Add(itemToAdd);
+    }
+
+    public void startTutorial(GameLevel_SO currentLevel)
+    {
+        if (currentLevel.isTutorial)
+        {
+            tutorialActive = true;
+            advanceTutorial();
+        }
     }
 
     //TODO test on book
