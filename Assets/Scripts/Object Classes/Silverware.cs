@@ -24,6 +24,10 @@ public class Silverware : ObjClass
             {
                 otherObject.AddSpread(this.currentSpread);
             }
+            if (foodObj.IsSliceable && this.isSlicer)
+            {
+                foodObj.Slice();
+            }
         }
     }
 }

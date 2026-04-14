@@ -343,13 +343,15 @@ MonoBehaviour:
   canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
   isCookable: 0
+  isCooked: 0
+  isBurnt: 0
   timeToCook: 0
   timeToBurn: 0
   cookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
-  isSliceable: 0
-  numCutsToSlice: 0
-  slicedResultObject: {fileID: 0}
+  isSliceable: 1
+  numCutsNeeded: 4
+  slicedResultObject: {fileID: 1972924822521645177, guid: 40eb02bc45af55c4ca05749aa7a342ef, type: 3}
 --- !u!1 &3954772903545574256
 GameObject:
   m_ObjectHideFlags: 0

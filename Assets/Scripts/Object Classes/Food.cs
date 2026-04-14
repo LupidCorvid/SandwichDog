@@ -27,7 +27,7 @@ public class Food : ObjClass
 
     // === SLICEABILITY === //
     [SerializeField] protected bool isSliceable;
-    [SerializeField] protected int numCutsToSlice;
+    [SerializeField] protected int numCutsNeeded;
     protected int numCutsMade;
     [SerializeField] GameObject slicedResultObject;
 
@@ -87,13 +87,16 @@ public class Food : ObjClass
 
     public void Slice()
     {
-        numCutsToSlice += 1;
+        numCutsMade += 1;
 
-        if (numCutsMade >= numCutsToSlice)
+        if (numCutsMade >= numCutsNeeded)
         {
             Transform thisObjPos = this.transform;
 
-            Destroy(this);
+            // hide the obj being cut before destroying it
+            objRenderer.enabled = false;
+            // TODO - add collision disabling here? might require a rework of prefabs to have a mandated separate collision GO to reference + disable bc there many be many colliders on one obj
+            // might be needed bc otherwise some collision logic might be computed + affect things in the next frame
 
             if (!thisObjPos)
             {
@@ -101,6 +104,7 @@ public class Food : ObjClass
                 return;
             }
             Instantiate(slicedResultObject, thisObjPos);
+            Destroy(this.gameObject);
         }
     }
 }

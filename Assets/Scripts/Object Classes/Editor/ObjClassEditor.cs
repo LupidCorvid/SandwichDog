@@ -110,6 +110,7 @@ public class ObjClassEditor : Editor
         SerializedProperty cookedColorProperty;
 
         SerializedProperty isSliceableProperty;
+        SerializedProperty numCutsNeededProperty;
         SerializedProperty slicedResultObjectProperty;
 
         protected override void OnEnable()
@@ -121,6 +122,7 @@ public class ObjClassEditor : Editor
             cookedColorProperty = serializedObject.FindProperty("cookedColor");
 
             isSliceableProperty = serializedObject.FindProperty("isSliceable");
+            numCutsNeededProperty = serializedObject.FindProperty("numCutsNeeded");
             slicedResultObjectProperty = serializedObject.FindProperty("slicedResultObject");
         }
 
@@ -139,6 +141,7 @@ public class ObjClassEditor : Editor
             EditorGUILayout.PropertyField(isSliceableProperty);
             if (isSliceableProperty.boolValue)
             {
+                EditorGUILayout.PropertyField(numCutsNeededProperty);
                 EditorGUILayout.PropertyField(slicedResultObjectProperty);
             }
         }
