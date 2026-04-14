@@ -17,7 +17,7 @@ public class CookwareCollider : ContainerCollider<Food>
 
     private bool ShouldStopCooking(Food food)
     {
-        return food.CookAmount > (food.TimeToCook + food.TimeToBurn);
+        return food.IsBurnt;
     }
 
     protected override bool CanAddItem(Food food)
