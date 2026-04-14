@@ -3,21 +3,32 @@ using UnityEngine;
 
 public class Food : ObjClass
 {
+    // === COOKABILITY === //
     [SerializeField] protected bool isCookable;
     [SerializeField] protected float timeToCook;
     [SerializeField] protected float timeToBurn;
     [SerializeField] protected float cookAmount;
 
+    // public getter properties
     public bool IsCookable => isCookable;
     public float TimeToCook => timeToCook;
     public float TimeToBurn => timeToBurn;
     public float CookAmount => cookAmount;
+    // quick reference equations
     public bool CanBeFurtherCooked => (cookAmount < (timeToCook + timeToBurn));
     public bool IsBurnt => (cookAmount > (timeToBurn + timeToBurn));
     public bool IsCooked => (cookAmount >= timeToCook && cookAmount <= (timeToCook + timeToBurn));
 
     [SerializeField] Color cookedColor;
     private Color burntColor = Color.black;
+
+    // === SLICEABILITY === //
+    [SerializeField] protected bool isSliceable;
+    [SerializeField] protected int numCutsToSlice;
+    protected int numCutsMade;
+    [SerializeField] GameObject slicedResultObject;
+
+    public bool IsSliceable => isSliceable;
 
     public Food(string inObjName = "", bool canCook = false) : base(ObjType.PICKUP, inObjName)
     {
@@ -29,6 +40,7 @@ public class Food : ObjClass
     protected new void Awake()
     {
         base.Awake();
+        numCutsMade = 0;
 
         if (isCookable)
         {
@@ -63,4 +75,22 @@ public class Food : ObjClass
         }
     }
 
+    public void Slice()
+    {
+        numCutsToSlice += 1;
+
+        if (numCutsMade >= numCutsToSlice)
+        {
+            Transform thisObjPos = this.transform;
+
+            Destroy(this);
+
+            if (!thisObjPos)
+            {
+                Debug.LogError(this.name + " is missing a GameObject to replace it when sliced");
+                return;
+            }
+            Instantiate(slicedResultObject, thisObjPos);
+        }
+    }
 }

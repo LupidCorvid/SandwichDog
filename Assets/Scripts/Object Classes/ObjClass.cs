@@ -64,6 +64,7 @@ public class ObjClass : MonoBehaviour
     [SerializeField] public GlobalObjSettings_SO objSettings;
     [SerializeField] private bool overrideGlobalSettings;
 
+    // === DIRTINESS + CLEANLINESS === ///
     [HideInInspector] public float objCleanliness { get; private set; }
     [SerializeField] protected bool canGetDirty;
     public bool CanGetDirty { get { return canGetDirty; } }
@@ -82,13 +83,14 @@ public class ObjClass : MonoBehaviour
 
     // === VISUALS === //
     public Renderer objRenderer { get; private set; }
-
-    public Spread currentSpread { get; protected set; }
     protected Color cleanColor;
     [SerializeField] protected Material dirtMaterial;
-    [SerializeField] protected ObjSpreads_SO possibleSpreads;
     private int dirtMatIndex;
 
+    // === SPREADS === //
+    public Spread currentSpread { get; protected set; }
+    [SerializeField] protected ObjSpreads_SO possibleSpreads;
+    public bool HasSpread => (currentSpread != Spread.NOSPREAD);
 
     protected void Awake()
     {
@@ -252,7 +254,7 @@ public class ObjClass : MonoBehaviour
         {
             RemoveSpreads();
             objRenderer.AddMaterial(spreadMaterial);
-            Debug.Log(spreadMaterial);
+            //Debug.Log(spreadMaterial);
             return true;
         }
         return false;
