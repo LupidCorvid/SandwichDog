@@ -93,18 +93,12 @@ public class Food : ObjClass
         {
             Transform thisObjPos = this.transform;
 
-            // hide the obj being cut before destroying it
-            objRenderer.enabled = false;
-            // TODO - add collision disabling here? might require a rework of prefabs to have a mandated separate collision GO to reference + disable bc there many be many colliders on one obj
-            // might be needed bc otherwise some collision logic might be computed + affect things in the next frame
-
             if (!thisObjPos)
             {
                 Debug.LogError(this.name + " is missing a GameObject to replace it when sliced");
                 return;
             }
-            Instantiate(slicedResultObject, thisObjPos);
-            Destroy(this.gameObject);
+            GameplayManager.Instance.SwapOutObj(this.gameObject, slicedResultObject);
         }
     }
 }

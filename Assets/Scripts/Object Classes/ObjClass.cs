@@ -113,13 +113,14 @@ public class ObjClass : MonoBehaviour
 
     protected void Start()
     {
-        if (GameplayManager.Instance.currentLevel.isTutorial)
-        {
-            if (this.triggersTutorial)
-            {
-                TutorialManager.Instance.AddTutorialItem(this);
-            }
-        }
+        // TODO - reenable this when tutorial system is refactored
+        //if (TutorialManager.Instance.tutorialActive)
+        //{
+        //    if (this.triggersTutorial)
+        //    {
+        //        TutorialManager.Instance.AddTutorialItem(this);
+        //    }
+        //}
     }
 
     //Object manager or subclass should pass in the object type
