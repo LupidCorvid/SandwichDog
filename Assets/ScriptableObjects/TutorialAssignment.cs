@@ -7,15 +7,19 @@ public struct TutorialObj
     public Vector3 UIPositionToSpawn;
     public GameObject arrow;
     public GameObject instructionUI;
+    public Sprite controllerImg1;
+    public Sprite controllerImg2;
     public string UIText;
 
-    public TutorialObj(Transform arrow_inTransform, GameObject arrow_inGameObject, Transform UI_inTransform, GameObject UI_inGameObject, string inText)
+    public TutorialObj(Transform arrow_inTransform, GameObject arrow_inGameObject, Transform UI_inTransform, GameObject UI_inGameObject, Sprite in_img1, Sprite in_img2, string inText)
     {
         arrowPositionToSpawn = arrow_inTransform.position;
         arrow = arrow_inGameObject;
         UIPositionToSpawn = UI_inTransform.position;
         instructionUI = UI_inGameObject;
         UIText = inText;
+        controllerImg1 = in_img1;
+        controllerImg2 = in_img2;
         //Debug.Log("new transform data: " + positionToSpawn + rotationToSpawn + scaleToSpawn);
     }
 }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f64def06ec069374da38e7b42c8d112d, type: 3}
+  m_Name: AllSpreads
+  m_EditorClassIdentifier: 
+  spreads:
+  - spread: 1
+    spreadMaterial: {fileID: 2100000, guid: cc313785b232cc24a899eda354df8696, type: 2}
+  - spread: 2
+    spreadMaterial: {fileID: 2100000, guid: e5c59bef7c3eae84b877c96a0d5598cd, type: 2}

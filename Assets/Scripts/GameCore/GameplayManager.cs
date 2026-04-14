@@ -5,13 +5,16 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameplayManager : MonoBehaviour
 {
-    public const int maxLevels = 1; //How many levels the game has
-    public int currentLevel = 1; //The current level the player is playing
+    public const int maxLevels = 2; //How many levels the game has
+    public static int currentLevel = 1; //The current level the player is playing //TODO: find a better way to do this
 
-    public Recipe_SO levelRecipe;
+    public Recipe_SO [] levelRecipe;
+    public RecipeText clipboardText;
 
     //The objects the player brought to the end game area, added via end area OnTriggerEnter
     public List<ItemRequirement> objectsToScore = new List<ItemRequirement>();
@@ -26,13 +29,15 @@ public class GameplayManager : MonoBehaviour
 
     public static event Action onScoreCalculate;
     [SerializeField] TutorialManager tutorialManager;
+    public GameObject clipBoardTextGO;
 
     private void Awake()
     {
         gameOver = false;
-        displayText.text = "Stand here";
-        scoreMax = levelRecipe.requirements.Length;
+        displayText.text = "0%";
+        scoreMax = levelRecipe[currentLevel - 1].requirements.Length;
 
+        DontDestroyOnLoad(this);
         
 
 
@@ -65,7 +70,8 @@ public class GameplayManager : MonoBehaviour
 
     void Start()
     {
-        /*if (currentLevel == 1) */tutorialManager.startTutorial(currentLevel);
+        if (currentLevel == 1) tutorialManager.startTutorial(currentLevel);
+        PrepareLevel();
     }
 
     private void OnEnable()
@@ -75,12 +81,12 @@ public class GameplayManager : MonoBehaviour
 
     void Update()
     {
-
+        //print(currentLevel);
     }
 
     public void CalculateScore()
     {
-        List<ItemRequirement> itemRequirements = levelRecipe.requirements.ToList();
+        List<ItemRequirement> itemRequirements = levelRecipe[currentLevel - 1].requirements.ToList();
 
         float scoreCount = 0;
         foreach (ItemRequirement objectToScore in objectsToScore)
@@ -94,43 +100,17 @@ public class GameplayManager : MonoBehaviour
 
         //Update score text
         Debug.Log("Score:" + score);
-        scoreText.text = score.ToString("F2").Truncate(5) + "%";
-
-        //First check which level the game is on
-        //If level 1...
-        //Check that the object is named "bread"
-        //Check that one object has peanutbutter and one has jelly from Food (I.e. Food.Spread.JELLY)
-
-        //if (currentLevel == 1)
-        //{
-        //    if (objectsToScore[objectsToScore.Length].name == "Bread")
-        //    {
-        //        if (objectsToScore[0].GetComponent<Food>().currentSpread == Food.Spread.PEANUTBUTTER && objectsToScore[0].GetComponent<Food>().currentSpread == Food.Spread.JELLY)
-        //        {
-        //            Debug.Log("You win!");
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("You lose! You need peanut butter and jelly on your bread.");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("You lose! You need to bring bread to the end game area.");
-        //    }
-        //}
+        displayText.text = score.ToString("F2").Truncate(5) + "%";
     }
 
     //When the player enters, wait for 5 seconds and then score
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        //DEBUG checks if the plate entered the scoring layer
+        //Change it to let the player click a UI element to start the scoring
+        if (other.gameObject.layer == 10) //if (other.gameObject.CompareTag("Player")) //if (other.gameObject.layer == 10)
         {
             timer -= Time.deltaTime;
-            if(timer > 4) displayText.text = "Hold still";
-            else if(timer > 3) displayText.text = "Hold still.";
-            else if (timer > 2) displayText.text = "Hold still..";
-            else if (timer > 1) displayText.text = "Hold still...";
 
             if (timer <= 0)
             {
@@ -147,7 +127,7 @@ public class GameplayManager : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && timer > 0)
         {
             timer = 5;
-            displayText.text = "Stand here";
+            displayText.text = "0%";
         }
     }
 
@@ -173,6 +153,39 @@ public class GameplayManager : MonoBehaviour
                 objectsToScore.Add(new ItemRequirement(obj, 1));
                 Debug.Log("new requirement added, total # of objs now " + objectsToScore.Count);
             }
+        }
+    }
+
+    //Call on scene end, when player clicks next level button
+    public void IncrementLevel()
+    {
+        currentLevel++;
+        if (currentLevel > maxLevels)
+        {
+            currentLevel = 1;
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            SceneManager.LoadScene("GameRoom");
+        }
+    } 
+
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene("GameRoom");
+    }
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    //Call on scene start
+    public void PrepareLevel()
+    {
+        if (clipBoardTextGO != null)
+        {
+            clipboardText.GetComponent<TMPro.TextMeshProUGUI>().text = clipboardText.assignedRecipes[currentLevel - 1].combinedText;
         }
     }
 }
