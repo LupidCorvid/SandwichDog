@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f64def06ec069374da38e7b42c8d112d, type: 3}
-  m_Name: PB_spreads
+  m_Name: AllSpreads
   m_EditorClassIdentifier: 
   spreads:
   - spread: 1
     spreadMaterial: {fileID: 2100000, guid: cc313785b232cc24a899eda354df8696, type: 2}
+  - spread: 2
+    spreadMaterial: {fileID: 2100000, guid: e5c59bef7c3eae84b877c96a0d5598cd, type: 2}
