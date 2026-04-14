@@ -4337,6 +4337,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1428024330197077354, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1544388102491849240, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.91
@@ -4377,6 +4381,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2503120047421574433, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4630875933603814795, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
       propertyPath: dog
       value: 
@@ -4384,6 +4392,10 @@ PrefabInstance:
     - target: {fileID: 7316701157122579918, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7685194031832040303, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
