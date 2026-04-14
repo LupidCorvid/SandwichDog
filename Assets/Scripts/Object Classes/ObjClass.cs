@@ -64,6 +64,9 @@ public class ObjClass : MonoBehaviour
     [SerializeField] public GlobalObjSettings_SO objSettings;
     [SerializeField] private bool overrideGlobalSettings;
 
+    [SerializeField] public bool triggersTutorial {  get; private set; }
+
+    // === CLEANLINESS === //
     [HideInInspector] public float objCleanliness { get; private set; }
     [SerializeField] protected bool canGetDirty;
     public bool CanGetDirty { get { return canGetDirty; } }
@@ -101,6 +104,17 @@ public class ObjClass : MonoBehaviour
         if (!overrideGlobalSettings)
         {
             InitializeSettings();
+        }
+    }
+
+    protected void Start()
+    {
+        if (GameplayManager.Instance.currentLevel.isTutorial)
+        {
+            if (this.triggersTutorial)
+            {
+                TutorialManager.Instance.AddTutorialItem(this);
+            }
         }
     }
 
