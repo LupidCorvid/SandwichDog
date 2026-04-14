@@ -663,14 +663,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b91d42e4d375bc64287fd3d1dfd99d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inHand: 0
-  inMouth: 0
-  m_type: 0
-  m_name: 
-  startingPosition: {x: 0, y: 0, z: 0}
-  currentSpread: 0
-  mesh: {fileID: 3068017310363232332}
-  matSpreads:
-  - {fileID: 2100000, guid: d686185341da9ad4a9bb0af9e4f663ed, type: 2}
-  - {fileID: 2100000, guid: cc313785b232cc24a899eda354df8696, type: 2}
-  - {fileID: 2100000, guid: e5c59bef7c3eae84b877c96a0d5598cd, type: 2}
+  objSettings: {fileID: 11400000, guid: 02c80d4cc723aba48932a2b13c90fc1a, type: 2}
+  overrideGlobalSettings: 1
+  canGetDirty: 1
+  canGetClean: 1
+  amountToDirtyPerSecond: 0.25
+  amountToCleanPerSecond: 1
+  dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
+  canHaveSpreads: 1
+  possibleSpreads: {fileID: 11400000, guid: 448a7dbec5155044db99cbb34dae058a, type: 2}
+  isSlicer: 0

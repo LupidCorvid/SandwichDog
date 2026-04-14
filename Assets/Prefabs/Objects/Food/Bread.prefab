@@ -598,16 +598,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 916437776017b404894ef3af2a3ea0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
+  objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
   canGetDirty: 1
   canGetClean: 0
   amountToDirtyPerSecond: 0.1
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
+  canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
   isCookable: 1
+  isCooked: 0
+  isBurnt: 0
   timeToCook: 10
   timeToBurn: 10
   cookAmount: 0
   cookedColor: {r: 0.6509434, g: 0.30031347, b: 0, a: 0}
+  isSliceable: 0
+  numCutsToSlice: 0
+  slicedResultObject: {fileID: 0}

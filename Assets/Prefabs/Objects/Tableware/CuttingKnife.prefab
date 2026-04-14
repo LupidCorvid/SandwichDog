@@ -431,13 +431,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b91d42e4d375bc64287fd3d1dfd99d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
+  objSettings: {fileID: 11400000, guid: 02c80d4cc723aba48932a2b13c90fc1a, type: 2}
   overrideGlobalSettings: 1
   canGetDirty: 0
   canGetClean: 0
   amountToDirtyPerSecond: 0
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
+  canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
   isSlicer: 1
 --- !u!114 &3400770651257431137

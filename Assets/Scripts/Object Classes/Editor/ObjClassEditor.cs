@@ -1,4 +1,5 @@
 using Mono.Cecil.Cil;
+using Unity.Plastic.Newtonsoft.Json.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -11,13 +12,13 @@ public class ObjClassEditor : Editor
 
     SerializedProperty canHaveSpreadsProperty;
     SerializedProperty possibleSpreadsProperty;
-    
+
     SerializedProperty canGetDirtyProperty;
     SerializedProperty dirtMaterialProperty;
     SerializedProperty amountToDirtyProperty;
     SerializedProperty canGetCleanProperty;
     SerializedProperty amountToCleanProperty;
-    
+
 
     protected virtual void OnEnable()
     {
@@ -44,13 +45,13 @@ public class ObjClassEditor : Editor
         EditorGUILayout.PropertyField(objSettingsProperty);
         EditorGUILayout.PropertyField(overrideProperty);
 
-        if (overrideProperty.boolValue)
+        if (!targetObj.objSettings || !overrideProperty.boolValue)
         {
-            DrawProperties();
+            targetObj.InitializeSettings();
         }
         else
         {
-            targetObj.InitializeSettings();
+            DrawProperties();
         }
 
         serializedObject.ApplyModifiedProperties();
@@ -84,71 +85,81 @@ public class ObjClassEditor : Editor
 
         if (!targetObj.objSettings)
         {
-            GlobalObjSettings_SO loadSettings = Resources.Load<GlobalObjSettings_SO>(GlobalObjSettings_SO.GetPath());
+            string loadPath = GlobalObjSettings_SO.DefaultObjPath;
 
+            if (targetObj as Food)
+            {
+                loadPath = GlobalObjSettings_SO.FoodObjPath;
+            }
+            else if (targetObj as Silverware)
+            {
+                loadPath = GlobalObjSettings_SO.SilverwareObjPath;
+            }
+
+            GlobalObjSettings_SO loadSettings = Resources.Load<GlobalObjSettings_SO>(loadPath);
             targetObj.objSettings = loadSettings;
         }
     }
-}
 
-[CustomEditor(typeof(Food))]
-public class FoodClassEditor : ObjClassEditor
-{
-    SerializedProperty isCookableProperty;
-    SerializedProperty timeToCookProperty;
-    SerializedProperty timeToBurnProperty;
-    SerializedProperty cookedColorProperty;
-    
-    SerializedProperty isSliceableProperty;
-    SerializedProperty slicedResultObjectProperty;
-
-    protected override void OnEnable()
+    [CustomEditor(typeof(Food))]
+    public class FoodClassEditor : ObjClassEditor
     {
-        base.OnEnable();
-        isCookableProperty = serializedObject.FindProperty("isCookable");
-        timeToCookProperty = serializedObject.FindProperty("timeToCook");
-        timeToBurnProperty = serializedObject.FindProperty("timeToBurn");
-        cookedColorProperty = serializedObject.FindProperty("cookedColor");
+        SerializedProperty isCookableProperty;
+        SerializedProperty timeToCookProperty;
+        SerializedProperty timeToBurnProperty;
+        SerializedProperty cookedColorProperty;
 
-        isSliceableProperty = serializedObject.FindProperty("isSliceable");
-        slicedResultObjectProperty = serializedObject.FindProperty("slicedResultObject");
-    }
+        SerializedProperty isSliceableProperty;
+        SerializedProperty slicedResultObjectProperty;
 
-    protected override void DrawProperties()
-    {
-        base.DrawProperties();
-
-        EditorGUILayout.PropertyField(isCookableProperty);
-        if (isCookableProperty.boolValue)
+        protected override void OnEnable()
         {
-            EditorGUILayout.PropertyField(timeToCookProperty);
-            EditorGUILayout.PropertyField(timeToBurnProperty);
-            EditorGUILayout.PropertyField(cookedColorProperty);
+            base.OnEnable();
+            isCookableProperty = serializedObject.FindProperty("isCookable");
+            timeToCookProperty = serializedObject.FindProperty("timeToCook");
+            timeToBurnProperty = serializedObject.FindProperty("timeToBurn");
+            cookedColorProperty = serializedObject.FindProperty("cookedColor");
+
+            isSliceableProperty = serializedObject.FindProperty("isSliceable");
+            slicedResultObjectProperty = serializedObject.FindProperty("slicedResultObject");
         }
 
-        EditorGUILayout.PropertyField(isSliceableProperty);
-        if (isSliceableProperty.boolValue)
+        protected override void DrawProperties()
         {
-            EditorGUILayout.PropertyField(slicedResultObjectProperty);
+            base.DrawProperties();
+
+            EditorGUILayout.PropertyField(isCookableProperty);
+            if (isCookableProperty.boolValue)
+            {
+                EditorGUILayout.PropertyField(timeToCookProperty);
+                EditorGUILayout.PropertyField(timeToBurnProperty);
+                EditorGUILayout.PropertyField(cookedColorProperty);
+            }
+
+            EditorGUILayout.PropertyField(isSliceableProperty);
+            if (isSliceableProperty.boolValue)
+            {
+                EditorGUILayout.PropertyField(slicedResultObjectProperty);
+            }
         }
     }
-}
 
-[CustomEditor(typeof(Silverware))]
-public class SilverwareClassEditor : ObjClassEditor
-{
-    SerializedProperty isSlicerProperty;
-
-    protected override void OnEnable()
+    [CustomEditor(typeof(Silverware))]
+    public class SilverwareClassEditor : ObjClassEditor
     {
-        base.OnEnable();
-        isSlicerProperty = serializedObject.FindProperty("isSlicer");
-    }
+        SerializedProperty isSlicerProperty;
 
-    protected override void DrawProperties()
-    {
-        base.DrawProperties();
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            isSlicerProperty = serializedObject.FindProperty("isSlicer");
+        }
 
-        EditorGUILayout.PropertyField(isSlicerProperty);
+        protected override void DrawProperties()
+        {
+            base.DrawProperties();
+
+            EditorGUILayout.PropertyField(isSlicerProperty);
+        }
     }
 }

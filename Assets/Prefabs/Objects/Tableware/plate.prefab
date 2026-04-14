@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 1632444449174459267}
   - component: {fileID: 6191959607592274193}
   m_Layer: 0
-  m_Name: Plate
+  m_Name: plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -631,7 +631,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94472c31801a7c541a15cb7f0fec23fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inHand: 0
-  inMouth: 0
-  m_type: 1
-  m_name: 
+  objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
+  overrideGlobalSettings: 0
+  canGetDirty: 0
+  canGetClean: 0
+  amountToDirtyPerSecond: 0
+  amountToCleanPerSecond: 0
+  dirtMaterial: {fileID: 0}
+  canHaveSpreads: 0
+  possibleSpreads: {fileID: 0}

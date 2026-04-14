@@ -130,11 +130,14 @@ public class ObjClass : MonoBehaviour
         return false;
     }
 
-    public void InitializeSettings()
+    public virtual void InitializeSettings()
     {
+        canGetClean = objSettings.canGetDirty;
         dirtMaterial = objSettings.dirtMaterial;
-        amountToCleanPerSecond = objSettings.amountToCleanPerSecond; 
         amountToDirtyPerSecond = objSettings.amountToDirtyPerSecond;
+
+        canGetClean = objSettings.canGetClean;
+        amountToCleanPerSecond = objSettings.amountToCleanPerSecond; 
     }
 
     ///=============================================================================
