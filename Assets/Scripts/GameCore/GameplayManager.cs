@@ -10,14 +10,20 @@ using TMPro;
 
 public class GameplayManager : Singleton<GameplayManager>
 {
-    public GameLevel_SO currentLevel;
+    public const int maxLevels = 2; //How many levels the game has
+    public static int currentLevel = 1; //The current level the player is playing //TODO: find a better way to do this
 
-    public static event Action<ObjClass> OnRecipeProgressUpdated;
-    public static event Action OnTest;
+    public Recipe_SO [] levelRecipe;
+    public bool gameOver;
+
+    private void Awake()
+    {
+        gameOver = false;
+    }
 
     void Start()
     {
-        if (currentLevel.isTutorial) TutorialManager.Instance.startTutorial(currentLevel);
+        if (currentLevel == 1) TutorialManager.Instance.startTutorial(currentLevel);
         PrepareLevel();
     }
 
@@ -29,14 +35,15 @@ public class GameplayManager : Singleton<GameplayManager>
     //Call on scene end, when player clicks next level button
     public void IncrementLevel()
     {
-        if (currentLevel.nextLevel)
+        currentLevel++;
+        if (currentLevel > maxLevels)
         {
-            currentLevel = currentLevel.nextLevel;
-            ResetLevel();
+            currentLevel = 1;
+            SceneManager.LoadScene("MainMenu");
         }
         else
         {
-            GoToMainMenu();
+            SceneManager.LoadScene("GameRoom");
         }
     } 
 
@@ -52,9 +59,6 @@ public class GameplayManager : Singleton<GameplayManager>
     //Call on scene start
     public void PrepareLevel()
     {
-        if (clipBoardTextGO != null)
-        {
-            clipboardText.GetComponent<TMPro.TextMeshProUGUI>().text = clipboardText.assignedRecipes[currentLevel - 1].combinedText;
-        }
+        
     }
 }
