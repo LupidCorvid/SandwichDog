@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 //Note: this script is specialized for the Player prefab
 
 public class FollowController : MonoBehaviour
 {
     [SerializeField] public float forwardOffset; // = 0.2f;
+    public float cameraOffsetAmount;
     //public float rotationOffset = 180;
     private float fourLeg_ZOffset = 0.4f;   //Offset to add when player is not standing
     public GameObject targetPosition;           //What the player object should match position of
@@ -75,7 +77,7 @@ public class FollowController : MonoBehaviour
 
         //Apply rotation
         gameObject.transform.eulerAngles = newRot;
-        if (useRotationOffset) ApplyRotationOffset(target);
+        if (useRotationOffset) ApplyRotationOffset(target, forwardOffset);
     }
 
     //If the camera local rotation overshoots a certain Y value, turn the entire body so that the player cant see their own head
@@ -104,6 +106,7 @@ public class FollowController : MonoBehaviour
                 float difference = Math.Abs(cameraY - upperOffshoot);
                 in_vector.y -= difference;
             }
+            if (useRotationOffset) ApplyRotationOffset(cameraGO, cameraOffsetAmount);
             prevState = currState;
             currState = RelationToCam.OUT_BOUNDS;
         }
@@ -113,33 +116,12 @@ public class FollowController : MonoBehaviour
             prevState = currState;
             currState = RelationToCam.IN_BOUNDS;
         }
-
-
-
-            //If it's in the out of bounds rotational area
-            //if (cameraY > lowerOffshoot && cameraY < upperOffshoot)
-            //{
-            //    //Check which side of 180 degrees its on, since that informs how much to add/subtract
-            //    if(cameraY < 180)
-            //    {
-            //        //Add degrees
-            //        float difference = Math.Abs(cameraY - lowerOffshoot);
-            //        in_vector.y += difference;
-            //    }
-            //    else if (cameraY >= 180)
-            //    {
-            //        //Subtract degrees
-            //        float difference = Math.Abs(cameraY - upperOffshoot);
-            //        in_vector.y -= difference;
-            //    }
-            //}
-
-            return in_vector;
+        return in_vector;
     }
 
     //Applies an X and Z positional offset that happens due to rotation
     //Always want a forwardOffset distance away from center of target
-    public void ApplyRotationOffset(GameObject target)
+    public void ApplyRotationOffset(GameObject target, float offsetAmt)
     {
         double targetYRotation = target.transform.eulerAngles.y % 360;      //Bounds rotation to 360 in case it's been overshot
         double targetYRotation_radians = targetYRotation * (Math.PI / 180); //Convert angle to radians
