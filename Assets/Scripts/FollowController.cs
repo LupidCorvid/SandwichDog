@@ -23,6 +23,11 @@ public class FollowController : MonoBehaviour
     [SerializeField] public bool useRotationOffset;
 
     float currYOffset = 0f;
+    enum RelationToCam { IN_BOUNDS, OUT_BOUNDS };
+    enum RotDirection { CLOCKWISE, COUNTER_CLOCKWISE};
+    private RotDirection directionToRotate = RotDirection.CLOCKWISE;
+    private RelationToCam prevState = RelationToCam.IN_BOUNDS;
+    private RelationToCam currState = RelationToCam.IN_BOUNDS;
 
 
     // Update is called once per frame
@@ -78,25 +83,58 @@ public class FollowController : MonoBehaviour
     {
         float cameraY = cameraGO.transform.localEulerAngles.y;
 
-        //If it's in the out of bounds rotational area
+        //If camera rotation is currently out of bounds of the offshoots
         if (cameraY > lowerOffshoot && cameraY < upperOffshoot)
         {
-            //Check which side of 180 degrees its on, since that informs how much to add/subtract
-            if(cameraY < 180)
+            //If freshly OOB, determine which way to turn the model
+            if(prevState == RelationToCam.IN_BOUNDS)
             {
-                //Add degrees
+                if (cameraY < 180) directionToRotate = RotDirection.CLOCKWISE;
+                else directionToRotate = RotDirection.COUNTER_CLOCKWISE;
+            }
+
+            //Rotate the model
+            if(directionToRotate == RotDirection.CLOCKWISE)
+            {
                 float difference = Math.Abs(cameraY - lowerOffshoot);
                 in_vector.y += difference;
             }
-            else if (cameraY >= 180)
+            else
             {
-                //Subtract degrees
                 float difference = Math.Abs(cameraY - upperOffshoot);
                 in_vector.y -= difference;
             }
+            prevState = currState;
+            currState = RelationToCam.OUT_BOUNDS;
+        }
+        //If in bounds
+        else
+        {
+            prevState = currState;
+            currState = RelationToCam.IN_BOUNDS;
         }
 
-        return in_vector;
+
+
+            //If it's in the out of bounds rotational area
+            //if (cameraY > lowerOffshoot && cameraY < upperOffshoot)
+            //{
+            //    //Check which side of 180 degrees its on, since that informs how much to add/subtract
+            //    if(cameraY < 180)
+            //    {
+            //        //Add degrees
+            //        float difference = Math.Abs(cameraY - lowerOffshoot);
+            //        in_vector.y += difference;
+            //    }
+            //    else if (cameraY >= 180)
+            //    {
+            //        //Subtract degrees
+            //        float difference = Math.Abs(cameraY - upperOffshoot);
+            //        in_vector.y -= difference;
+            //    }
+            //}
+
+            return in_vector;
     }
 
     //Applies an X and Z positional offset that happens due to rotation
