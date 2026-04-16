@@ -1217,7 +1217,7 @@ MonoBehaviour:
   m_PushVelocityBias: 1.25
   m_MinAdditionalVelocityScalar: 0.05
   m_MaxAdditionalVelocityScalar: 1.5
-  m_UseManipulationInput: 1
+  m_UseManipulationInput: 0
   m_ManipulationInput:
     m_InputSourceMode: 2
     m_InputAction:
@@ -1260,7 +1260,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_PhysicsTriggerInteraction: 1
-  m_CastRadius: 0.1
+  m_CastRadius: 0.5
 --- !u!114 &1658861068048468573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1280,7 +1280,7 @@ MonoBehaviour:
   m_AimTargetObject: {fileID: 7857697370342397175}
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 2147483681
+    m_Bits: 2147483680
   m_RaycastTriggerInteraction: 1
   m_RaycastSnapVolumeInteraction: 1
   m_TargetNumCurveSegments: 1
@@ -1878,7 +1878,7 @@ MonoBehaviour:
   m_GravityApplicationMode: 0
   m_UseGravity: 1
   m_ControllerTransform: {fileID: 8559890721349320404}
-  m_EnableMoveWhileSelecting: 0
+  m_EnableMoveWhileSelecting: 1
   m_MoveFactor: 1
   m_GrabMoveInput:
     m_InputSourceMode: 2
@@ -3411,7 +3411,7 @@ MonoBehaviour:
   m_PushVelocityBias: 1.25
   m_MinAdditionalVelocityScalar: 0.05
   m_MaxAdditionalVelocityScalar: 1.5
-  m_UseManipulationInput: 1
+  m_UseManipulationInput: 0
   m_ManipulationInput:
     m_InputSourceMode: 2
     m_InputAction:
@@ -3454,7 +3454,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_PhysicsTriggerInteraction: 1
-  m_CastRadius: 0.1
+  m_CastRadius: 0.5
 --- !u!114 &4503692243648297224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3474,7 +3474,7 @@ MonoBehaviour:
   m_AimTargetObject: {fileID: 3496175801407789049}
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 2147483681
+    m_Bits: 2147483680
   m_RaycastTriggerInteraction: 1
   m_RaycastSnapVolumeInteraction: 1
   m_TargetNumCurveSegments: 1

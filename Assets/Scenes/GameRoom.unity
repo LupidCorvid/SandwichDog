@@ -4373,61 +4373,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1658861068048468573, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
-      propertyPath: m_RaycastMask.m_Bits
-      value: 2147483680
-      objectReference: {fileID: 0}
-    - target: {fileID: 2105287159258647063, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3157314120740811417, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
-      propertyPath: m_UseManipulationInput
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3188968434985743542, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
-      propertyPath: m_CastRadius
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3496175801407789049, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
-      propertyPath: m_FarAttachMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3496175801407789049, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
-      propertyPath: m_EnableFarCasting
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4081590453995569365, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
-      propertyPath: m_EnableMoveWhileSelecting
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4503692243648297224, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
-      propertyPath: m_RaycastMask.m_Bits
-      value: 2147483680
-      objectReference: {fileID: 0}
     - target: {fileID: 4630875933603814795, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
       propertyPath: dog
       value: 
       objectReference: {fileID: 659858997}
-    - target: {fileID: 5972142349070918381, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
-      propertyPath: m_UseManipulationInput
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7227569027020844371, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
-      propertyPath: m_CastRadius
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 7316701157122579918, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7316701157122579918, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7857697370342397175, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
-      propertyPath: m_FarAttachMode
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4499,10 +4451,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6965603858068891766, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_FarAttachMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
