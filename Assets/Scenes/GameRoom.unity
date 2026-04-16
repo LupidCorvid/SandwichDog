@@ -3399,10 +3399,6 @@ PrefabInstance:
       propertyPath: targetRotation
       value: 
       objectReference: {fileID: 870374869}
-    - target: {fileID: 5071294672753616283, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
-      propertyPath: cameraOffsetAmount
-      value: -0.6
-      objectReference: {fileID: 0}
     - target: {fileID: 6354519233057339137, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.8900001
@@ -4377,13 +4373,61 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1658861068048468573, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_RaycastMask.m_Bits
+      value: 2147483680
+      objectReference: {fileID: 0}
+    - target: {fileID: 2105287159258647063, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157314120740811417, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_UseManipulationInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3188968434985743542, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_CastRadius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496175801407789049, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_FarAttachMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3496175801407789049, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_EnableFarCasting
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081590453995569365, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_EnableMoveWhileSelecting
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4503692243648297224, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_RaycastMask.m_Bits
+      value: 2147483680
+      objectReference: {fileID: 0}
     - target: {fileID: 4630875933603814795, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
       propertyPath: dog
       value: 
       objectReference: {fileID: 659858997}
+    - target: {fileID: 5972142349070918381, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_UseManipulationInput
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7227569027020844371, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_CastRadius
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7316701157122579918, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7316701157122579918, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857697370342397175, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_FarAttachMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4458,45 +4502,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_Colliders.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: 'm_Colliders.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8716428703260748453}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      propertyPath: m_FarAttachMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 388639516}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: askToAdvanceTutorial
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: TutorialManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: book
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 8672397142400095422, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
       propertyPath: m_Name
       value: Book
@@ -4506,11 +4518,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
---- !u!65 &8716428703260748453 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 4398082336566908095, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-  m_PrefabInstance: {fileID: 8716428703260748452}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

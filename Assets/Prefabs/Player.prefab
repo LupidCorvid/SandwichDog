@@ -903,7 +903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardOffset: -0.2
-  cameraOffsetAmount: -0.6
+  cameraOffsetAmount: -0.65
   targetPosition: {fileID: 0}
   targetRotation: {fileID: 0}
   matchXRotation: 0
