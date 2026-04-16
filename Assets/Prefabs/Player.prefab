@@ -903,6 +903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardOffset: -0.2
+  cameraOffsetAmount: -0.6
   targetPosition: {fileID: 0}
   targetRotation: {fileID: 0}
   matchXRotation: 0
@@ -911,6 +912,10 @@ MonoBehaviour:
   matchXPos: 1
   matchYPos: 0
   matchZPos: 1
+  adjustForCamera: 1
+  cameraGO: {fileID: 0}
+  lowerOffshoot: 40
+  upperOffshoot: 320
   useRotationOffset: 1
 --- !u!1 &2552015120414929685
 GameObject:

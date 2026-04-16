@@ -1940,6 +1940,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButterKnife
       objectReference: {fileID: 0}
+    - target: {fileID: 7861188016737763862, guid: 589c33b418b02ad4abda9c92dc7c2f97, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2828,6 +2832,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: plate (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6599440070184774975, guid: 8c8309018b65fc24dbd72a2f8f19ffd8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8855966991650193496, guid: 8c8309018b65fc24dbd72a2f8f19ffd8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.1969914
@@ -3384,22 +3392,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 485750591146693956}
     - target: {fileID: 5071294672753616283, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
-      propertyPath: maxOffshoot
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5071294672753616283, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
-      propertyPath: minOffshoot
-      value: -100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5071294672753616283, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
-      propertyPath: lowerOffshoot
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 5071294672753616283, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
-      propertyPath: upperOffshoot
-      value: 320
-      objectReference: {fileID: 0}
-    - target: {fileID: 5071294672753616283, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
       propertyPath: targetPosition
       value: 
       objectReference: {fileID: 485750591146693956}
@@ -3408,12 +3400,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 870374869}
     - target: {fileID: 5071294672753616283, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
-      propertyPath: adjustForCamera
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5071294672753616283, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
       propertyPath: cameraOffsetAmount
-      value: -0.3
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 6354519233057339137, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
       propertyPath: m_LocalPosition.x

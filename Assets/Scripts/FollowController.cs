@@ -77,7 +77,7 @@ public class FollowController : MonoBehaviour
 
         //Apply rotation
         gameObject.transform.eulerAngles = newRot;
-        if (useRotationOffset) ApplyRotationOffset(target, forwardOffset);
+        if (useRotationOffset) gameObject.transform.position += ApplyRotationOffset(target, forwardOffset);
     }
 
     //If the camera local rotation overshoots a certain Y value, turn the entire body so that the player cant see their own head
@@ -106,7 +106,14 @@ public class FollowController : MonoBehaviour
                 float difference = Math.Abs(cameraY - upperOffshoot);
                 in_vector.y -= difference;
             }
-            if (useRotationOffset) ApplyRotationOffset(cameraGO, cameraOffsetAmount);
+            if (useRotationOffset)
+            {
+                //The offset amount will depend on how close you are to 180, to give a smoother transition for the paws not snapping
+                //Have the most offset at 180, otherwise multiply by a decimal multiplier
+                float basePercent = lowerOffshoot / 180;
+                float multiplier = (1 - (Math.Abs(cameraY - 180) / 180)) - basePercent;
+                gameObject.transform.position += ApplyRotationOffset(cameraGO, cameraOffsetAmount * multiplier);
+            }
             prevState = currState;
             currState = RelationToCam.OUT_BOUNDS;
         }
@@ -121,7 +128,7 @@ public class FollowController : MonoBehaviour
 
     //Applies an X and Z positional offset that happens due to rotation
     //Always want a forwardOffset distance away from center of target
-    public void ApplyRotationOffset(GameObject target, float offsetAmt)
+    public Vector3 ApplyRotationOffset(GameObject target, float offsetAmt)
     {
         double targetYRotation = target.transform.eulerAngles.y % 360;      //Bounds rotation to 360 in case it's been overshot
         double targetYRotation_radians = targetYRotation * (Math.PI / 180); //Convert angle to radians
@@ -129,9 +136,9 @@ public class FollowController : MonoBehaviour
         double xOffset = Math.Cos(targetYRotation_radians);
 
         //Add a certain amount of x and z depending on what angle the target rotated by
-        Vector3 newPos = gameObject.transform.position;
-        newPos.z += (float)(xOffset) * forwardOffset;
-        newPos.x += (float)(zOffset) * forwardOffset;
-        gameObject.transform.position = newPos;
+        Vector3 newPos = Vector3.zero; //gameObject.transform.position;
+        newPos.z += (float)(xOffset) * offsetAmt;
+        newPos.x += (float)(zOffset) * offsetAmt;
+        return newPos;
     }
 }
