@@ -2163,6 +2163,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButterKnife
       objectReference: {fileID: 0}
+    - target: {fileID: 7861188016737763862, guid: 589c33b418b02ad4abda9c92dc7c2f97, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3051,6 +3055,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: plate (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6599440070184774975, guid: 8c8309018b65fc24dbd72a2f8f19ffd8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8855966991650193496, guid: 8c8309018b65fc24dbd72a2f8f19ffd8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.1969914
@@ -3663,14 +3671,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 781154988587613549, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
-      propertyPath: targetPosition
-      value: 
-      objectReference: {fileID: 485750591146693956}
-    - target: {fileID: 781154988587613549, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
-      propertyPath: targetRotation
-      value: 
-      objectReference: {fileID: 485750591146693956}
     - target: {fileID: 1829343003902219928, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
       propertyPath: m_Data.m_Target
       value: 
@@ -3683,6 +3683,10 @@ PrefabInstance:
       propertyPath: m_Data.m_Target
       value: 
       objectReference: {fileID: 6745446383361397220}
+    - target: {fileID: 5071294672753616283, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
+      propertyPath: cameraGO
+      value: 
+      objectReference: {fileID: 485750591146693956}
     - target: {fileID: 5071294672753616283, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
       propertyPath: targetPosition
       value: 
@@ -3733,14 +3737,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7740071958288147635, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
       propertyPath: target
-      value: 
-      objectReference: {fileID: 485750591146693956}
-    - target: {fileID: 8740554375370525082, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
-      propertyPath: targetPosition
-      value: 
-      objectReference: {fileID: 485750591146693956}
-    - target: {fileID: 8740554375370525082, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
-      propertyPath: targetRotation
       value: 
       objectReference: {fileID: 485750591146693956}
     m_RemovedComponents: []
@@ -4782,45 +4778,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_Colliders.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: 'm_Colliders.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8716428703260748453}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 388639516}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: askToAdvanceTutorial
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: TutorialManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: book
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381376859306695553, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 8672397142400095422, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
       propertyPath: m_Name
       value: Book
@@ -4830,11 +4790,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
---- !u!65 &8716428703260748453 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 4398082336566908095, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-  m_PrefabInstance: {fileID: 8716428703260748452}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

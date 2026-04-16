@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 //Note: this script is specialized for the Player prefab
 
 public class FollowController : MonoBehaviour
 {
     [SerializeField] public float forwardOffset; // = 0.2f;
+    public float cameraOffsetAmount;
     //public float rotationOffset = 180;
     private float fourLeg_ZOffset = 0.4f;   //Offset to add when player is not standing
     public GameObject targetPosition;           //What the player object should match position of
@@ -16,15 +18,19 @@ public class FollowController : MonoBehaviour
     public bool matchXPos;
     public bool matchYPos;
     public bool matchZPos;
+    public bool adjustForCamera;
+    public GameObject cameraGO;
+    public float lowerOffshoot; //Y axis, lower bound for rotating to follow camera rotation
+    public float upperOffshoot; //Y axis, upper bound for rotating to follow camera rotation
     [SerializeField] public bool useRotationOffset;
 
     float currYOffset = 0f;
+    enum RelationToCam { IN_BOUNDS, OUT_BOUNDS };
+    enum RotDirection { CLOCKWISE, COUNTER_CLOCKWISE};
+    private RotDirection directionToRotate = RotDirection.CLOCKWISE;
+    private RelationToCam prevState = RelationToCam.IN_BOUNDS;
+    private RelationToCam currState = RelationToCam.IN_BOUNDS;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -36,6 +42,7 @@ public class FollowController : MonoBehaviour
         }
     }
 
+    //Done when switching from 2 to 4 legs
     public void ToggleYOffset(bool isStanding)
     {
         if (isStanding) currYOffset = 0f;
@@ -65,14 +72,63 @@ public class FollowController : MonoBehaviour
         //Model always faces wrong way, this combats it
         newRot.y -= 180;
 
+        //Adjust for camera offshoot
+        if (adjustForCamera) newRot = adjustForCameraOffshoot(newRot);
+
         //Apply rotation
         gameObject.transform.eulerAngles = newRot;
-        if (useRotationOffset) ApplyRotationOffset(target);
+        if (useRotationOffset) gameObject.transform.position += ApplyRotationOffset(target, forwardOffset);
+    }
+
+    //If the camera local rotation overshoots a certain Y value, turn the entire body so that the player cant see their own head
+    public Vector3 adjustForCameraOffshoot(Vector3 in_vector)
+    {
+        float cameraY = cameraGO.transform.localEulerAngles.y;
+
+        //If camera rotation is currently out of bounds of the offshoots
+        if (cameraY > lowerOffshoot && cameraY < upperOffshoot)
+        {
+            //If freshly OOB, determine which way to turn the model
+            if(prevState == RelationToCam.IN_BOUNDS)
+            {
+                if (cameraY < 180) directionToRotate = RotDirection.CLOCKWISE;
+                else directionToRotate = RotDirection.COUNTER_CLOCKWISE;
+            }
+
+            //Rotate the model
+            if(directionToRotate == RotDirection.CLOCKWISE)
+            {
+                float difference = Math.Abs(cameraY - lowerOffshoot);
+                in_vector.y += difference;
+            }
+            else
+            {
+                float difference = Math.Abs(cameraY - upperOffshoot);
+                in_vector.y -= difference;
+            }
+            if (useRotationOffset)
+            {
+                //The offset amount will depend on how close you are to 180, to give a smoother transition for the paws not snapping
+                //Have the most offset at 180, otherwise multiply by a decimal multiplier
+                float basePercent = lowerOffshoot / 180;
+                float multiplier = (1 - (Math.Abs(cameraY - 180) / 180)) - basePercent;
+                gameObject.transform.position += ApplyRotationOffset(cameraGO, cameraOffsetAmount * multiplier);
+            }
+            prevState = currState;
+            currState = RelationToCam.OUT_BOUNDS;
+        }
+        //If in bounds
+        else
+        {
+            prevState = currState;
+            currState = RelationToCam.IN_BOUNDS;
+        }
+        return in_vector;
     }
 
     //Applies an X and Z positional offset that happens due to rotation
     //Always want a forwardOffset distance away from center of target
-    public void ApplyRotationOffset(GameObject target)
+    public Vector3 ApplyRotationOffset(GameObject target, float offsetAmt)
     {
         double targetYRotation = target.transform.eulerAngles.y % 360;      //Bounds rotation to 360 in case it's been overshot
         double targetYRotation_radians = targetYRotation * (Math.PI / 180); //Convert angle to radians
@@ -80,9 +136,9 @@ public class FollowController : MonoBehaviour
         double xOffset = Math.Cos(targetYRotation_radians);
 
         //Add a certain amount of x and z depending on what angle the target rotated by
-        Vector3 newPos = gameObject.transform.position;
-        newPos.z += (float)(xOffset) * forwardOffset;
-        newPos.x += (float)(zOffset) * forwardOffset;
-        gameObject.transform.position = newPos;
+        Vector3 newPos = Vector3.zero; //gameObject.transform.position;
+        newPos.z += (float)(xOffset) * offsetAmt;
+        newPos.x += (float)(zOffset) * offsetAmt;
+        return newPos;
     }
 }
