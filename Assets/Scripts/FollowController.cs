@@ -16,15 +16,14 @@ public class FollowController : MonoBehaviour
     public bool matchXPos;
     public bool matchYPos;
     public bool matchZPos;
+    public bool adjustForCamera;
+    public GameObject cameraGO;
+    public float lowerOffshoot; //Y axis, lower bound for rotating to follow camera rotation
+    public float upperOffshoot; //Y axis, upper bound for rotating to follow camera rotation
     [SerializeField] public bool useRotationOffset;
 
     float currYOffset = 0f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -36,6 +35,7 @@ public class FollowController : MonoBehaviour
         }
     }
 
+    //Done when switching from 2 to 4 legs
     public void ToggleYOffset(bool isStanding)
     {
         if (isStanding) currYOffset = 0f;
@@ -65,9 +65,38 @@ public class FollowController : MonoBehaviour
         //Model always faces wrong way, this combats it
         newRot.y -= 180;
 
+        //Adjust for camera offshoot
+        if (adjustForCamera) newRot = adjustForCameraOffshoot(newRot);
+
         //Apply rotation
         gameObject.transform.eulerAngles = newRot;
         if (useRotationOffset) ApplyRotationOffset(target);
+    }
+
+    //If the camera local rotation overshoots a certain Y value, turn the entire body so that the player cant see their own head
+    public Vector3 adjustForCameraOffshoot(Vector3 in_vector)
+    {
+        float cameraY = cameraGO.transform.localEulerAngles.y;
+
+        //If it's in the out of bounds rotational area
+        if (cameraY > lowerOffshoot && cameraY < upperOffshoot)
+        {
+            //Check which side of 180 degrees its on, since that informs how much to add/subtract
+            if(cameraY < 180)
+            {
+                //Add degrees
+                float difference = Math.Abs(cameraY - lowerOffshoot);
+                in_vector.y += difference;
+            }
+            else if (cameraY >= 180)
+            {
+                //Subtract degrees
+                float difference = Math.Abs(cameraY - upperOffshoot);
+                in_vector.y -= difference;
+            }
+        }
+
+        return in_vector;
     }
 
     //Applies an X and Z positional offset that happens due to rotation
