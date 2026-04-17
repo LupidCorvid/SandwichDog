@@ -61,4 +61,14 @@ public class GameplayManager : Singleton<GameplayManager>
     {
         
     }
+
+    public void SwapOutObj(GameObject objToDelete, GameObject objToSpawn)
+    {
+        Vector3 position = objToDelete.transform.position;
+        Quaternion rotation = objToDelete.transform.rotation;
+        Transform parent = objToDelete.transform.parent;
+
+        Destroy(objToDelete);
+        Instantiate(objToSpawn, position, rotation, parent);
+    }
 }

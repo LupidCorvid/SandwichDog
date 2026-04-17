@@ -9,17 +9,17 @@ public class ClipboardUI : MonoBehaviour
 
     private void Awake()
     {
-        LoadRecipe(GameplayManager.Instance.currentLevel.levelRecipe);
+        //LoadRecipe(GameplayManager.Instance.currentLevel.levelRecipe);
     }
 
     private void OnEnable()
     {
-        GameplayManager.OnRecipeProgressUpdated += UpdateRecipeText;
+        //GameplayManager.OnRecipeProgressUpdated += UpdateRecipeText;
     }
 
     private void OnDisable()
     {
-        GameplayManager.OnRecipeProgressUpdated -= UpdateRecipeText;
+        //GameplayManager.OnRecipeProgressUpdated -= UpdateRecipeText;
     }
 
     private void LoadRecipe(Recipe_SO recipeToLoad)

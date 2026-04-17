@@ -69,9 +69,9 @@ public class ObjClass : MonoBehaviour
     // === CLEANLINESS === //
     [HideInInspector] public float objCleanliness { get; private set; }
     [SerializeField] protected bool canGetDirty;
-    public bool CanGetDirty { get { return canGetDirty; } }
+    public bool CanGetDirty => canGetDirty;
     [SerializeField] protected bool canGetClean;
-    public bool CanGetClean { get { return canGetClean; } }
+    public bool CanGetClean => canGetClean;
 
     [SerializeField] protected float amountToDirtyPerSecond;
     [SerializeField] protected float amountToCleanPerSecond;
@@ -85,13 +85,17 @@ public class ObjClass : MonoBehaviour
 
     // === VISUALS === //
     public Renderer objRenderer { get; private set; }
-
-    public Spread currentSpread { get; protected set; }
     protected Color cleanColor;
     [SerializeField] protected Material dirtMaterial;
-    [SerializeField] protected ObjSpreads_SO possibleSpreads;
     private int dirtMatIndex;
 
+    // === SPREADS === //
+    [SerializeField] protected bool canHaveSpreads;
+    public Spread currentSpread { get; protected set; }
+    [SerializeField] protected ObjSpreads_SO possibleSpreads;
+
+    public bool CanHaveSpreads => canHaveSpreads;
+    public bool HasSpread => (currentSpread != Spread.NOSPREAD);
 
     protected void Awake()
     {
@@ -109,13 +113,14 @@ public class ObjClass : MonoBehaviour
 
     protected void Start()
     {
-        if (GameplayManager.Instance.currentLevel.isTutorial)
-        {
-            if (this.triggersTutorial)
-            {
-                TutorialManager.Instance.AddTutorialItem(this);
-            }
-        }
+        // TODO - reenable this when tutorial system is refactored
+        //if (TutorialManager.Instance.tutorialActive)
+        //{
+        //    if (this.triggersTutorial)
+        //    {
+        //        TutorialManager.Instance.AddTutorialItem(this);
+        //    }
+        //}
     }
 
     //Object manager or subclass should pass in the object type
@@ -139,11 +144,14 @@ public class ObjClass : MonoBehaviour
         return false;
     }
 
-    public void InitializeSettings()
+    public virtual void InitializeSettings()
     {
+        canGetClean = objSettings.canGetDirty;
         dirtMaterial = objSettings.dirtMaterial;
-        amountToCleanPerSecond = objSettings.amountToCleanPerSecond; 
         amountToDirtyPerSecond = objSettings.amountToDirtyPerSecond;
+
+        canGetClean = objSettings.canGetClean;
+        amountToCleanPerSecond = objSettings.amountToCleanPerSecond; 
     }
 
     ///=============================================================================
@@ -201,7 +209,7 @@ public class ObjClass : MonoBehaviour
     protected virtual void InitializeAppearanceLogic()
     {
         objRenderer ??= GetComponent<MeshRenderer>();
-        cleanColor = objRenderer != null ? objRenderer.material.GetColor("_BaseColor") : Color.red; //cleanColor = objRenderer?.material?.GetColor("_BaseColor") ?? Color.red;
+        cleanColor = objRenderer != null ? objRenderer.material.GetColor("_BaseColor") : Color.white; //cleanColor = objRenderer?.material?.GetColor("_BaseColor") ?? Color.red;
 
 
         if (currentSpread != Spread.NOSPREAD)
@@ -266,7 +274,7 @@ public class ObjClass : MonoBehaviour
         {
             RemoveSpreads();
             objRenderer.AddMaterial(spreadMaterial);
-            Debug.Log(spreadMaterial);
+            //Debug.Log(spreadMaterial);
             return true;
         }
         return false;

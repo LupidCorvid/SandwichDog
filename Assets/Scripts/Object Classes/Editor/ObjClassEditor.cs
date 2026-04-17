@@ -1,4 +1,5 @@
 using Mono.Cecil.Cil;
+using Unity.Plastic.Newtonsoft.Json.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -6,17 +7,25 @@ using UnityEngine;
 [CustomEditor(typeof(ObjClass))]
 public class ObjClassEditor : Editor
 {
+    SerializedProperty objSettingsProperty;
     SerializedProperty overrideProperty;
+
+    SerializedProperty canHaveSpreadsProperty;
+    SerializedProperty possibleSpreadsProperty;
+
     SerializedProperty canGetDirtyProperty;
     SerializedProperty dirtMaterialProperty;
     SerializedProperty amountToDirtyProperty;
     SerializedProperty canGetCleanProperty;
     SerializedProperty amountToCleanProperty;
-    SerializedProperty objSettingsProperty;
+
 
     protected virtual void OnEnable()
     {
         AssignEditorSettings();
+
+        canHaveSpreadsProperty = serializedObject.FindProperty("canHaveSpreads");
+        possibleSpreadsProperty = serializedObject.FindProperty("possibleSpreads");
 
         objSettingsProperty = serializedObject.FindProperty("objSettings");
         overrideProperty = serializedObject.FindProperty("overrideGlobalSettings");
@@ -36,13 +45,13 @@ public class ObjClassEditor : Editor
         EditorGUILayout.PropertyField(objSettingsProperty);
         EditorGUILayout.PropertyField(overrideProperty);
 
-        if (overrideProperty.boolValue)
+        if (!targetObj.objSettings || !overrideProperty.boolValue)
         {
-            DrawProperties();
+            targetObj.InitializeSettings();
         }
         else
         {
-            targetObj.InitializeSettings();
+            DrawProperties();
         }
 
         serializedObject.ApplyModifiedProperties();
@@ -50,6 +59,12 @@ public class ObjClassEditor : Editor
 
     protected virtual void DrawProperties()
     {
+        EditorGUILayout.PropertyField(canHaveSpreadsProperty);
+        if (canHaveSpreadsProperty.boolValue)
+        {
+            EditorGUILayout.PropertyField(possibleSpreadsProperty);
+        }
+
         EditorGUILayout.PropertyField(canGetDirtyProperty);
         if (canGetDirtyProperty.boolValue)
         {
@@ -70,40 +85,84 @@ public class ObjClassEditor : Editor
 
         if (!targetObj.objSettings)
         {
-            GlobalObjSettings_SO loadSettings = Resources.Load<GlobalObjSettings_SO>(GlobalObjSettings_SO.GetPath());
+            string loadPath = GlobalObjSettings_SO.DefaultObjPath;
 
+            if (targetObj as Food)
+            {
+                loadPath = GlobalObjSettings_SO.FoodObjPath;
+            }
+            else if (targetObj as Silverware)
+            {
+                loadPath = GlobalObjSettings_SO.SilverwareObjPath;
+            }
+
+            GlobalObjSettings_SO loadSettings = Resources.Load<GlobalObjSettings_SO>(loadPath);
             targetObj.objSettings = loadSettings;
         }
     }
-}
 
-[CustomEditor(typeof(Food))]
-public class FoodClassEditor : ObjClassEditor
-{
-    SerializedProperty isCookableProperty;
-    SerializedProperty timeToCookProperty;
-    SerializedProperty timeToBurnProperty;
-    SerializedProperty cookedColorProperty;
-
-    protected override void OnEnable()
+    [CustomEditor(typeof(Food))]
+    public class FoodClassEditor : ObjClassEditor
     {
-        base.OnEnable();
-        isCookableProperty = serializedObject.FindProperty("isCookable");
-        timeToCookProperty = serializedObject.FindProperty("timeToCook");
-        timeToBurnProperty = serializedObject.FindProperty("timeToBurn");
-        cookedColorProperty = serializedObject.FindProperty("cookedColor");
+        SerializedProperty isCookableProperty;
+        SerializedProperty timeToCookProperty;
+        SerializedProperty timeToBurnProperty;
+        SerializedProperty cookedColorProperty;
+
+        SerializedProperty isSliceableProperty;
+        SerializedProperty numCutsNeededProperty;
+        SerializedProperty slicedResultObjectProperty;
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            isCookableProperty = serializedObject.FindProperty("isCookable");
+            timeToCookProperty = serializedObject.FindProperty("timeToCook");
+            timeToBurnProperty = serializedObject.FindProperty("timeToBurn");
+            cookedColorProperty = serializedObject.FindProperty("cookedColor");
+
+            isSliceableProperty = serializedObject.FindProperty("isSliceable");
+            numCutsNeededProperty = serializedObject.FindProperty("numCutsNeeded");
+            slicedResultObjectProperty = serializedObject.FindProperty("slicedResultObject");
+        }
+
+        protected override void DrawProperties()
+        {
+            base.DrawProperties();
+
+            EditorGUILayout.PropertyField(isCookableProperty);
+            if (isCookableProperty.boolValue)
+            {
+                EditorGUILayout.PropertyField(timeToCookProperty);
+                EditorGUILayout.PropertyField(timeToBurnProperty);
+                EditorGUILayout.PropertyField(cookedColorProperty);
+            }
+
+            EditorGUILayout.PropertyField(isSliceableProperty);
+            if (isSliceableProperty.boolValue)
+            {
+                EditorGUILayout.PropertyField(numCutsNeededProperty);
+                EditorGUILayout.PropertyField(slicedResultObjectProperty);
+            }
+        }
     }
 
-    protected override void DrawProperties()
+    [CustomEditor(typeof(Silverware))]
+    public class SilverwareClassEditor : ObjClassEditor
     {
-        base.DrawProperties();
+        SerializedProperty isSlicerProperty;
 
-        EditorGUILayout.PropertyField(isCookableProperty);
-        if (isCookableProperty.boolValue)
+        protected override void OnEnable()
         {
-            EditorGUILayout.PropertyField(timeToCookProperty);
-            EditorGUILayout.PropertyField(timeToBurnProperty);
-            EditorGUILayout.PropertyField(cookedColorProperty);
+            base.OnEnable();
+            isSlicerProperty = serializedObject.FindProperty("isSlicer");
+        }
+
+        protected override void DrawProperties()
+        {
+            base.DrawProperties();
+
+            EditorGUILayout.PropertyField(isSlicerProperty);
         }
     }
 }

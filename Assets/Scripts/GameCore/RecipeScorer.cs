@@ -23,7 +23,7 @@ public class RecipeScorer : MonoBehaviour
     {
         gameOver = false;
         displayText.text = "0%";
-        scoreMax = levelRecipe[currentLevel - 1].requirements.Length;
+        //scoreMax = levelRecipe[currentLevel - 1].requirements.Length;
     }
 
     private void OnEnable()
@@ -86,7 +86,7 @@ public class RecipeScorer : MonoBehaviour
 
     public void CalculateScore()
     {
-        List<ItemRequirement> itemRequirements = levelRecipe[currentLevel - 1].requirements.ToList();
+        //List<ItemRequirement> itemRequirements = levelRecipe[currentLevel - 1].requirements.ToList();
 
         float scoreCount = 0;
         foreach (ItemRequirement objectToScore in objectsToScore)
