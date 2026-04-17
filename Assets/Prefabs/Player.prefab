@@ -140,7 +140,6 @@ GameObject:
   m_Component:
   - component: {fileID: 889964049540005363}
   - component: {fileID: 217776723609769065}
-  - component: {fileID: 8740554375370525082}
   m_Layer: 0
   m_Name: HeadAim
   m_TagString: Untagged
@@ -218,28 +217,6 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
---- !u!114 &8740554375370525082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 720054830074607631}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41a20ee26a4df62489aa1b2832a5306a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  forwardOffset: 0
-  targetPosition: {fileID: 0}
-  targetRotation: {fileID: 0}
-  matchXRotation: 1
-  matchYRotation: 1
-  matchZRotation: 1
-  matchXPos: 0
-  matchYPos: 0
-  matchZPos: 0
-  useRotationOffset: 0
 --- !u!1 &796555270715115795
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,6 +903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardOffset: -0.2
+  cameraOffsetAmount: -0.65
   targetPosition: {fileID: 0}
   targetRotation: {fileID: 0}
   matchXRotation: 0
@@ -934,6 +912,10 @@ MonoBehaviour:
   matchXPos: 1
   matchYPos: 0
   matchZPos: 1
+  adjustForCamera: 1
+  cameraGO: {fileID: 0}
+  lowerOffshoot: 40
+  upperOffshoot: 320
   useRotationOffset: 1
 --- !u!1 &2552015120414929685
 GameObject:
@@ -1072,7 +1054,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5493766525729569032}
-  - component: {fileID: 781154988587613549}
   - component: {fileID: 7740071958288147635}
   m_Layer: 0
   m_Name: Target
@@ -1096,28 +1077,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 889964049540005363}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &781154988587613549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3841389751274994172}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41a20ee26a4df62489aa1b2832a5306a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  forwardOffset: -15
-  targetPosition: {fileID: 0}
-  targetRotation: {fileID: 0}
-  matchXRotation: 0
-  matchYRotation: 1
-  matchZRotation: 0
-  matchXPos: 1
-  matchYPos: 1
-  matchZPos: 1
-  useRotationOffset: 0
 --- !u!114 &7740071958288147635
 MonoBehaviour:
   m_ObjectHideFlags: 0
