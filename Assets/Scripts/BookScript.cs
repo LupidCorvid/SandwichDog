@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class BookScript : MonoBehaviour
 {
-
+    public enum ContentType { IMAGES, TEXT };
+    public ContentType contentType;
     public Sprite [] pageContents;
     public GameObject leftPage;
     public GameObject rightPage;
@@ -15,7 +16,7 @@ public class BookScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        setPages(PageDirection.STATIC);
+        setPages(PageDirection.STATIC, contentType);
     }
 
     private float timer = 0f;
@@ -25,12 +26,12 @@ public class BookScript : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > 3f)
         {
-            setPages(PageDirection.FORWARD);
+            setPages(PageDirection.FORWARD, contentType);
             timer = 0;
         }
     }
 
-    public void setPages(PageDirection dir)
+    public void setPages(PageDirection dir, ContentType type)
     {
         switch (dir)
         {
@@ -44,7 +45,20 @@ public class BookScript : MonoBehaviour
                 break;
         }
 
-        if (leftPage != null) leftPage.GetComponent<Image>().sprite = pageContents[cursor];
-        if (rightPage != null) rightPage.GetComponent<Image>().sprite = pageContents[cursor + 1];
+        switch (type)
+        {
+            case (ContentType.IMAGES):
+                if (leftPage != null) leftPage.GetComponent<Image>().sprite = pageContents[cursor];
+                if (rightPage != null) rightPage.GetComponent<Image>().sprite = pageContents[cursor + 1];
+                break;
+            case (ContentType.TEXT):
+
+                //////////
+                //TODO CLIPBOARD PAGE TURNING LOGIC HERE//
+                //////////
+                ///
+                break;
+        }
+        
     }
 }
