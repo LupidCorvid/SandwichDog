@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 
-public class TutorialManager : MonoBehaviour
+public class TutorialManager : Singleton<TutorialManager>
 {
     bool tutorialActive = false;
     int tutorialLevel = 0; //Different instructions for different levels

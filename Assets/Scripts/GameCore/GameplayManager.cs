@@ -8,152 +8,28 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class GameplayManager : MonoBehaviour
+public class GameplayManager : Singleton<GameplayManager>
 {
     public const int maxLevels = 2; //How many levels the game has
     public static int currentLevel = 1; //The current level the player is playing //TODO: find a better way to do this
 
     public Recipe_SO [] levelRecipe;
-    public RecipeText clipboardText;
-
-    //The objects the player brought to the end game area, added via end area OnTriggerEnter
-    public List<ItemRequirement> objectsToScore = new List<ItemRequirement>();
-
-    public Text scoreText;
-    public Text displayText;
-
-    public float timer; //Time to wait in seconds for the player to stand in the box before scoring objects
-    public float scoreMax = 0.0f;
-    public float score = 0;
     public bool gameOver;
-
-    public static event Action onScoreCalculate;
-    [SerializeField] TutorialManager tutorialManager;
-    public GameObject clipBoardTextGO;
 
     private void Awake()
     {
         gameOver = false;
-        displayText.text = "0%";
-        scoreMax = levelRecipe[currentLevel - 1].requirements.Length;
-
-        DontDestroyOnLoad(this);
-        
-
-
-        //scoreText.text = "Recipe Food:\n";
-        //foreach (ItemRequirement itemRequirement in levelRecipe.requirements)
-        //{
-        //    scoreText.text += itemRequirement.item.m_name;
-
-        //    Food food = itemRequirement.item as Food;
-
-        //    if (food)
-        //    {
-        //        switch (food.currentSpread)
-        //        {
-        //            case ObjClass.Spread.NOSPREAD:
-        //                break;
-        //            case ObjClass.Spread.PEANUTBUTTER:
-        //                scoreText.text += " with peanut butter";
-        //                break;
-        //            case ObjClass.Spread.JELLY:
-        //                scoreText.text += " with jelly";
-        //                break;
-        //            default:
-        //                break;
-        //        }
-        //    }
-        //    scoreText.text += ": " + itemRequirement.quantity + "\n";
-        //}
     }
 
     void Start()
     {
-        if (currentLevel == 1) tutorialManager.startTutorial(currentLevel);
+        if (currentLevel == 1) TutorialManager.Instance.startTutorial(currentLevel);
         PrepareLevel();
-    }
-
-    private void OnEnable()
-    {
-        onScoreCalculate += CalculateScore;
     }
 
     void Update()
     {
         //print(currentLevel);
-    }
-
-    public void CalculateScore()
-    {
-        List<ItemRequirement> itemRequirements = levelRecipe[currentLevel - 1].requirements.ToList();
-
-        float scoreCount = 0;
-        foreach (ItemRequirement objectToScore in objectsToScore)
-        {
-            //Debug.Log(objectToScore.item.gameObject.GetComponent<Rigidbody>() == null);
-
-            Debug.Log(objectToScore.item.objCleanliness);
-            scoreCount += objectToScore.item.objCleanliness * objectToScore.quantity;
-        }
-        score = (scoreCount / scoreMax) * 100.0f;
-
-        //Update score text
-        Debug.Log("Score:" + score);
-        displayText.text = score.ToString("F2").Truncate(5) + "%";
-    }
-
-    //When the player enters, wait for 5 seconds and then score
-    private void OnTriggerStay(Collider other)
-    {
-        //DEBUG checks if the plate entered the scoring layer
-        //Change it to let the player click a UI element to start the scoring
-        if (other.gameObject.layer == 10) //if (other.gameObject.CompareTag("Player")) //if (other.gameObject.layer == 10)
-        {
-            timer -= Time.deltaTime;
-
-            if (timer <= 0)
-            {
-                onScoreCalculate?.Invoke();
-            }
-        }
-    }
-
-    //If the player leaves too early, reset the timer
-    private void OnTriggerExit(Collider other)
-    {
-        Debug.Log("removing item in scoring area: " + other.gameObject.name);
-
-        if (other.gameObject.CompareTag("Player") && timer > 0)
-        {
-            timer = 5;
-            displayText.text = "0%";
-        }
-    }
-
-    //Add objects to the objectsToScore array
-    //TODO: Curretly doesn't remove objects that leave onTriggerExit
-    private void OnTriggerEnter(Collider other)
-    {
-        ObjClass obj = other.gameObject.GetComponentInChildren<ObjClass>();
-
-        if (obj)
-        {
-            Debug.Log("new item in scoring area: " + other.gameObject.name);
-            //CalculateScore();
-            //Debug.Log("Object added to score: " + other.gameObject.name);
-
-            if (objectsToScore.Contains(new ItemRequirement(obj, 1)))
-            {
-                int foundIdx = objectsToScore.FindIndex(requirement => requirement.Equals(obj));
-                objectsToScore[foundIdx].quantity += 1;
-            }
-            else
-            {
-                objectsToScore.Add(new ItemRequirement(obj, 1));
-                Debug.Log("new requirement added, total # of objs now " + objectsToScore.Count);
-            }
-        }
     }
 
     //Call on scene end, when player clicks next level button
@@ -183,9 +59,16 @@ public class GameplayManager : MonoBehaviour
     //Call on scene start
     public void PrepareLevel()
     {
-        if (clipBoardTextGO != null)
-        {
-            clipboardText.GetComponent<TMPro.TextMeshProUGUI>().text = clipboardText.assignedRecipes[currentLevel - 1].combinedText;
-        }
+        
+    }
+
+    public void SwapOutObj(GameObject objToDelete, GameObject objToSpawn)
+    {
+        Vector3 position = objToDelete.transform.position;
+        Quaternion rotation = objToDelete.transform.rotation;
+        Transform parent = objToDelete.transform.parent;
+
+        Destroy(objToDelete);
+        Instantiate(objToSpawn, position, rotation, parent);
     }
 }

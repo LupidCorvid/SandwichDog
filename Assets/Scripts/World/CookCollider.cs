@@ -55,7 +55,7 @@ public class FoodCooker : TimerCollider<Food>
 
     protected override bool ShouldRemoveTimer(Food food)
     {
-        return food.CookAmount > (food.TimeToCook + food.TimeToBurn);
+        return food.IsBurnt;
     }
 
     protected override bool CanAddTimer(Food food)
