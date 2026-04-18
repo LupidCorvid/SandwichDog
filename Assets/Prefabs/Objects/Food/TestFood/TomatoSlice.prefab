@@ -513,8 +513,10 @@ MonoBehaviour:
   cookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
   isStackable: 1
+  minDistanceToSnapObj: 10
   topStackSnapPoint: {fileID: 3682714419635803203}
   foodCenterPoint: {fileID: 5216802451904471219}
+  debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0
   numCutsNeeded: 0
   slicedResultObject: {fileID: 0}

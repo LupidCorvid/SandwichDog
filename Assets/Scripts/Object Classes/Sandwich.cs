@@ -23,7 +23,7 @@ public class Sandwich : Food
         sandwichTopAnchor = new GameObject("SandwichTopAnchor").transform;
         sandwichTopAnchor.SetParent(this.transform, false);
 
-        firstFilling.SnapTo(sandwichTopAnchor);
+        //firstFilling.SnapTo(sandwichTopAnchor);
         foodOrder.Add(firstFilling);
     }
 
@@ -32,7 +32,7 @@ public class Sandwich : Food
         newFood.RigidBody.isKinematic = false;
         newFood.isStackable = false;
 
-        newFood.SnapTo(sandwichTopAnchor);
+        //newFood.SnapTo(sandwichTopAnchor);
         foodOrder.Add(newFood);
     }
 

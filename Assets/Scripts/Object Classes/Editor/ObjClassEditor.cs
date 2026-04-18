@@ -111,12 +111,15 @@ public class ObjClassEditor : Editor
         SerializedProperty cookedColorProperty;
         
         SerializedProperty isStackableProperty;
+        SerializedProperty minDistanceToSnapObjProperty;
         SerializedProperty topStackSnapPointProperty;
         SerializedProperty foodCenterPointProperty;
 
         SerializedProperty isSliceableProperty;
         SerializedProperty numCutsNeededProperty;
         SerializedProperty slicedResultObjectProperty;
+        
+        SerializedProperty debugFoodToSnapToProperty;
 
         protected override void OnEnable()
         {
@@ -127,12 +130,17 @@ public class ObjClassEditor : Editor
             cookedColorProperty = serializedObject.FindProperty("cookedColor");
             
             isStackableProperty = serializedObject.FindProperty("isStackable");
+            minDistanceToSnapObjProperty = serializedObject.FindProperty("minDistanceToSnapObj");
             topStackSnapPointProperty = serializedObject.FindProperty("topStackSnapPoint");
             foodCenterPointProperty = serializedObject.FindProperty("foodCenterPoint");
 
             isSliceableProperty = serializedObject.FindProperty("isSliceable");
             numCutsNeededProperty = serializedObject.FindProperty("numCutsNeeded");
             slicedResultObjectProperty = serializedObject.FindProperty("slicedResultObject");
+            
+            slicedResultObjectProperty = serializedObject.FindProperty("slicedResultObject");
+            
+            debugFoodToSnapToProperty= serializedObject.FindProperty("debugFoodToSnapTo");
         }
 
         protected override void DrawProperties()
@@ -153,6 +161,8 @@ public class ObjClassEditor : Editor
             EditorGUILayout.PropertyField(isStackableProperty);
             if (isStackableProperty.boolValue)
             {
+                EditorGUILayout.PropertyField(minDistanceToSnapObjProperty);
+
                 if (!foodTarget.topStackSnapPoint)
                 {
                     foodTarget.topStackSnapPoint = new GameObject(foodTarget.name + "TopPoint").transform;
@@ -183,6 +193,12 @@ public class ObjClassEditor : Editor
             {
                 EditorGUILayout.PropertyField(numCutsNeededProperty);
                 EditorGUILayout.PropertyField(slicedResultObjectProperty);
+            }
+
+            EditorGUILayout.PropertyField(debugFoodToSnapToProperty);
+            if (GUILayout.Button("Stack Food"))
+            {
+                foodTarget.SnapTo(foodTarget.debugFoodToSnapTo);
             }
         }
 

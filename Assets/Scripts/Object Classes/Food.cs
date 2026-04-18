@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -31,11 +32,13 @@ public class Food : ObjClass
     // === STACKABILITY === //
     [SerializeField] public bool isStackable;
 
-    [SerializeField] protected static float minDistanceToSnapObj;
+    [SerializeField] protected float minDistanceToSnapObj;
 
     [SerializeField][HideInInspector] public Transform topStackSnapPoint; // normal transform should act as bottom
 
     [SerializeField][HideInInspector] public Transform foodCenterPoint;
+
+    [SerializeField] public Food debugFoodToSnapTo;
 
     // === SLICEABILITY === //
     [SerializeField] protected bool isSliceable;
@@ -160,10 +163,9 @@ public class Food : ObjClass
     ///=============================================================================
 
     // returns new top point
-    public void SnapTo(Transform target)
+    public void SnapTo(Food target)
     {
-        bool isCurrUpsideDown = Vector3.Dot(Vector3.up, this.transform.up) > 0.0f ? true : false;
-        bool isTargetUpsideDown = Vector3.Dot(Vector3.up, target.transform.up) > 0.0f ? true : false;
+        bool areBothObjsSameDir = Vector3.Dot(this.transform.up, target.transform.up) > 0.0f ? true : false;
 
         /*
          * upside down = UD
@@ -173,47 +175,68 @@ public class Food : ObjClass
         */
 
         float minDistNeeded = minDistanceToSnapObj * minDistanceToSnapObj;
+        float currOriginToTargetTop = (this.transform.position - target.topStackSnapPoint.position).sqrMagnitude;
+        float currOriginToTargetOrigin = (this.transform.position - target.transform.position).sqrMagnitude;
 
-        // case 1: RU on RU, curr origin closest to target top
-        if (!isCurrUpsideDown && !isTargetUpsideDown)
+        if (areBothObjsSameDir)
         {
-            if ((this.transform.position - target.position).sqrMagnitude < minDistanceToSnapObj)
+            // case 1: RU on RU, curr origin closest to target top
+            if (currOriginToTargetTop < currOriginToTargetOrigin)
             {
-                this.AlignWith(target);
+                if (currOriginToTargetTop < minDistNeeded)
+                {
+                    AlignWith(target.transform, false);
+                    //this.transform.rotation = Quaternion.Euler(target.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
+                    Vector3 diffToTargetTopFromCurrOrigin = (this.transform.position - target.topStackSnapPoint.position);
+                    this.transform.position -= diffToTargetTopFromCurrOrigin;
+                    Debug.Log("case 1!");
+                }
+            }
+            // case 2: UD on UD, curr top is closest to target origin
+            else
+            {
+                if (currOriginToTargetOrigin < minDistNeeded)
+                {
+                    AlignWith(target.transform, false);
+                    //this.transform.rotation = Quaternion.Euler(target.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
+                    Vector3 diffToTargetOriginFromCurrTop = (this.topStackSnapPoint.position - target.transform.position);
+                    this.transform.position -= diffToTargetOriginFromCurrTop;
+                    Debug.Log("case 2!");
+                }
             }
         }
-        // case 2: UD on UD, curr top is closest to target origin
-        else if (isCurrUpsideDown && isTargetUpsideDown)
+        // objs facing opposite directions
+        else
         {
-            if ((this.topStackSnapPoint.position - target.position).sqrMagnitude < minDistanceToSnapObj)
+            // case 3: RU on UD, current origin is closest to target origin
+            if (currOriginToTargetOrigin < currOriginToTargetTop)
             {
-                this.transform.position += (this.transform.position - this.topStackSnapPoint.position);
-                this.AlignWith(target);
+                if (currOriginToTargetOrigin < minDistanceToSnapObj)
+                {
+                    AlignWith(target.transform, true);
+                    //this.transform.rotation = Quaternion.Euler(target.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
+                    Vector3 diffToTargetOriginFromCurrOrigin = (this.transform.position - target.transform.position);
+                    this.transform.position -= diffToTargetOriginFromCurrOrigin;
+                    Debug.Log("case 3!");
+                }
             }
-        }
-        // case 3: RU on UD, current origin is closest to target origin
-        else if (!isCurrUpsideDown && isTargetUpsideDown)
-        {
-            if ((this.transform.position - target.transform.position).sqrMagnitude < minDistanceToSnapObj)
+            // case 4: UD on RU, current top is closest to target top
+            else
             {
-                this.AlignWith(target);
-            }
-        }
-        // case 4: UD on RU, current top is closest to target top
-        else if (isCurrUpsideDown && !isTargetUpsideDown)
-        {
-            if ((this.topStackSnapPoint.position - target.position).sqrMagnitude < minDistanceToSnapObj)
-            {
-                this.transform.position += (this.transform.position - this.topStackSnapPoint.position);
-                this.AlignWith(target);
+                if (currOriginToTargetTop < minDistanceToSnapObj)
+                {
+                    AlignWith(target.transform, true);
+                    //this.transform.rotation = Quaternion.Euler(target.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
+                    Vector3 diffToTargetTopFromCurrTop = (this.topStackSnapPoint.position - target.topStackSnapPoint.position);
+                    this.transform.position -= diffToTargetTopFromCurrTop;
+                    Debug.Log("case 4!");
+                }
             }
         }
     }
 
-    protected void AlignWith(Transform target)
+    protected void AlignWith(Transform target, bool flipZRotation)
     {
-        this.transform.position = target.position;
-
         // align curr with target rotation along plane where the snap point lies
         Vector3 flattenedForward = Vector3.ProjectOnPlane(this.transform.forward, target.transform.up);
 
@@ -222,9 +245,14 @@ public class Food : ObjClass
         {
             flattenedForward = Vector3.ProjectOnPlane(transform.up, target.transform.up);
         }
-
         // apply new rotation
         Quaternion targetRotation = Quaternion.LookRotation(flattenedForward, target.transform.up);
+
+
+        if (flipZRotation)
+        {
+            targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, targetRotation.eulerAngles.z + 180.0f);
+        }
         this.transform.rotation = targetRotation;
     }
 
