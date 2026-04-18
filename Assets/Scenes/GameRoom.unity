@@ -1744,9 +1744,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1191169962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e13c56e9db18bc48af5b7b9c07efccc, type: 3}
+  m_Script: {fileID: 11500000, guid: 956dd6cf70eaca449a45b6a95b96c8c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CameraToFace: {fileID: 0}
+  m_ObjectPrefabs:
+  - {fileID: 0}
+  m_SpawnVisualizationPrefab: {fileID: 0}
+  m_SpawnOptionIndex: -1
+  m_OnlySpawnInView: 1
+  m_ViewportPeriphery: 0.15
+  m_ApplyRandomAngleAtSpawn: 1
+  m_SpawnAngleRange: 45
+  m_SpawnAsChildren: 0
 --- !u!4 &1191169965
 Transform:
   m_ObjectHideFlags: 0
@@ -3417,6 +3427,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6642864866693376089, guid: 6033610b59755ff45a55d8eab7477848, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6642864866693376089, guid: 6033610b59755ff45a55d8eab7477848, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 388639516}
@@ -3935,9 +3949,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 495978068345571091, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: 'm_Colliders.Array.data[0]'
-      value: 
-      objectReference: {fileID: 5043988891017526811}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 495978068345571091, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3946,18 +3960,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Book
       objectReference: {fileID: 0}
-    - target: {fileID: 3457031177496811545, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_Renderer
-      value: 
-      objectReference: {fileID: 969134963646664734}
-    - target: {fileID: 5823833295280736777, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: numberOfPagesToIncrement
-      value: 2
+    - target: {fileID: 1398197653842811324, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
+      propertyPath: m_TagString
+      value: Pickup
       objectReference: {fileID: 0}
-    - target: {fileID: 7763181503092253089, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
-      propertyPath: m_InteractableSource
-      value: 
-      objectReference: {fileID: 911513150577684773}
     - target: {fileID: 8037559503267982444, guid: 334efea387fc23e45b5e6220661e1ab1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.279

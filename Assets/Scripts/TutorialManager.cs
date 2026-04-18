@@ -14,6 +14,7 @@ public class TutorialManager : Singleton<TutorialManager>
     GameObject lastArrow = null;
 
     public TutorialAssignment [] levelTutorialObjects;
+    //public GameObject[] lvl1Objects;  
 
     void Start()
     {
@@ -44,11 +45,10 @@ public class TutorialManager : Singleton<TutorialManager>
 
     //Once you interact with an object as instructed, it triggers the next tutorial event
     //It moves the cursor to match the current object touched, which accomodates for people who skip the tutorial
-    public void askToAdvanceTutorial(int expectedCursor, int expectedGameLevel)
+    public void askToAdvanceTutorial(int expectedCursor)
     {
-        //The object needs to be of the same level
         //The object must proc a tutorial that hasn't appeared yet
-        if (expectedGameLevel == tutorialLevel && expectedCursor > cursor)
+        if (expectedCursor > cursor)
         {
             int numSteps = Math.Abs(cursor - expectedCursor);
             advanceTutorial(numSteps);

@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267a427d26678964bb0a18b09cfb2bbc, type: 3}
   m_Name: ObjectAssignment_SO
   m_EditorClassIdentifier: 
-  objectAssignments: []
+  objectAssignments:
+  - positionToSpawn: {x: 0, y: 0, z: 0}
+    rotationToSpawn: {x: 0, y: 0, z: 0, w: 0}
+    scaleToSpawn: {x: 0, y: 0, z: 0}
+    prefabToSpawn: {fileID: 0}
