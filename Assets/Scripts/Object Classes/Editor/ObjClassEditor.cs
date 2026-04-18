@@ -1,5 +1,4 @@
-using Mono.Cecil.Cil;
-using Unity.Plastic.Newtonsoft.Json.Linq;
+using System.Net;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -104,10 +103,16 @@ public class ObjClassEditor : Editor
     [CustomEditor(typeof(Food))]
     public class FoodClassEditor : ObjClassEditor
     {
+        Transform oldFoodCenterPoint;
+
         SerializedProperty isCookableProperty;
         SerializedProperty timeToCookProperty;
         SerializedProperty timeToBurnProperty;
         SerializedProperty cookedColorProperty;
+        
+        SerializedProperty isStackableProperty;
+        SerializedProperty topStackSnapPointProperty;
+        SerializedProperty foodCenterPointProperty;
 
         SerializedProperty isSliceableProperty;
         SerializedProperty numCutsNeededProperty;
@@ -120,6 +125,10 @@ public class ObjClassEditor : Editor
             timeToCookProperty = serializedObject.FindProperty("timeToCook");
             timeToBurnProperty = serializedObject.FindProperty("timeToBurn");
             cookedColorProperty = serializedObject.FindProperty("cookedColor");
+            
+            isStackableProperty = serializedObject.FindProperty("isStackable");
+            topStackSnapPointProperty = serializedObject.FindProperty("topStackSnapPoint");
+            foodCenterPointProperty = serializedObject.FindProperty("foodCenterPoint");
 
             isSliceableProperty = serializedObject.FindProperty("isSliceable");
             numCutsNeededProperty = serializedObject.FindProperty("numCutsNeeded");
@@ -128,6 +137,9 @@ public class ObjClassEditor : Editor
 
         protected override void DrawProperties()
         {
+            Food foodTarget = target as Food;
+            if (!foodTarget) return; 
+
             base.DrawProperties();
 
             EditorGUILayout.PropertyField(isCookableProperty);
@@ -138,12 +150,63 @@ public class ObjClassEditor : Editor
                 EditorGUILayout.PropertyField(cookedColorProperty);
             }
 
+            EditorGUILayout.PropertyField(isStackableProperty);
+            if (isStackableProperty.boolValue)
+            {
+                if (!topStackSnapPointProperty.objectReferenceValue)
+                {
+                    GameObject topSnapObj = new GameObject(foodTarget.name + "TopPoint");
+                    topSnapObj.transform.SetParent(foodTarget.transform);
+                    topSnapObj.transform.position = Vector3.zero;
+                    topSnapObj.transform.rotation = Quaternion.identity;
+                    foodTarget.topStackSnapPoint = topSnapObj.transform;
+
+                    topStackSnapPointProperty.objectReferenceValue = foodTarget.topStackSnapPoint;
+                    oldFoodCenterPoint = UpdateFoodCenterPoint(foodTarget);
+                }
+
+                if (!foodCenterPointProperty.objectReferenceValue)
+                {
+                    oldFoodCenterPoint = UpdateFoodCenterPoint(foodTarget);
+                    foodCenterPointProperty.objectReferenceValue = oldFoodCenterPoint;
+                }
+                Transform foodCenterPoint = foodCenterPointProperty.objectReferenceValue as Transform;
+                if (foodCenterPoint)
+                {
+                    if (foodCenterPoint.position != oldFoodCenterPoint.position)
+                    {
+                        oldFoodCenterPoint = UpdateFoodCenterPoint(foodTarget);
+                        foodCenterPointProperty.objectReferenceValue = oldFoodCenterPoint;
+                    }
+                }
+            }
+
             EditorGUILayout.PropertyField(isSliceableProperty);
             if (isSliceableProperty.boolValue)
             {
                 EditorGUILayout.PropertyField(numCutsNeededProperty);
                 EditorGUILayout.PropertyField(slicedResultObjectProperty);
             }
+        }
+
+        private Transform UpdateFoodCenterPoint(Food food)
+        {
+            // create new GO for center point if it doesn't exist
+            if (!food.foodCenterPoint)
+            {
+                food.foodCenterPoint = new GameObject(food.name + "CenterPoint").transform;
+                food.foodCenterPoint.SetParent(food.transform);
+            }
+
+            // move center to point in between origin + top
+            food.foodCenterPoint.position = Vector3.Lerp(food.transform.position, food.topStackSnapPoint.position, 0.5f);
+
+            if (food.topStackSnapPoint.parent != food)
+            {
+                food.topStackSnapPoint.transform.SetParent(food.transform);
+            }
+
+            return food.foodCenterPoint;
         }
     }
 
