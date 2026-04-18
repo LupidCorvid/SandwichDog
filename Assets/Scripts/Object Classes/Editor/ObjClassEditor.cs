@@ -103,7 +103,7 @@ public class ObjClassEditor : Editor
     [CustomEditor(typeof(Food))]
     public class FoodClassEditor : ObjClassEditor
     {
-        Transform oldFoodCenterPoint;
+        Vector3 oldFoodCenterPoint;
 
         SerializedProperty isCookableProperty;
         SerializedProperty timeToCookProperty;
@@ -153,30 +153,27 @@ public class ObjClassEditor : Editor
             EditorGUILayout.PropertyField(isStackableProperty);
             if (isStackableProperty.boolValue)
             {
-                if (!topStackSnapPointProperty.objectReferenceValue)
+                if (!foodTarget.topStackSnapPoint)
                 {
-                    GameObject topSnapObj = new GameObject(foodTarget.name + "TopPoint");
-                    topSnapObj.transform.SetParent(foodTarget.transform);
-                    topSnapObj.transform.position = Vector3.zero;
-                    topSnapObj.transform.rotation = Quaternion.identity;
-                    foodTarget.topStackSnapPoint = topSnapObj.transform;
+                    foodTarget.topStackSnapPoint = new GameObject(foodTarget.name + "TopPoint").transform;
+                    foodTarget.topStackSnapPoint.SetParent(foodTarget.transform, false);
 
                     topStackSnapPointProperty.objectReferenceValue = foodTarget.topStackSnapPoint;
-                    oldFoodCenterPoint = UpdateFoodCenterPoint(foodTarget);
+                    oldFoodCenterPoint = UpdateFoodCenterPoint(foodTarget).position;
                 }
 
                 if (!foodCenterPointProperty.objectReferenceValue)
                 {
-                    oldFoodCenterPoint = UpdateFoodCenterPoint(foodTarget);
-                    foodCenterPointProperty.objectReferenceValue = oldFoodCenterPoint;
+                    foodCenterPointProperty.objectReferenceValue = UpdateFoodCenterPoint(foodTarget);
+                    oldFoodCenterPoint = (foodCenterPointProperty.objectReferenceValue as Transform).position;
                 }
                 Transform foodCenterPoint = foodCenterPointProperty.objectReferenceValue as Transform;
                 if (foodCenterPoint)
                 {
-                    if (foodCenterPoint.position != oldFoodCenterPoint.position)
+                    if (foodCenterPoint.position != oldFoodCenterPoint)
                     {
-                        oldFoodCenterPoint = UpdateFoodCenterPoint(foodTarget);
-                        foodCenterPointProperty.objectReferenceValue = oldFoodCenterPoint;
+                        foodCenterPointProperty.objectReferenceValue = UpdateFoodCenterPoint(foodTarget);
+                        oldFoodCenterPoint = (foodCenterPointProperty.objectReferenceValue as Transform).position;
                     }
                 }
             }
@@ -195,16 +192,11 @@ public class ObjClassEditor : Editor
             if (!food.foodCenterPoint)
             {
                 food.foodCenterPoint = new GameObject(food.name + "CenterPoint").transform;
-                food.foodCenterPoint.SetParent(food.transform);
+                food.foodCenterPoint.SetParent(food.transform, false);
             }
 
             // move center to point in between origin + top
             food.foodCenterPoint.position = Vector3.Lerp(food.transform.position, food.topStackSnapPoint.position, 0.5f);
-
-            if (food.topStackSnapPoint.parent != food)
-            {
-                food.topStackSnapPoint.transform.SetParent(food.transform);
-            }
 
             return food.foodCenterPoint;
         }

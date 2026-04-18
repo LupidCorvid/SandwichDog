@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3065621754027848916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3682714419635803203}
+  m_Layer: 0
+  m_Name: TomatoSliceTopPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3682714419635803203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3065621754027848916}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.04338, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7168220644048275510}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5176829188956125698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5216802451904471219}
+  m_Layer: 0
+  m_Name: TomatoSliceCenterPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5216802451904471219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5176829188956125698}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.021690011, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7168220644048275510}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5511019505047878592
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,12 +369,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8848617789596595006}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.6241237, y: 1.216151, z: -2.9982023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2307876, y: 1.1092, z: -2.9178085}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5072016531417481983}
+  - {fileID: 3682714419635803203}
+  - {fileID: 5216802451904471219}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8510673722739586006
@@ -433,7 +497,7 @@ MonoBehaviour:
   rigidBody: {fileID: 0}
   xrgi: {fileID: 0}
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
-  overrideGlobalSettings: 0
+  overrideGlobalSettings: 1
   canGetDirty: 0
   canGetClean: 0
   amountToDirtyPerSecond: 0.1
@@ -448,9 +512,9 @@ MonoBehaviour:
   timeToBurn: 0
   cookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
-  isStackable: 0
-  topStackSnapPoint: {fileID: 0}
-  foodCenterPoint: {fileID: 0}
+  isStackable: 1
+  topStackSnapPoint: {fileID: 3682714419635803203}
+  foodCenterPoint: {fileID: 5216802451904471219}
   isSliceable: 0
   numCutsNeeded: 0
   slicedResultObject: {fileID: 0}

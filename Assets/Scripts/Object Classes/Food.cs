@@ -33,7 +33,7 @@ public class Food : ObjClass
 
     [SerializeField] protected static float minDistanceToSnapObj;
 
-    [SerializeField] public Transform topStackSnapPoint; // normal transform should act as bottom
+    [SerializeField][HideInInspector] public Transform topStackSnapPoint; // normal transform should act as bottom
 
     [SerializeField][HideInInspector] public Transform foodCenterPoint;
 

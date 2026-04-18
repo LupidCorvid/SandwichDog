@@ -15,13 +15,13 @@ public class Sandwich : Food
         foodOrder.Add(sandwichBase);
 
         sandwichBottomAnchor = new GameObject("SandwichBottomAnchor").transform;
-        sandwichBottomAnchor.SetParent(this.transform);
+        sandwichBottomAnchor.SetParent(this.transform, false);
         //bottomOfSandwich.transform.position = sandwichBase.transform.position;
         //bottomOfSandwich.transform.rotation = sandwichBase.transform.rotation;
         //bottomOfSandwich.transform.parent = this.transform;
 
         sandwichTopAnchor = new GameObject("SandwichTopAnchor").transform;
-        sandwichTopAnchor.SetParent(this.transform);
+        sandwichTopAnchor.SetParent(this.transform, false);
 
         firstFilling.SnapTo(sandwichTopAnchor);
         foodOrder.Add(firstFilling);
