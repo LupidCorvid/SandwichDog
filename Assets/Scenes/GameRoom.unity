@@ -513,13 +513,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 388639515}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11c97d4b01c686546beaae6e1bf42331, type: 3}
+  m_Script: {fileID: 11500000, guid: e5125dc3046103c4eb648bf4389ac67f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: -1
-  levelTutorialObjects: {fileID: 11400000, guid: 78281658fb6a2f846a8797cf00ffa863, type: 2}
+  levelTutorialObjects:
+  - {fileID: 11400000, guid: 78281658fb6a2f846a8797cf00ffa863, type: 2}
+  - {fileID: 11400000, guid: 78281658fb6a2f846a8797cf00ffa863, type: 2}
   lvl1Text:
   - Press and Hold both Side Triggers at the same time to pick up objects.
+  - Press B to turn the page forward, and Y to turn the page backward.
+  - Press X to swap walking style.
+  - Press and Hold both Side Triggers at the same time to pick up objects.
+  - Silverware can be held in one paw with the left or right Side Trigger.
+  - Cabinets can be opened with one paw with the left or right Side Trigger.
+  - When your sandwich is done, put it on a plate and place it on the table in the
+    living room.
 --- !u!4 &388639517
 Transform:
   m_ObjectHideFlags: 0
@@ -2486,7 +2495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &121967815147239109
 MonoBehaviour:
   m_ObjectHideFlags: 0
