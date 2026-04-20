@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class Jar : ObjClass
+public class Jar : MonoBehaviour
 {
     public Spread availSpread;
-    public Jar() : base(ObjType.PICKUP)
+    public Jar()
     {
-        availSpread = Spread.PEANUTBUTTER;
+        availSpread = Spread.PEANUT_BUTTER;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -14,7 +14,7 @@ public class RecipeScorer : MonoBehaviour
     public static event Action onScoreCalculate;
 
     //The objects the player brought to the end game area, added via end area OnTriggerEnter
-    public List<ItemRequirement> objectsToScore = new List<ItemRequirement>();
+    public List<RecipeRequirement> objectsToScore = new List<RecipeRequirement>();
 
     public TMP_Text scoreText;
     public TMP_Text displayText;
@@ -35,25 +35,25 @@ public class RecipeScorer : MonoBehaviour
     //TODO: Curretly doesn't remove objects that leave onTriggerExit
     private void OnTriggerEnter(Collider other)
     {
-        ObjClass obj = other.gameObject.GetComponentInChildren<ObjClass>();
+        //ObjClass obj = other.gameObject.GetComponentInChildren<ObjClass>();
 
-        if (obj)
-        {
-            Debug.Log("new item in scoring area: " + other.gameObject.name);
-            //CalculateScore();
-            //Debug.Log("Object added to score: " + other.gameObject.name);
+        //if (obj)
+        //{
+        //    Debug.Log("new item in scoring area: " + other.gameObject.name);
+        //    //CalculateScore();
+        //    //Debug.Log("Object added to score: " + other.gameObject.name);
 
-            if (objectsToScore.Contains(new ItemRequirement(obj, 1)))
-            {
-                int foundIdx = objectsToScore.FindIndex(requirement => requirement.Equals(obj));
-                objectsToScore[foundIdx].quantity += 1;
-            }
-            else
-            {
-                objectsToScore.Add(new ItemRequirement(obj, 1));
-                Debug.Log("new requirement added, total # of objs now " + objectsToScore.Count);
-            }
-        }
+        //    if (objectsToScore.Contains(new RecipeRequirement(obj, 1)))
+        //    {
+        //        int foundIdx = objectsToScore.FindIndex(requirement => requirement.Equals(obj));
+        //        objectsToScore[foundIdx].quantity += 1;
+        //    }
+        //    else
+        //    {
+        //        objectsToScore.Add(new RecipeRequirement(obj, 1));
+        //        Debug.Log("new requirement added, total # of objs now " + objectsToScore.Count);
+        //    }
+        //}
     }
 
     //If the player leaves too early, reset the timer
@@ -89,12 +89,12 @@ public class RecipeScorer : MonoBehaviour
         //List<ItemRequirement> itemRequirements = levelRecipe[currentLevel - 1].requirements.ToList();
 
         float scoreCount = 0;
-        foreach (ItemRequirement objectToScore in objectsToScore)
+        foreach (RecipeRequirement objectToScore in objectsToScore)
         {
             //Debug.Log(objectToScore.item.gameObject.GetComponent<Rigidbody>() == null);
 
-            Debug.Log(objectToScore.item.objCleanliness);
-            scoreCount += objectToScore.item.objCleanliness * objectToScore.quantity;
+            Debug.Log(objectToScore.food.objCleanliness);
+            scoreCount += objectToScore.food.objCleanliness * objectToScore.quantity;
         }
         score = (scoreCount / scoreMax) * 100.0f;
 

@@ -32,11 +32,7 @@ public class Food : ObjClass
     // === STACKABILITY === //
     [SerializeField] public bool isStackable;
 
-    [SerializeField] protected float minDistanceToSnapObj;
-
     [SerializeField][HideInInspector] public Transform topStackSnapPoint; // normal transform should act as bottom
-
-    [SerializeField][HideInInspector] public Transform foodCenterPoint;
 
     [SerializeField] public Food debugFoodToSnapTo;
 
@@ -67,54 +63,6 @@ public class Food : ObjClass
         else
         {
             cookAmount = 1.0f;
-        }
-    }
-
-    public override void InteractedObjectUpdate()
-    {
-        base.InteractedObjectUpdate();
-
-        if (isStackable)
-        {
-            // find closest sandwich base to snap to
-            float closestDistance = float.PositiveInfinity;
-            Food closestFood = null;
-
-            foreach (Food targetFood in ChefManager.Instance.snapTargets)
-            {
-                float distanceToSnapTarget = (targetFood.transform.position - this.transform.position).sqrMagnitude;
-
-                if (distanceToSnapTarget < (minDistanceToSnapObj * minDistanceToSnapObj))
-                {
-                    if (distanceToSnapTarget < closestDistance)
-                    {
-                        closestDistance = distanceToSnapTarget;
-                        closestFood = targetFood;
-                    }
-                }
-            }
-
-            // snap to sandwich base
-            if (closestFood != null)
-            {
-                float distanceFromTop = (closestFood.topStackSnapPoint.position - this.topStackSnapPoint.position).sqrMagnitude;
-                bool doReverseSnap = false;
-
-                Vector3 posToSnapTo = Vector3.zero;
-
-                if (closestDistance < distanceFromTop)
-                {
-                    posToSnapTo = closestFood.transform.position;
-                }
-                else
-                {
-                    posToSnapTo = closestFood.topStackSnapPoint.position;
-                }
-
-                return;
-            }
-
-            // find closest sandwich top to snap to
         }
     }
 
@@ -157,107 +105,7 @@ public class Food : ObjClass
             GameplayManager.Instance.SwapOutObj(this.gameObject, slicedResultObject);
         }
     }
-
-    ///=============================================================================
-    ///                             STACKING FOODS
-    ///=============================================================================
-
-    // returns new top point
-    public void SnapTo(Food target)
-    {
-        bool areBothObjsSameDir = Vector3.Dot(this.transform.up, target.transform.up) > 0.0f ? true : false;
-
-        /*
-         * upside down = UD
-         * rightside up = RU
-         * this food to move = curr
-         * base food to snap to = target
-        */
-
-        float minDistNeeded = minDistanceToSnapObj * minDistanceToSnapObj;
-        float currOriginToTargetTop = (this.transform.position - target.topStackSnapPoint.position).sqrMagnitude;
-        float currOriginToTargetOrigin = (this.transform.position - target.transform.position).sqrMagnitude;
-
-        if (areBothObjsSameDir)
-        {
-            // case 1: RU on RU, curr origin closest to target top
-            if (currOriginToTargetTop < currOriginToTargetOrigin)
-            {
-                if (currOriginToTargetTop < minDistNeeded)
-                {
-                    AlignWith(target.transform, false);
-                    //this.transform.rotation = Quaternion.Euler(target.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
-                    Vector3 diffToTargetTopFromCurrOrigin = (this.transform.position - target.topStackSnapPoint.position);
-                    this.transform.position -= diffToTargetTopFromCurrOrigin;
-                    Debug.Log("case 1!");
-                }
-            }
-            // case 2: UD on UD, curr top is closest to target origin
-            else
-            {
-                if (currOriginToTargetOrigin < minDistNeeded)
-                {
-                    AlignWith(target.transform, false);
-                    //this.transform.rotation = Quaternion.Euler(target.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
-                    Vector3 diffToTargetOriginFromCurrTop = (this.topStackSnapPoint.position - target.transform.position);
-                    this.transform.position -= diffToTargetOriginFromCurrTop;
-                    Debug.Log("case 2!");
-                }
-            }
-        }
-        // objs facing opposite directions
-        else
-        {
-            // case 3: RU on UD, current origin is closest to target origin
-            if (currOriginToTargetOrigin < currOriginToTargetTop)
-            {
-                if (currOriginToTargetOrigin < minDistanceToSnapObj)
-                {
-                    AlignWith(target.transform, true);
-                    //this.transform.rotation = Quaternion.Euler(target.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
-                    Vector3 diffToTargetOriginFromCurrOrigin = (this.transform.position - target.transform.position);
-                    this.transform.position -= diffToTargetOriginFromCurrOrigin;
-                    Debug.Log("case 3!");
-                }
-            }
-            // case 4: UD on RU, current top is closest to target top
-            else
-            {
-                if (currOriginToTargetTop < minDistanceToSnapObj)
-                {
-                    AlignWith(target.transform, true);
-                    //this.transform.rotation = Quaternion.Euler(target.transform.eulerAngles.x, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
-                    Vector3 diffToTargetTopFromCurrTop = (this.topStackSnapPoint.position - target.topStackSnapPoint.position);
-                    this.transform.position -= diffToTargetTopFromCurrTop;
-                    Debug.Log("case 4!");
-                }
-            }
-        }
-    }
-
-    protected void AlignWith(Transform target, bool flipZRotation)
-    {
-        // align curr with target rotation along plane where the snap point lies
-        Vector3 flattenedForward = Vector3.ProjectOnPlane(this.transform.forward, target.transform.up);
-
-        // avoid gimbal locking if both curr + target perfectly up
-        if (flattenedForward.sqrMagnitude < Mathf.Epsilon)
-        {
-            flattenedForward = Vector3.ProjectOnPlane(transform.up, target.transform.up);
-        }
-        // apply new rotation
-        Quaternion targetRotation = Quaternion.LookRotation(flattenedForward, target.transform.up);
-
-
-        if (flipZRotation)
-        {
-            targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, targetRotation.eulerAngles.z + 180.0f);
-        }
-        this.transform.rotation = targetRotation;
-    }
-
 }
-
 
 ///=============================================================================
 ///                             FOOD ORGANIZATION TYPES

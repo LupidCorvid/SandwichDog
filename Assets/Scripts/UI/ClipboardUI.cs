@@ -24,7 +24,14 @@ public class ClipboardUI : MonoBehaviour
 
     private void LoadRecipe(Recipe_SO recipeToLoad)
     {
+        //foreach (FoodRequirement itemRequirement in recipeToLoad.requiredFood)
+        //{
 
+        //}
+
+        //String test = Spread.PEANUT_BUTTER.ToString();
+        //test.Replace("_", " ");
+        //"-covered" + 
     }
 
     public void UpdateRecipeText(ObjClass updatedObj)
@@ -43,9 +50,9 @@ public class ClipboardUI : MonoBehaviour
     //    {
     //        switch (food.currentSpread)
     //        {
-    //            case ObjClass.Spread.NOSPREAD:
+    //            case ObjClass.Spread.NO_SPREAD:
     //                break;
-    //            case ObjClass.Spread.PEANUTBUTTER:
+    //            case ObjClass.Spread.PEANUT_BUTTER:
     //                scoreText.text += " with peanut butter";
     //                break;
     //            case ObjClass.Spread.JELLY:

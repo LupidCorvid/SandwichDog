@@ -1,43 +1,15 @@
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
-using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.XR.CoreUtils;
 using System.Linq;
-
-public class FoodRequirement
-{
-    
-}
-
-[System.Serializable]
-public class ItemRequirement
-{
-    public ObjClass item;
-    public Spread spread;
-    public int quantity;
-
-    public ItemRequirement(ObjClass inItem, int inQuantity)
-    {
-        item = inItem;
-        quantity = inQuantity;
-    }
-
-    public override bool Equals(object other)
-    {
-        ObjClass otherObj = other as ObjClass;
-
-        if (otherObj)
-        {
-            ItemRequirement otherReq = new ItemRequirement(otherObj, 1);
-
-            return item == otherReq.item && quantity == otherReq.quantity;
-        }
-        return false;
-    }
-}
+using Unity.VisualScripting;
+using Unity.XR.CoreUtils;
+using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.State;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Transformers;
 
 public enum ObjType
 {
@@ -48,8 +20,8 @@ public enum ObjType
 
 public enum Spread
 {
-    NOSPREAD,
-    PEANUTBUTTER,
+    NO_SPREAD,
+    PEANUT_BUTTER,
     JELLY
 }
 
@@ -57,6 +29,17 @@ public enum Spread
 public class ObjClass : MonoBehaviour
 {
     protected const float MAX_CONDITION = 1.0f;
+
+    // === INTERACTION=== //
+    [SerializeField] protected XRGrabInteractable xrgi;
+    [SerializeField] protected XRGeneralGrabTransformer xrggt;
+    [SerializeField] protected XRInteractableAffordanceStateProvider xriasp;
+
+    [SerializeField] protected Rigidbody rigidBody;
+    public Rigidbody RigidBody => rigidBody;
+    private float rbMass; // saved to properly recreate rb
+    private List<Collider> xrgiColliders;
+    private int xrgiCollidersHash;
 
     // === BASIC INFO === //
     [SerializeField]  public ObjType objType { get; private set; }
@@ -95,12 +78,26 @@ public class ObjClass : MonoBehaviour
     [SerializeField] protected ObjSpreads_SO possibleSpreads;
 
     public bool CanHaveSpreads => canHaveSpreads;
-    public bool HasSpread => (currentSpread != Spread.NOSPREAD);
+    public bool HasSpread => (currentSpread != Spread.NO_SPREAD);
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (!objRenderer) objRenderer = GetComponent<Renderer>();
+        if (!rigidBody) rigidBody = GetComponentInChildren<Rigidbody>();
+        if (!xrgi) xrgi = GetComponentInChildren<XRGrabInteractable>();
+        if (!xrggt) xrggt = GetComponentInChildren<XRGeneralGrabTransformer>();
+        if (!xriasp) xriasp = GetComponentInChildren<XRInteractableAffordanceStateProvider>();
+    }
+#endif
 
     protected void Awake()
     {
         inHand = false;
         inMouth = false;
+
+        xrgi.selectEntered.AddListener(HandlePlayerObjSelectionEntered);
+        xrgi.selectExited.AddListener(HandlePlayerObjSelectionExited);
 
         objCleanliness = MAX_CONDITION;
         InitializeAppearanceLogic();
@@ -109,6 +106,21 @@ public class ObjClass : MonoBehaviour
         {
             InitializeSettings();
         }
+    }
+
+    private void HandlePlayerObjSelectionEntered(SelectEnterEventArgs args)
+    {
+        Player.Instance.activeInteractedObjects.Add(this);
+    }
+
+    private void HandlePlayerObjSelectionExited(SelectExitEventArgs args)
+    {
+        Player.Instance.activeInteractedObjects.Remove(this);
+    }
+
+    public virtual void InteractedObjectUpdate()
+    {
+
     }
 
     protected void Start()
@@ -202,17 +214,69 @@ public class ObjClass : MonoBehaviour
     }
     public void DropFromMouth() { }
 
+
+    public void CopyColliders(ObjClass incomingObj=null)
+    {
+        // record colliders before destruction
+        if (xrgi.colliders != null)
+        {
+            if (xrgiColliders == null || !xrgi.colliders.SequenceEqual(xrgiColliders))
+            {
+                xrgiColliders = new List<Collider>(xrgi.colliders);
+            }
+        }
+        if (incomingObj)
+        {
+            foreach (Collider collider in xrgiColliders)
+            {
+                incomingObj.xrgi.colliders.Add(collider);
+            }
+        }
+
+        xriasp.enabled = false;
+        xriasp.interactableSource = null;
+        Destroy(xrgi);
+
+        rbMass = rigidBody.mass;
+        Destroy(rigidBody, 0.01f);
+    }
+    public void EnableRigidBody()
+    {
+        rigidBody = this.AddComponent<Rigidbody>();
+        rigidBody.mass = rbMass;
+        xrgi = this.AddComponent<XRGrabInteractable>();
+        // restore colliders
+        if (xrgiColliders != null)
+        {
+            foreach (Collider collider in xrgiColliders)
+            {
+                xrgi.colliders.Add(collider);
+            }
+        }
+    }
+
+    public void DisableInteractability()
+    {
+        if (xrgi) xrgi.enabled = true;
+        if (xrggt) xrggt.enabled = true;
+        //if (xriasp) xriasp.enabled = true;
+    }
+    public void EnableInteractability()
+    {
+        if (xrgi) xrgi.enabled = true;
+        if (xrggt) xrggt.enabled = true;
+        //if (xriasp) xriasp.enabled = true;
+    }
+
     ///=============================================================================
     ///                             APPEARANCE
     ///=============================================================================
 
     protected virtual void InitializeAppearanceLogic()
     {
-        objRenderer ??= GetComponent<MeshRenderer>();
         cleanColor = objRenderer != null ? objRenderer.material.GetColor("_BaseColor") : Color.white; //cleanColor = objRenderer?.material?.GetColor("_BaseColor") ?? Color.red;
 
-
-        if (currentSpread != Spread.NOSPREAD)
+        if (currentSpread != Spread.NO_SPREAD)
         {
             AddSpread(currentSpread);
         }
@@ -263,7 +327,7 @@ public class ObjClass : MonoBehaviour
     /// <returns>Returns if the add was successful or not</returns>
     public bool AddSpread(Spread spreadToAdd)
     {
-        if (spreadToAdd == Spread.NOSPREAD)
+        if (spreadToAdd == Spread.NO_SPREAD)
         {
             RemoveSpreads();
             return true;

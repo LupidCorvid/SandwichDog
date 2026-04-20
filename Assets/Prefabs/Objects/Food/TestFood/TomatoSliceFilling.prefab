@@ -25,38 +25,7 @@ Transform:
   m_GameObject: {fileID: 3065621754027848916}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04338, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7168220644048275510}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5176829188956125698
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5216802451904471219}
-  m_Layer: 0
-  m_Name: TomatoSliceCenterPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5216802451904471219
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5176829188956125698}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.021690011, z: 0}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -355,7 +324,7 @@ GameObject:
   - component: {fileID: 1442805811591244483}
   - component: {fileID: 1399569737534805431}
   m_Layer: 0
-  m_Name: TomatoSlice
+  m_Name: TomatoSliceFilling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,7 +345,6 @@ Transform:
   m_Children:
   - {fileID: 5072016531417481983}
   - {fileID: 3682714419635803203}
-  - {fileID: 5216802451904471219}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8510673722739586006
@@ -494,8 +462,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 916437776017b404894ef3af2a3ea0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidBody: {fileID: 0}
-  xrgi: {fileID: 0}
+  xrgi: {fileID: 1442805811591244483}
+  xrggt: {fileID: 1399569737534805431}
+  xriasp: {fileID: 372220467662305059}
+  rigidBody: {fileID: 3813148906024207715}
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
   canGetDirty: 0
@@ -513,9 +483,7 @@ MonoBehaviour:
   cookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
   isStackable: 1
-  minDistanceToSnapObj: 10
   topStackSnapPoint: {fileID: 3682714419635803203}
-  foodCenterPoint: {fileID: 5216802451904471219}
   debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0
   numCutsNeeded: 0
