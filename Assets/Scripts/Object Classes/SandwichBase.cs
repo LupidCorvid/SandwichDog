@@ -21,7 +21,7 @@ public class SandwichBase : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log(other.name + " is currently sitting in the trigger");
+        //Debug.Log(other.name + " is currently sitting in the trigger");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,40 +36,52 @@ public class SandwichBase : MonoBehaviour
             if (targetFood.transform.IsChildOf(sandwich.transform)) return;
         }
 
-        Debug.Log(targetFood.name + " is valid!");
-
         if (!sandwich)
         {
             GameObject sandwichOwner = Instantiate(emptySandwichObject, this.transform);
             sandwichOwner.transform.SetParent(this.transform.parent, true);
             sandwich = sandwichOwner.GetComponent<Sandwich>();
+            //topStackCollider.transform.SetParent(sandwich.transform);
+            //sandwich.RigidBody.WakeUp();
+            //Physics.SyncTransforms();
+            //baseFood.DisableRigidBody();
+            //targetFood.DisableRigidBody();
+            baseFood.transform.SetParent(sandwich.transform);
+            targetFood.transform.SetParent(sandwich.transform);
+            Sandwich.SnapTo(baseFood, targetFood);
 
             // this is hacky but im not engineering this a diff way before URCAD
-            triggeredCollider = topStackCollider.stackCollider.bounds.Intersects(other.bounds) ? topStackCollider : bottomStackCollider;
-            // disable whichever collider didn't trigger the sandwich
-            if (triggeredCollider == topStackCollider)
-            {
-                bottomStackCollider.enabled = false;
-            }
-            else
-            {
-                topStackCollider.enabled = false;
-            }
+            //triggeredCollider = topStackCollider.stackCollider.bounds.Intersects(other.bounds) ? topStackCollider : bottomStackCollider;
+            //// disable whichever collider didn't trigger the sandwich
+            //if (triggeredCollider == topStackCollider)
+            //{
+            //    //bottomStackCollider.enabled = false;
+            //}
+            //else
+            //{
+            //    //topStackCollider.enabled = false;
+            //}
 
             //triggeredCollider.transform.SetParent(sandwichOwner.transform, true);
 
-            triggeredCollider.enabled = false;
-            sandwich.InitializeSandwich(this, targetFood, triggeredCollider);
+            //triggeredCollider.enabled = false;
+            //sandwich.InitializeSandwich(this, targetFood, triggeredCollider);
             //sandwich.EnableInteractability(); // starts as not interactable
         }
         else
         {
-            triggeredCollider.enabled = false;
-            sandwich.PushNewFood(targetFood);
+            Debug.Log("sandwich exists");
+            targetFood.DisableRigidBody();
+            targetFood.transform.SetParent(sandwich.transform);
+            Sandwich.SnapTo(baseFood, targetFood);
+
+
+            //triggeredCollider.enabled = false;
+            //sandwich.PushNewFood(targetFood);
         }
         //triggeredCollider.transform.position += new Vector3(0.0f, (targetFood.topStackSnapPoint.transform.position.y - targetFood.transform.position.y), 0.0f);
         //triggeredCollider.transform.position += new Vector3(0.0f, (targetFood.objRenderer.bounds.extents.y), 0.0f);
-        triggeredCollider.enabled = true;
+        //triggeredCollider.enabled = true;
         // TODO nudge the remaining collider along with the snap
         // TODO setup so that position starts to lerp in update
     }

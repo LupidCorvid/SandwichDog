@@ -215,7 +215,7 @@ public class ObjClass : MonoBehaviour
     public void DropFromMouth() { }
 
 
-    public void CopyColliders(ObjClass incomingObj=null)
+    public void DisableRigidBody(ObjClass incomingObj=null)
     {
         // record colliders before destruction
         if (xrgi.colliders != null)
@@ -240,6 +240,7 @@ public class ObjClass : MonoBehaviour
         rbMass = rigidBody.mass;
         Destroy(rigidBody, 0.01f);
     }
+
     public void EnableRigidBody()
     {
         rigidBody = this.AddComponent<Rigidbody>();

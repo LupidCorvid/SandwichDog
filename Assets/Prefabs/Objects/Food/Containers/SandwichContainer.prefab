@@ -58,8 +58,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4766069664014610040}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
   m_Name: 
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4766069664014610040}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0a1302d0d134fa8a2a5b3bf4aec3c20, type: 3}
   m_Name: 
@@ -247,9 +247,6 @@ MonoBehaviour:
   xrgi: {fileID: 7392589668107023956}
   xrggt: {fileID: 7916582220314170474}
   xriasp: {fileID: 4579614501313255059}
-  xriMPBH: {fileID: 4881203034698250749}
-  xriCMPAR: {fileID: 5434818250928816363}
-  xriFMPAR: {fileID: 3340663146116845513}
   rigidBody: {fileID: 4635222108684702575}
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 0
@@ -273,6 +270,7 @@ MonoBehaviour:
   isSliceable: 0
   numCutsNeeded: 0
   slicedResultObject: {fileID: 0}
+  foodOrder: []
 --- !u!1 &5101640486339707693
 GameObject:
   m_ObjectHideFlags: 0
