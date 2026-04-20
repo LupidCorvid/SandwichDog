@@ -24,7 +24,7 @@ public class Sandwich : Food
 
     public void PushBaseFood(Food baseFood)
     {
-        baseFood.CopyColliders(this);
+        baseFood.DisableRigidBody(this);
         baseFood.gameObject.transform.SetParent(this.transform);
         foodStackCollider.gameObject.transform.SetParent(this.transform);
         // TRANSFER NEW SANDWICH OBJ TO PLAYER
@@ -45,18 +45,22 @@ public class Sandwich : Food
         //    baseFood.transform.position.z
         //);
         //foodStackCollider.transform.position = baseFood.transform.position;
-        foodStackCollider.transform.localPosition = new Vector3(
-            0.0f,
-            Mathf.Abs(baseFood.topStackSnapPoint.transform.position.y - baseFood.transform.position.y),
-            0.0f
-        );
+
+        //foodStackCollider.transform.localPosition = new Vector3(
+        //    0.0f,
+        //    Mathf.Abs(baseFood.topStackSnapPoint.transform.position.y - baseFood.transform.position.y),
+        //    0.0f
+        //);
     }
 
     public void PushNewFood(Food newFood)
     {
-        if (foodOrder.Exists(food => ReferenceEquals(food, newFood))) return;
+        Destroy(newFood.gameObject);
+        return;
 
-        newFood.CopyColliders(this);
+        //if (foodOrder.Exists(food => ReferenceEquals(food, newFood))) return;
+
+        newFood.DisableRigidBody(this);
         newFood.gameObject.transform.SetParent(this.transform);
 
         // force player to release the incoming obj if applicable
@@ -112,7 +116,7 @@ public class Sandwich : Food
     public Food GetTopFood() { return foodOrder[foodOrder.Count - 1]; }
 
     // returns distance moved
-    private void SnapTo(Food source, Food target)
+    public static void SnapTo(Food source, Food target)
     {
         bool areBothObjsSameDir = Vector3.Dot(source.transform.up, target.transform.up) > 0.0f ? true : false;
 
@@ -159,10 +163,10 @@ public class Sandwich : Food
             }
         }
         source.transform.position = target.transform.position + distanceToMove;
-        foodStackCollider.transform.position += currTopPos;
+        //foodStackCollider.transform.position += currTopPos;
     }
 
-    private void AlignWith(Transform source, Transform target, bool flipZRotation)
+    private static void AlignWith(Transform source, Transform target, bool flipZRotation)
     {
         // align curr with target rotation along plane where the snap point lies
         Vector3 flattenedForward = Vector3.ProjectOnPlane(source.transform.forward, target.transform.up);
@@ -170,7 +174,7 @@ public class Sandwich : Food
         // avoid gimbal locking if both curr + target perfectly up
         if (flattenedForward.sqrMagnitude < Mathf.Epsilon)
         {
-            flattenedForward = Vector3.ProjectOnPlane(transform.up, target.transform.up);
+            flattenedForward = Vector3.ProjectOnPlane(source.transform.up, target.transform.up);
         }
         // apply new rotation
         Quaternion targetRotation = Quaternion.LookRotation(flattenedForward, target.transform.up);
