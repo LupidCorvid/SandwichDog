@@ -503,7 +503,7 @@ Transform:
   m_GameObject: {fileID: 1370770039535384596}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5203923, y: 0.632, z: 0.24757347}
+  m_LocalPosition: {x: 1.5203923, y: 0.599, z: 0.24757347}
   m_LocalScale: {x: -0.157899, y: -0.157899, z: -0.157899}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -516,7 +516,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1370770039535384596}
-  m_Mesh: {fileID: 8691780276856062721, guid: bcfe2d05df6805043b2173394fb3e822, type: 3}
+  m_Mesh: {fileID: -7387706064836869012, guid: bcfe2d05df6805043b2173394fb3e822, type: 3}
 --- !u!23 &2871010898180515625
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5791,7 +5791,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6116613492057255094}
-  m_Mesh: {fileID: 6239881831769578202, guid: bcfe2d05df6805043b2173394fb3e822, type: 3}
+  m_Mesh: {fileID: 6255687079079774844, guid: bcfe2d05df6805043b2173394fb3e822, type: 3}
 --- !u!23 &7367831505896943951
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6007,7 +6007,7 @@ Transform:
   m_GameObject: {fileID: 6138607843906621181}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5367709, y: 0.799, z: 0}
+  m_LocalPosition: {x: 1.5367709, y: 0.766, z: 0}
   m_LocalScale: {x: 0.20765881, y: 0.66461563, z: 0.20765881}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7749,7 +7749,7 @@ Transform:
   m_GameObject: {fileID: 8224659338022281479}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5203923, y: 0.632, z: -0.18287744}
+  m_LocalPosition: {x: 1.52, y: 0.599, z: -0.24}
   m_LocalScale: {x: -0.157899, y: -0.157899, z: -0.157899}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9113,6 +9113,10 @@ PrefabInstance:
       value: 0.8665697
       objectReference: {fileID: 0}
     - target: {fileID: 6661006729075642915, guid: 94f5ec1767209654b92ffa1a151c66e9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.20816001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6661006729075642915, guid: 94f5ec1767209654b92ffa1a151c66e9, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.70937026
       objectReference: {fileID: 0}
@@ -9122,7 +9126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6661006729075642915, guid: 94f5ec1767209654b92ffa1a151c66e9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.45999998
+      value: 0.439
       objectReference: {fileID: 0}
     - target: {fileID: 6661006729075642915, guid: 94f5ec1767209654b92ffa1a151c66e9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9407,13 +9411,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6464304944423964747, guid: ef0a41fdea6cd96448b51aad03d442f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5065641219209871717}
   m_SourcePrefab: {fileID: 100100000, guid: ef0a41fdea6cd96448b51aad03d442f0, type: 3}
 --- !u!4 &6126702022483207078 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8277096751938876849, guid: ef0a41fdea6cd96448b51aad03d442f0, type: 3}
   m_PrefabInstance: {fileID: 2871129025548146199}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9110113250844690012 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6464304944423964747, guid: ef0a41fdea6cd96448b51aad03d442f0, type: 3}
+  m_PrefabInstance: {fileID: 2871129025548146199}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5065641219209871717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110113250844690012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77fd3a4defbe6354ebbcffd9c07be5b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expectedCursor: 6
+  expectedLevel: 1
+  triggerType: 0
+  destroyIfLevelDoesntMatch: 0
 --- !u!1001 &3625996532864596068
 PrefabInstance:
   m_ObjectHideFlags: 0

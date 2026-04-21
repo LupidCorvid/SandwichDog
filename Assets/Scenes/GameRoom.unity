@@ -535,27 +535,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &392244107 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9110113250844690012, guid: 3a8d189608d05d7408b223449338cb16, type: 3}
-  m_PrefabInstance: {fileID: 7145655398062032993}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &392244116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392244107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77fd3a4defbe6354ebbcffd9c07be5b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  expectedCursor: 6
-  expectedLevel: 1
-  triggerType: 0
-  destroyIfLevelDoesntMatch: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1725,6 +1704,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2539724735704472912, guid: bccac0abc450c494c9d1bc5e0f4d0f1f, type: 3}
+      propertyPath: m_Colliders.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539724735704472912, guid: bccac0abc450c494c9d1bc5e0f4d0f1f, type: 3}
+      propertyPath: 'm_Colliders.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1165304918}
     - target: {fileID: 5306668784810609918, guid: bccac0abc450c494c9d1bc5e0f4d0f1f, type: 3}
       propertyPath: m_Name
       value: Frying pan model
@@ -1774,6 +1761,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bccac0abc450c494c9d1bc5e0f4d0f1f, type: 3}
+--- !u!64 &1165304918 stripped
+MeshCollider:
+  m_CorrespondingSourceObject: {fileID: 4549482524475312293, guid: bccac0abc450c494c9d1bc5e0f4d0f1f, type: 3}
+  m_PrefabInstance: {fileID: 1165304917}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1191169962
 GameObject:
   m_ObjectHideFlags: 0
@@ -4371,10 +4363,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9110113250844690012, guid: 3a8d189608d05d7408b223449338cb16, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 392244116}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a8d189608d05d7408b223449338cb16, type: 3}
 --- !u!1001 &7163782796127845902
 PrefabInstance:
