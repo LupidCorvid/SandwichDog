@@ -68,6 +68,21 @@ public class Sandwich : Food
 
     public Food GetTopFood() { return foodOrder[foodOrder.Count - 1]; }
 
+    public override float GetFoodWeight()
+    {
+        return foodOrder.Count;
+    }
+
+    public override float ScoreFood()
+    {
+        float scoreSum = 0.0f;
+        foreach (Food food in foodOrder)
+        {
+            scoreSum += food.ScoreFood();
+        }
+        return (scoreSum / foodOrder.Count);
+    }
+
     private IEnumerator SandwichFirstStackPhysicsRoutine(Food targetFood)
     {
         sandwichBase.BaseFood.TransferAndDisableRigidBodiesTo(this);

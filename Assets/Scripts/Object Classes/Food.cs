@@ -10,6 +10,7 @@ public class Food : ObjClass
     // === COOKABILITY === //
     [SerializeField] protected bool isCookable;
     [SerializeField] protected bool isCooked;
+    [SerializeField] protected bool isOvercooked;
     [SerializeField] protected bool isBurnt;
     [SerializeField] protected float timeToCook;
     [SerializeField] protected float timeToBurn;
@@ -66,6 +67,34 @@ public class Food : ObjClass
         }
     }
 
+    public virtual float GetFoodWeight()
+    {
+        return 1.0f;
+    }
+
+    public virtual float ScoreFood()
+    {
+        float scoreSum = 0.0f;
+        float factorsScored = 0.0f;
+
+        if (isCookable)
+        {
+            scoreSum += Mathf.SmoothStep(0.0f, 1.0f, (cookAmount % timeToCook) * 100.0f);
+
+            if (isOvercooked)
+            {
+                scoreSum -= Mathf.SmoothStep(0.0f, 1.0f, ((cookAmount - timeToCook) % timeToBurn) * 100.0f);
+            }
+        }
+        if (canGetDirty)
+        {
+            scoreSum += Mathf.SmoothStep(0.0f, 1.0f, objCleanliness);
+        }
+        float score = (scoreSum / factorsScored);
+
+        return score;
+    }
+
     public void Cook(float timePassed)
     {
         cookAmount += timePassed;
@@ -78,6 +107,7 @@ public class Food : ObjClass
         }
         else if (cookAmount > timeToCook && cookAmount <= (timeToCook + timeToBurn))
         {
+            isOvercooked = true;
             Color burnColor = Color.Lerp(cookedColor, burntColor, ((cookAmount - timeToCook) / (timeToBurn)));
             objRenderer.material.SetColor("_BaseColor", burnColor);
         }
@@ -104,21 +134,5 @@ public class Food : ObjClass
             }
             GameplayManager.Instance.SwapOutObj(this.gameObject, slicedResultObject);
         }
-    }
-}
-
-///=============================================================================
-///                             FOOD ORGANIZATION TYPES
-///=============================================================================
-
-[Serializable]
-public class PlatedFood : Food
-{
-    public List<Food> foodOnPlate;
-    public China plate;
-
-    public override void InteractedObjectUpdate()
-    {
-        //if (plate.transform.eulerAngles)
     }
 }
