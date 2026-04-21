@@ -48,7 +48,7 @@ public class TimerCollider<T> : MonoBehaviour
         return false;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         for (int i = 0; i < timers.Count; i++)
         {
@@ -76,15 +76,21 @@ public class TimerCollider<T> : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        T script = other as T;
-        if (!script) return;
-        if (!CanAddTimer(script)) return; // if it couldn't be added then there's no reason to search for it when removing
+        T script = other.gameObject.GetComponentInChildren<T>();
 
-        foreach (Timer<T> timer in timers)
+        Debug.Log(other.name + " has exited the trigger!");
+
+        if (!script) return;
+
+        Debug.Log(other.name + " is of our templated type");
+
+        for (int i = 0; i < timers.Count ;i++)
         {
-            if (timer.GetObject() == script)
+            Debug.Log(other.name + " timer check");
+            if (ReferenceEquals(timers[i].GetObject(), script))
             {
-                timers.Remove(timer);
+                Debug.Log(other.name + " remove timer!");
+                timers.Remove(timers[i]);
             }
         }            
     }

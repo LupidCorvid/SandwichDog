@@ -9,21 +9,20 @@ public class Food : ObjClass
 {
     // === COOKABILITY === //
     [SerializeField] protected bool isCookable;
-    [SerializeField] protected bool isCooked;
     [SerializeField] protected bool isOvercooked;
     [SerializeField] protected bool isBurnt;
     [SerializeField] protected float timeToCook;
     [SerializeField] protected float timeToBurn;
     [SerializeField] protected float cookAmount;
+    [SerializeField] protected float overcookAmount;
 
     // public getter properties
     public bool IsCookable => isCookable;
     public bool IsBurnt => isBurnt;
-    public bool IsCooked => IsCooked;
-
     public float TimeToCook => timeToCook;
     public float TimeToBurn => timeToBurn;
     public float CookAmount => cookAmount;
+    public float OvercookAmount => overcookAmount;
     // quick reference equation
     public bool CanBeFurtherCooked => (cookAmount < (timeToCook + timeToBurn));
 
@@ -39,9 +38,12 @@ public class Food : ObjClass
 
     // === SLICEABILITY === //
     [SerializeField] protected bool isSliceable;
+    [SerializeField] Food sliceProduct;
     [SerializeField] protected int numCutsNeeded;
     protected int numCutsMade;
     [SerializeField] GameObject slicedResultObject;
+
+    public Food SliceProduct => sliceProduct;
 
     public bool IsSliceable => isSliceable;
 
@@ -67,6 +69,20 @@ public class Food : ObjClass
         }
     }
 
+    // this is probably scuffed with the null return but it'll do
+    public virtual Food AttemptRemoveFoodFromRecipe(List<Food> recipeFoods)
+    {
+        for (int i = 0; i < recipeFoods.Count; i++)
+        {
+            if (recipeFoods[i] == this)
+            {
+                recipeFoods.RemoveAt(i);
+                return this;
+            }
+        }
+        return null;
+    }
+
     public virtual float GetFoodWeight()
     {
         return 1.0f;
@@ -79,16 +95,19 @@ public class Food : ObjClass
 
         if (isCookable)
         {
-            scoreSum += Mathf.SmoothStep(0.0f, 1.0f, (cookAmount % timeToCook) * 100.0f);
+            scoreSum += Mathf.SmoothStep(0.0f, 1.0f, (cookAmount / timeToCook));
+            Debug.Log("adding " + Mathf.SmoothStep(0.0f, 1.0f, (cookAmount % timeToCook)) + " from cooking");
 
             if (isOvercooked)
             {
-                scoreSum -= Mathf.SmoothStep(0.0f, 1.0f, ((cookAmount - timeToCook) % timeToBurn) * 100.0f);
+                scoreSum -= Mathf.SmoothStep(0.0f, 1.0f, overcookAmount);
+                Debug.Log("subtracting " + Mathf.SmoothStep(0.0f, 1.0f, overcookAmount) + " from overcooking");
             }
         }
         if (canGetDirty)
         {
             scoreSum += Mathf.SmoothStep(0.0f, 1.0f, objCleanliness);
+            Debug.Log("adding " + Mathf.SmoothStep(0.0f, 1.0f, objCleanliness) + " from cleanliness");
         }
         float score = (scoreSum / factorsScored);
 
@@ -97,25 +116,24 @@ public class Food : ObjClass
 
     public void Cook(float timePassed)
     {
-        cookAmount += timePassed;
-
-        if (cookAmount < timeToCook)
+        if (cookAmount < 1.0f)
         {
-            Color cookColor = Color.Lerp(cleanColor, cookedColor, (cookAmount / TimeToCook));
+            cookAmount = Mathf.Clamp((cookAmount + (timePassed / timeToCook)), 0.0f, 1.0f);
+            Color cookColor = Color.Lerp(cleanColor, cookedColor, cookAmount);
             objRenderer.material.SetColor("_BaseColor", cookColor);
-            isCooked = true;
         }
-        else if (cookAmount > timeToCook && cookAmount <= (timeToCook + timeToBurn))
+        else if (overcookAmount < 1.0f)
         {
             isOvercooked = true;
-            Color burnColor = Color.Lerp(cookedColor, burntColor, ((cookAmount - timeToCook) / (timeToBurn)));
-            objRenderer.material.SetColor("_BaseColor", burnColor);
+            overcookAmount = Mathf.Clamp((overcookAmount + (timePassed / timeToBurn)), 0.0f, 1.0f);
+            Color overcookColor = Color.Lerp(cookedColor, burntColor, overcookAmount);
+            objRenderer.material.SetColor("_BaseColor", overcookColor);
         }
         else
         {
-            cookAmount = 1.0f;
-            objRenderer.material.SetColor("_BaseColor", burntColor);
             isBurnt = true;
+            overcookAmount = 1.0f;
+            objRenderer.material.SetColor("_BaseColor", burntColor);
         }
     }
 

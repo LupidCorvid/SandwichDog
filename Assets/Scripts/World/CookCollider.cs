@@ -34,7 +34,7 @@ class CookCollider : MonoBehaviour
 
 public class CookwareCooker : TimerCollider<CookwareCollider>
 {
-    public float cookMultiplier = 1.0f;
+    public float cookMultiplier = 1.0f; // I think the idea behind this at the time was if some foods inherently cook faster/slower than others at the same temp
     public float heatLevel;
 
     protected override void TickTimer(CookwareCollider cookware, float timePassed)
