@@ -1704,14 +1704,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2539724735704472912, guid: bccac0abc450c494c9d1bc5e0f4d0f1f, type: 3}
-      propertyPath: m_Colliders.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2539724735704472912, guid: bccac0abc450c494c9d1bc5e0f4d0f1f, type: 3}
-      propertyPath: 'm_Colliders.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1165304918}
     - target: {fileID: 5306668784810609918, guid: bccac0abc450c494c9d1bc5e0f4d0f1f, type: 3}
       propertyPath: m_Name
       value: Frying pan model
@@ -1761,11 +1753,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bccac0abc450c494c9d1bc5e0f4d0f1f, type: 3}
---- !u!64 &1165304918 stripped
-MeshCollider:
-  m_CorrespondingSourceObject: {fileID: 4549482524475312293, guid: bccac0abc450c494c9d1bc5e0f4d0f1f, type: 3}
-  m_PrefabInstance: {fileID: 1165304917}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1191169962
 GameObject:
   m_ObjectHideFlags: 0
@@ -4293,9 +4280,33 @@ PrefabInstance:
     m_TransformParent: {fileID: 1467104257}
     m_Modifications:
     - target: {fileID: 89353384341515822, guid: 3a8d189608d05d7408b223449338cb16, type: 3}
+      propertyPath: m_FarAttachMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 89353384341515822, guid: 3a8d189608d05d7408b223449338cb16, type: 3}
+      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 89353384341515822, guid: 3a8d189608d05d7408b223449338cb16, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 388639516}
+    - target: {fileID: 89353384341515822, guid: 3a8d189608d05d7408b223449338cb16, type: 3}
+      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 89353384341515822, guid: 3a8d189608d05d7408b223449338cb16, type: 3}
+      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReleaseCostraints
+      objectReference: {fileID: 0}
+    - target: {fileID: 89353384341515822, guid: 3a8d189608d05d7408b223449338cb16, type: 3}
+      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Food, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 89353384341515822, guid: 3a8d189608d05d7408b223449338cb16, type: 3}
+      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1436779210668811792, guid: 3a8d189608d05d7408b223449338cb16, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4844,6 +4855,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 370161895166595152, guid: 4469298a448e7a545a93780693c5bc4e, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7794666939171267239, guid: 4469298a448e7a545a93780693c5bc4e, type: 3}
       propertyPath: m_Name
       value: Radio

@@ -2293,7 +2293,7 @@ GameObject:
   - component: {fileID: 3705733415425111744}
   - component: {fileID: 3279441778187246802}
   - component: {fileID: 5917482931154411690}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Material Affordance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4289,6 +4289,7 @@ Transform:
   - {fileID: 5619816374366713623}
   - {fileID: 6311398896934879735}
   - {fileID: 3942529632323580191}
+  - {fileID: 4127553479494164547}
   m_Father: {fileID: 2735792524758826141}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &4830035326915711850
@@ -5268,7 +5269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 292758831904493289}
   - component: {fileID: 7670021581377625098}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Highlight Interaction Affordance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6336,12 +6337,13 @@ GameObject:
   - component: {fileID: 5763737271072140787}
   - component: {fileID: 5738817354879527104}
   - component: {fileID: 2657327415045757166}
-  - component: {fileID: 473576727804955230}
   - component: {fileID: 6574659866754180412}
   - component: {fileID: 89353384341515822}
-  m_Layer: 0
+  - component: {fileID: 6907145238296962952}
+  - component: {fileID: 2100774931106742189}
+  m_Layer: 9
   m_Name: oven_door
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6442,27 +6444,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 110
   m_CollisionDetection: 0
---- !u!65 &473576727804955230
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6792217498152451106}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.0165201, y: 0.6168658, z: 0.054962978}
-  m_Center: {x: 0, y: 0.3084329, z: 0.016795345}
 --- !u!114 &6574659866754180412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6500,12 +6481,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 473576727804955230}
+  - {fileID: 2100774931106742189}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
-  m_SelectMode: 0
-  m_FocusMode: 1
+  m_SelectMode: 1
+  m_FocusMode: 2
   m_CustomReticle: {fileID: 0}
   m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
@@ -6573,13 +6554,13 @@ MonoBehaviour:
   m_StartingInteractionStrengthFilters: []
   m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 0
+  m_UseDynamicAttach: 1
   m_MatchAttachPosition: 1
   m_MatchAttachRotation: 1
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 0
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -6620,7 +6601,44 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  m_FarAttachMode: 0
+  m_FarAttachMode: 2
+--- !u!114 &6907145238296962952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6792217498152451106}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a762c34895f901842aae4e51d5b5aa22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upperBound: 90
+  lowerBound: -1
+  rotationAxis: 0
+--- !u!64 &2100774931106742189
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6792217498152451106}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6125438890472522738, guid: 52190342c6860e447b8ec2c43791e2ca, type: 3}
 --- !u!1 &6868668158679970414
 GameObject:
   m_ObjectHideFlags: 0
@@ -7248,6 +7266,59 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7596875351059068096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4127553479494164547}
+  - component: {fileID: 6731373163095402147}
+  m_Layer: 0
+  m_Name: col
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4127553479494164547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7596875351059068096}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2127619322927963922}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6731373163095402147
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7596875351059068096}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1527
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8911391, y: 0.11169481, z: 0.92162013}
+  m_Center: {x: 0.0065316856, y: 0.72719085, z: 0}
 --- !u!1 &7797435498854825273
 GameObject:
   m_ObjectHideFlags: 0
