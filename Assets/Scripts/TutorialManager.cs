@@ -47,6 +47,7 @@ public class TutorialManager : Singleton<TutorialManager>
     //It moves the cursor to match the current object touched, which accomodates for people who skip the tutorial
     public void askToAdvanceTutorial(int expectedCursor)
     {
+        print("advtut " + expectedCursor);
         //The object must proc a tutorial that hasn't appeared yet
         if (expectedCursor > cursor)
         {
