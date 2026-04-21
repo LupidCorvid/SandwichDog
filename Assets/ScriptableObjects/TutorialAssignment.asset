@@ -21,14 +21,14 @@ MonoBehaviour:
     controllerImg2: {fileID: 21300000, guid: 44b2c46631196a54f92c76e459084317, type: 3}
     UIText: Press and Hold both Side Triggers at the same time to pick up objects
   - arrowPositionToSpawn: {x: 0, y: 0, z: 0}
-    UIPositionToSpawn: {x: -0.442, y: 2.21, z: 9.38}
+    UIPositionToSpawn: {x: 0.12, y: 2.21, z: 9.38}
     arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
     instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
     controllerImg1: {fileID: 21300000, guid: 12065d353c8b9864196bbcb167a55aee, type: 3}
     controllerImg2: {fileID: 21300000, guid: b8a1f923530c0844698755fbbb0ddb1e, type: 3}
     UIText: Press B to turn the page forward, and Y to turn the page backward.
   - arrowPositionToSpawn: {x: 0, y: 0, z: 0}
-    UIPositionToSpawn: {x: 4.114, y: 1.346, z: 6.943}
+    UIPositionToSpawn: {x: 2.48, y: 1.346, z: 6.943}
     arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
     instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
     controllerImg1: {fileID: 21300000, guid: f91d1f5822e82a14aad7efcaf9b2660e, type: 3}

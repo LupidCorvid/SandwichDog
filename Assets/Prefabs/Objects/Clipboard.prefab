@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 6642864866693376089}
   - component: {fileID: 8265815057147569881}
   - component: {fileID: 5270765406496510187}
+  - component: {fileID: 1686026067839972587}
+  - component: {fileID: 5873991549712055904}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -169,19 +171,7 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
-        m_MethodName: askToAdvanceTutorial
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: clipboard
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -300,6 +290,35 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.49473098, y: 0.7489569, z: 0.06383177}
   m_Center: {x: 0, y: -0.0038843455, z: 0.032086205}
+--- !u!114 &1686026067839972587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114765986359337739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77fd3a4defbe6354ebbcffd9c07be5b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expectedCursor: 4
+  expectedLevel: 1
+  triggerType: 0
+  destroyIfLevelDoesntMatch: 0
+--- !u!114 &5873991549712055904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114765986359337739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df59e4921287312479364acaa52d983c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &2538884336144372906
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,9 +701,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Ingredients:\n- 2 Bread Slices\n- Peanut Butter Jar\n- Jam Jar\n- Butterknife\nSteps:\n-
-    Slather peanut butter\n   on one slice of bread\n   and jam on the other\n  
-    and combine together."
+  m_text: 'Ingredients:
+
+    - 2 Bread
+
+    - Peanut butter
+
+    - Jam
+
+    Steps:
+
+    -
+    Slather peanut butter and jelly onto bread
+
+    - Put bread together'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
