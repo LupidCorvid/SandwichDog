@@ -47,7 +47,6 @@ public class TutorialManager : Singleton<TutorialManager>
     //It moves the cursor to match the current object touched, which accomodates for people who skip the tutorial
     public void askToAdvanceTutorial(int expectedCursor)
     {
-        print("advtut " + expectedCursor);
         //The object must proc a tutorial that hasn't appeared yet
         if (expectedCursor > cursor)
         {
@@ -81,7 +80,6 @@ public class TutorialManager : Singleton<TutorialManager>
                 //Some tutorial prompts dont require an arrow. Position (0, 0, 0) signifies this.
                 if (spawner.arrowPositionToSpawn != Vector3.zero)
                 {
-                    print("arrow");
                     lastArrow = Instantiate(spawner.arrow, spawner.arrowPositionToSpawn, Quaternion.identity);
                     lastArrow.transform.eulerAngles = new Vector3(90, 90, 0);
                 }

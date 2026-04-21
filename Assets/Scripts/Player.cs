@@ -86,6 +86,14 @@ public class Player : MonoBehaviour
         {
             string dir = context.action.name;
             BookScript bs = heldObject.GetComponent<BookScript>();
+
+            //Tutorial advancing
+            if(GameplayManager.Instance.currentLevel == 1 && TutorialManager.Instance.cursor <= 1)
+            {
+                TutorialManager.Instance.askToAdvanceTutorial(2);
+            }
+
+            //Page turning logic
             switch (dir)
             {
                 case "turnPageBack":
