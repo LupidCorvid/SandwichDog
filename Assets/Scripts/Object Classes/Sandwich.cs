@@ -12,6 +12,8 @@ public class Sandwich : Food
     public List<Food> foodOrder = new List<Food>();
     public FoodStackCollider foodStackCollider;
 
+    public Food TopFood => foodOrder[foodOrder.Count - 1];
+
     public void InitializeSandwich(SandwichBase inSandwichBase, Food firstFilling, FoodStackCollider stackCollider)
     {
         // assign data
@@ -31,14 +33,14 @@ public class Sandwich : Food
 
     public void PopTopFood()
     {
-        Food topFood = GetTopFood();
+        Food topFood = TopFood;
         ReleaseFood(topFood);
 
-        Food newTopFood = GetTopFood();
+        Food newTopFood = TopFood;
         topFood.EnableInteractability();
         if (foodOrder.Count <= 0)
         {
-            // FREE SANDWICH BASE
+            // FREE THE SANDWICH BASE
             //sandwichBase.
         }
     }
@@ -54,9 +56,13 @@ public class Sandwich : Food
     public override bool Equals(object other)
     {
         Sandwich otherSandwich = other as Sandwich;
+        if (otherSandwich) return Equals(otherSandwich);
 
-        if (!otherSandwich) return false;
+        return false;
+    }
 
+    private bool Equals(Sandwich otherSandwich)
+    {
         if (otherSandwich.foodOrder.Count != foodOrder.Count) return false;
 
         for (int i = 0; i < foodOrder.Count; i++)
@@ -66,7 +72,21 @@ public class Sandwich : Food
         return true;
     }
 
-    public Food GetTopFood() { return foodOrder[foodOrder.Count - 1]; }
+    public override Food AttemptRemoveFoodFromRecipe(List<Food> recipeFoods)
+    {
+        foreach (Food sandwichFood in foodOrder)
+        {
+            foreach (Food recipeFood in recipeFoods)
+            {
+                if (sandwichFood == recipeFood)
+                {
+                    foodOrder.Remove(recipeFood); // bad and destructive of the original data but shouldn't matter at the end of a level
+                    return sandwichFood;
+                }
+            }
+        }
+        return null;
+    }
 
     public override float GetFoodWeight()
     {
@@ -118,7 +138,7 @@ public class Sandwich : Food
 
     public void SnapToTop(Food target)
     {
-        Food source = GetTopFood();
+        Food source = TopFood;
         bool areBothObjsSameDir = Vector3.Dot(source.transform.up, target.transform.up) > 0.0f ? true : false;
 
         /*
@@ -170,7 +190,7 @@ public class Sandwich : Food
 
     private void AlignWithTop(Transform target, bool flipZRotation)
     {
-        Transform source = GetTopFood().transform;
+        Transform source = TopFood.transform;
 
         // align curr with target rotation along plane where the snap point lies
         Vector3 flattenedForward = Vector3.ProjectOnPlane(source.transform.forward, target.transform.up);

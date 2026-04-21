@@ -1,27 +1,40 @@
-[System.Serializable]
+// ABANDONED FOR URCAD
+//[Serializable]
+//public class PlatedFood : Food
+//{
+//    public List<Food> foodOnPlate;
+//    public China plate;
+
+//    public override void InteractedObjectUpdate()
+//    {
+//        //if (plate.transform.eulerAngles)
+//    }
+//}
+
+using System;
+
+[Serializable]
 public class RecipeRequirement
 {
-    public Food food;
-
-
-
+    public ObjClass item;
+    public Spread spread;
     public int quantity;
 
-    public RecipeRequirement(PlatedFood inPlatedFood, int inQuantity)
+    public RecipeRequirement(ObjClass inItem, int inQuantity)
     {
-        //PlatedFood = inPlatedFood;
+        item = inItem;
         quantity = inQuantity;
     }
 
     public override bool Equals(object other)
     {
-        PlatedFood otherPlatedFood = other as PlatedFood;
+        ObjClass otherObj = other as ObjClass;
 
-        if (otherPlatedFood)
+        if (otherObj)
         {
-            //PlatedFoodRequirement otherReq = new PlatedFoodRequirement(otherPlatedFood, 1);
+            RecipeRequirement otherReq = new RecipeRequirement(otherObj, 1);
 
-            //return PlatedFood == otherReq.PlatedFood && quantity == otherReq.quantity;
+            return item == otherReq.item && quantity == otherReq.quantity;
         }
         return false;
     }

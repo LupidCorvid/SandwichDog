@@ -7,23 +7,24 @@ using UnityEngine;
 public class RecipeScorer : MonoBehaviour
 {
     public float timer; //Time to wait in seconds for the player to stand in the box before scoring objects
-    public float scoreMax = 0.0f;
     public float score = 0;
-    public bool gameOver;
+    public bool scoreCalculated;
 
     public static event Action onScoreCalculate;
 
     //The objects the player brought to the end game area, added via end area OnTriggerEnter
-    public List<RecipeRequirement> objectsToScore = new List<RecipeRequirement>();
+    public List<Food> foodsToScore = new List<Food>();
+    public List<Food> recipeRequirements;
 
     public TMP_Text scoreText;
     public TMP_Text displayText;
 
     private void Awake()
     {
-        gameOver = false;
+        scoreCalculated = false;
         displayText.text = "0%";
-        //scoreMax = levelRecipe[currentLevel - 1].requirements.Length;
+
+        recipeRequirements = new List<Food>(GameplayManager.Instance.levelRecipe.requiredFood);
     }
 
     private void OnEnable()
@@ -35,32 +36,24 @@ public class RecipeScorer : MonoBehaviour
     //TODO: Curretly doesn't remove objects that leave onTriggerExit
     private void OnTriggerEnter(Collider other)
     {
-        //ObjClass obj = other.gameObject.GetComponentInChildren<ObjClass>();
+        Food targetFood = other.gameObject.GetComponentInChildren<Food>();
 
-        //if (obj)
-        //{
-        //    Debug.Log("new item in scoring area: " + other.gameObject.name);
-        //    //CalculateScore();
-        //    //Debug.Log("Object added to score: " + other.gameObject.name);
-
-        //    if (objectsToScore.Contains(new RecipeRequirement(obj, 1)))
-        //    {
-        //        int foundIdx = objectsToScore.FindIndex(requirement => requirement.Equals(obj));
-        //        objectsToScore[foundIdx].quantity += 1;
-        //    }
-        //    else
-        //    {
-        //        objectsToScore.Add(new RecipeRequirement(obj, 1));
-        //        Debug.Log("new requirement added, total # of objs now " + objectsToScore.Count);
-        //    }
-        //}
+        if (targetFood)
+        {
+            foodsToScore.Add(targetFood);
+        }
     }
 
-    //If the player leaves too early, reset the timer
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("removing item in scoring area: " + other.gameObject.name);
+        Food targetFood = other.gameObject.GetComponentInChildren<Food>();
 
+        if (targetFood)
+        {
+            foodsToScore.Remove(targetFood);
+        }
+
+        //If the player leaves too early, reset the timer
         if (other.gameObject.CompareTag("Player") && timer > 0)
         {
             timer = 5;
@@ -77,26 +70,39 @@ public class RecipeScorer : MonoBehaviour
         {
             timer -= Time.deltaTime;
 
-            if (timer <= 0)
+            if (timer <= 0 && !scoreCalculated)
             {
                 onScoreCalculate?.Invoke();
+                scoreCalculated = true;
             }
         }
     }
 
     public void CalculateScore()
     {
-        //List<ItemRequirement> itemRequirements = levelRecipe[currentLevel - 1].requirements.ToList();
+        float score = 0.0f;
+        float totalWeight = 0.0f;
+        Food foodToScore = null;
 
-        float scoreCount = 0;
-        foreach (RecipeRequirement objectToScore in objectsToScore)
+        while (foodsToScore.Count > 0)
         {
-            //Debug.Log(objectToScore.item.gameObject.GetComponent<Rigidbody>() == null);
 
-            Debug.Log(objectToScore.food.objCleanliness);
-            scoreCount += objectToScore.food.objCleanliness * objectToScore.quantity;
+            foodToScore = foodsToScore[0];
+            totalWeight += foodToScore.GetFoodWeight();
+
+            foodToScore = foodToScore.AttemptRemoveFoodFromRecipe(recipeRequirements);
+            // only applies pos influence if present in recipe            {
+            if (foodToScore)
+            {
+                score += foodToScore.ScoreFood();
+            }
+
+            foodsToScore.RemoveAt(0);
         }
-        score = (scoreCount / scoreMax) * 100.0f;
+        Debug.Log("still " + recipeRequirements.Count + " food from recipe not in the end area!");
+        totalWeight += recipeRequirements.Count;
+
+        score = (score / totalWeight) * 100.0f;
 
         //Update score text
         Debug.Log("Score:" + score);

@@ -46,6 +46,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stackCollider: {fileID: 8337556929766357850}
+  emptySandwichObject: {fileID: 4766069664014610040, guid: e887bdb896bb6174b917b945f33356b7, type: 3}
+  sandwichBase: {fileID: 110813168775492774}
+  timeToSnap: 0
+  timeSpentSnapping: 0
+  timeToSnapRemaining: 0
 --- !u!65 &8337556929766357850
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -113,6 +118,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stackCollider: {fileID: 2346738689087687288}
+  emptySandwichObject: {fileID: 4766069664014610040, guid: e887bdb896bb6174b917b945f33356b7, type: 3}
+  sandwichBase: {fileID: 110813168775492774}
+  timeToSnap: 0
+  timeSpentSnapping: 0
+  timeToSnapRemaining: 0
 --- !u!65 &2346738689087687288
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -781,16 +791,18 @@ MonoBehaviour:
   canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
   isCookable: 1
-  isCooked: 0
+  isOvercooked: 0
   isBurnt: 0
   timeToCook: 10
   timeToBurn: 10
   cookAmount: 0
+  overcookAmount: 0
   cookedColor: {r: 0.6509434, g: 0.30031347, b: 0, a: 0}
   isStackable: 1
   topStackSnapPoint: {fileID: 1527219911591408063}
   debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0
+  sliceProduct: {fileID: 0}
   numCutsNeeded: 0
   slicedResultObject: {fileID: 0}
 --- !u!114 &110813168775492774
@@ -805,10 +817,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1edb09848c7571347943014284d8b104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emptySandwichObject: {fileID: 4766069664014610040, guid: e887bdb896bb6174b917b945f33356b7, type: 3}
+  baseFood: {fileID: 1055270508630881268}
   topStackCollider: {fileID: 294680420606243547}
   bottomStackCollider: {fileID: 4304286171493073793}
-  baseFood: {fileID: 1055270508630881268}
-  timeToSnap: 0
-  timeSpentSnapping: 0
-  timeToSnapRemaining: 0
