@@ -3426,7 +3426,7 @@
                     "id": "44970b53-6ac0-4d43-882f-51573da934e4",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(pressPoint=0.99)",
                     "initialStateCheck": false
                 },
                 {
@@ -3435,7 +3435,7 @@
                     "id": "941da71e-4d35-46f2-9c04-d601fba65d19",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(pressPoint=1)",
                     "initialStateCheck": false
                 }
             ],

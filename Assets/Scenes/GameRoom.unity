@@ -4601,11 +4601,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5448853076080153794, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
       propertyPath: m_ActionEvents.Array.data[94].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5448853076080153794, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
       propertyPath: m_ActionEvents.Array.data[95].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5448853076080153794, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
       propertyPath: m_ActionEvents.Array.data[94].m_PersistentCalls.m_Calls.Array.data[0].m_Target
