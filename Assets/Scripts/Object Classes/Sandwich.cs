@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -13,68 +14,19 @@ public class Sandwich : Food
 
     public void InitializeSandwich(SandwichBase inSandwichBase, Food firstFilling, FoodStackCollider stackCollider)
     {
+        // assign data
         sandwichBase = inSandwichBase;
-        Food baseFood = sandwichBase.BaseFood;
         foodStackCollider = stackCollider;
 
         this.isStackable = true;
-        PushBaseFood(baseFood);
-        PushNewFood(firstFilling);
-    }
 
-    public void PushBaseFood(Food baseFood)
-    {
-        baseFood.DisableRigidBody(this);
-        baseFood.gameObject.transform.SetParent(this.transform);
-        foodStackCollider.gameObject.transform.SetParent(this.transform);
-        // TRANSFER NEW SANDWICH OBJ TO PLAYER
-        if (Player.Instance.activeInteractedObjects.Contains(baseFood))
-        {
-
-        }
-        else
-        {
-            //baseFood.DisableInteractability();
-        }
-        foodOrder.Add(baseFood);
-        //Debug.Log(baseFood.transform.position.y);
-        //Debug.Log("why " + Mathf.Abs(baseFood.topStackSnapPoint.transform.position.y - baseFood.transform.position.y));
-        //foodStackCollider.transform.position = new Vector3(
-        //    baseFood.transform.position.x, 
-        //    baseFood.transform.position.y + Mathf.Abs(baseFood.topStackSnapPoint.transform.position.y - baseFood.transform.position.y), 
-        //    baseFood.transform.position.z
-        //);
-        //foodStackCollider.transform.position = baseFood.transform.position;
-
-        //foodStackCollider.transform.localPosition = new Vector3(
-        //    0.0f,
-        //    Mathf.Abs(baseFood.topStackSnapPoint.transform.position.y - baseFood.transform.position.y),
-        //    0.0f
-        //);
+        foodOrder.Add(sandwichBase.BaseFood);
+        StartCoroutine(SandwichFirstStackPhysicsRoutine(firstFilling));
     }
 
     public void PushNewFood(Food newFood)
     {
-        Destroy(newFood.gameObject);
-        return;
-
-        //if (foodOrder.Exists(food => ReferenceEquals(food, newFood))) return;
-
-        newFood.DisableRigidBody(this);
-        newFood.gameObject.transform.SetParent(this.transform);
-
-        // force player to release the incoming obj if applicable
-        if (Player.Instance.activeInteractedObjects.Contains(newFood))
-        {
-            //newFood.DisableInteractability();
-            Player.Instance.activeInteractedObjects.Remove(newFood);
-        }
-
-        Debug.Log("snap to " + GetTopFood().name + "!");
-
-        SnapTo(GetTopFood(), newFood);
-        //foodStackCollider.transform.position += Vector3.up;
-        foodOrder.Add(newFood);
+        StartCoroutine(SandwichNewItemPhysicsRoutine(newFood));
     }
 
     public void PopTopFood()
@@ -115,9 +67,41 @@ public class Sandwich : Food
 
     public Food GetTopFood() { return foodOrder[foodOrder.Count - 1]; }
 
-    // returns distance moved
-    public static void SnapTo(Food source, Food target)
+    private IEnumerator SandwichFirstStackPhysicsRoutine(Food targetFood)
     {
+        sandwichBase.BaseFood.TransferAndDisableRigidBodiesTo(this);
+        targetFood.TransferAndDisableRigidBodiesTo(this);
+
+        foodStackCollider.transform.SetParent(this.transform);
+        sandwichBase.BaseFood.transform.SetParent(this.transform);
+        targetFood.transform.SetParent(this.transform);
+
+        SnapToTop(targetFood);
+
+        this.RigidBody.WakeUp();
+
+        yield return new WaitForFixedUpdate();
+        this.RigidBody.ResetCenterOfMass();
+
+        foodOrder.Add(targetFood);
+    }
+
+    private IEnumerator SandwichNewItemPhysicsRoutine(Food targetFood)
+    {
+        targetFood.TransferAndDisableRigidBodiesTo(this);
+        targetFood.transform.SetParent(this.transform);
+
+        SnapToTop(targetFood);
+
+        yield return new WaitForFixedUpdate();
+        this.RigidBody.ResetCenterOfMass();
+
+        foodOrder.Add(targetFood);
+    }
+
+    public void SnapToTop(Food target)
+    {
+        Food source = GetTopFood();
         bool areBothObjsSameDir = Vector3.Dot(source.transform.up, target.transform.up) > 0.0f ? true : false;
 
         /*
@@ -133,7 +117,7 @@ public class Sandwich : Food
         Vector3 currTopPos = new Vector3(0.0f, Mathf.Abs(source.topStackSnapPoint.transform.position.y - source.transform.position.y), 0.0f);
 
         Vector3 distanceToMove = Vector3.zero;
-        AlignWith(source.transform, target.transform, true);
+        AlignWithTop(target.transform, true);
 
         if (areBothObjsSameDir)
         {
@@ -166,8 +150,10 @@ public class Sandwich : Food
         //foodStackCollider.transform.position += currTopPos;
     }
 
-    private static void AlignWith(Transform source, Transform target, bool flipZRotation)
+    private void AlignWithTop(Transform target, bool flipZRotation)
     {
+        Transform source = GetTopFood().transform;
+
         // align curr with target rotation along plane where the snap point lies
         Vector3 flattenedForward = Vector3.ProjectOnPlane(source.transform.forward, target.transform.up);
 

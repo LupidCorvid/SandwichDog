@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Receiver.Rendering;
 using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Rendering;
@@ -38,17 +39,16 @@ public class SandwichBase : MonoBehaviour
 
         if (!sandwich)
         {
-            GameObject sandwichOwner = Instantiate(emptySandwichObject, this.transform);
-            sandwichOwner.transform.SetParent(this.transform.parent, true);
+            GameObject sandwichOwner = Instantiate(emptySandwichObject);
+            sandwichOwner.transform.position = this.transform.position;
             sandwich = sandwichOwner.GetComponent<Sandwich>();
-            //topStackCollider.transform.SetParent(sandwich.transform);
-            //sandwich.RigidBody.WakeUp();
+
+            RebindPhysicsRoutine();
+            //Debug.Log(topStackCollider.GetComponentInParent<Rigidbody>().name);
+
             //Physics.SyncTransforms();
-            //baseFood.DisableRigidBody();
-            //targetFood.DisableRigidBody();
-            baseFood.transform.SetParent(sandwich.transform);
-            targetFood.transform.SetParent(sandwich.transform);
-            Sandwich.SnapTo(baseFood, targetFood);
+            //if (!sandwich.RigidBody) sandwich.RigidBody.WakeUp();
+
 
             // this is hacky but im not engineering this a diff way before URCAD
             //triggeredCollider = topStackCollider.stackCollider.bounds.Intersects(other.bounds) ? topStackCollider : bottomStackCollider;
@@ -71,9 +71,9 @@ public class SandwichBase : MonoBehaviour
         else
         {
             Debug.Log("sandwich exists");
-            targetFood.DisableRigidBody();
-            targetFood.transform.SetParent(sandwich.transform);
-            Sandwich.SnapTo(baseFood, targetFood);
+            //targetFood.DisableRigidBody();
+            //targetFood.transform.SetParent(sandwich.transform);
+            //Sandwich.SnapTo(baseFood, targetFood);
 
 
             //triggeredCollider.enabled = false;
@@ -84,6 +84,31 @@ public class SandwichBase : MonoBehaviour
         //triggeredCollider.enabled = true;
         // TODO nudge the remaining collider along with the snap
         // TODO setup so that position starts to lerp in update
+    }
+
+    private IEnumerator RebindPhysicsRoutine()
+    {
+        topStackCollider.transform.SetParent(null);
+        topStackCollider.enabled = false;
+
+        baseFood.TransferAndDisableRigidBodiesTo();
+        targetFood.TransferAndDisableRigidBodiesTo();
+
+        topStackCollider.transform.SetParent(sandwich.transform);
+        baseFood.transform.SetParent(sandwich.transform);
+        targetFood.transform.SetParent(sandwich.transform);
+
+        sandwich.foodOrder.Add(baseFood);
+        sandwich.SnapToTop(targetFood);
+
+        yield return new WaitForFixedUpdate();
+
+        topStackCollider.enabled = true;
+
+        Physics.SyncTransforms();
+        sandwich.RigidBody.WakeUp();
+
+        Debug.Log("Rebound to: " + topStackCollider.stackCollider.attachedRigidbody.name);
     }
 
     public void HandleDestroySandwich()

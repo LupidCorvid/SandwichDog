@@ -96,11 +96,15 @@ public class ObjClass : MonoBehaviour
         inHand = false;
         inMouth = false;
 
-        xrgi.selectEntered.AddListener(HandlePlayerObjSelectionEntered);
-        xrgi.selectExited.AddListener(HandlePlayerObjSelectionExited);
+        if (xrgi) xrgi.selectEntered.AddListener(HandlePlayerObjSelectionEntered);
+        if (xrgi) xrgi.selectExited.AddListener(HandlePlayerObjSelectionExited);
 
         objCleanliness = MAX_CONDITION;
-        InitializeAppearanceLogic();
+
+        if (objRenderer)
+        {
+            InitializeAppearanceLogic();
+        }
 
         if (!overrideGlobalSettings)
         {
@@ -215,7 +219,7 @@ public class ObjClass : MonoBehaviour
     public void DropFromMouth() { }
 
 
-    public void DisableRigidBody(ObjClass incomingObj=null)
+    public void TransferAndDisableRigidBodiesTo(ObjClass incomingObj=null)
     {
         // record colliders before destruction
         if (xrgi.colliders != null)
@@ -235,12 +239,12 @@ public class ObjClass : MonoBehaviour
 
         xriasp.enabled = false;
         xriasp.interactableSource = null;
+
         Destroy(xrgi);
 
         rbMass = rigidBody.mass;
-        Destroy(rigidBody, 0.01f);
+        Destroy(rigidBody);
     }
-
     public void EnableRigidBody()
     {
         rigidBody = this.AddComponent<Rigidbody>();
@@ -258,15 +262,18 @@ public class ObjClass : MonoBehaviour
 
     public void DisableInteractability()
     {
-        if (xrgi) xrgi.enabled = true;
-        if (xrggt) xrggt.enabled = true;
-        //if (xriasp) xriasp.enabled = true;
+        xrgi.selectEntered.RemoveListener(HandlePlayerObjSelectionEntered);
+        xrgi.selectExited.RemoveListener(HandlePlayerObjSelectionExited);
+        xrgi.enabled = true;
+
+        xrggt.enabled = true;
     }
     public void EnableInteractability()
     {
-        if (xrgi) xrgi.enabled = true;
-        if (xrggt) xrggt.enabled = true;
-        //if (xriasp) xriasp.enabled = true;
+        xrgi.selectEntered.AddListener(HandlePlayerObjSelectionEntered);
+        xrgi.selectExited.AddListener(HandlePlayerObjSelectionExited);
+        xrgi.enabled = true;
+        xrggt.enabled = true;
     }
 
     ///=============================================================================
