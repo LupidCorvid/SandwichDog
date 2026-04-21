@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     private float standScale = 1f;
     private float crouchScale = .85f;
 
+    public GameObject heldObject;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -76,4 +78,45 @@ public class Player : MonoBehaviour
             dog.GetComponent<Animator>().SetBool("walking", false);
         }
     }
+
+    public void TurnPage(InputAction.CallbackContext context)
+    {
+        //Get the current object being held and check if it's a book or clipboard
+        if(heldObject != null && heldObject.GetComponent<BookScript>() != null && context.performed)
+        {
+            string dir = context.action.name;
+            BookScript bs = heldObject.GetComponent<BookScript>();
+
+            //Tutorial advancing
+            if(GameplayManager.Instance.currentLevel == 1 && TutorialManager.Instance.cursor <= 1)
+            {
+                TutorialManager.Instance.askToAdvanceTutorial(2);
+            }
+
+            //Page turning logic
+            switch (dir)
+            {
+                case "turnPageBack":
+                    bs.setPages(BookScript.PageDirection.BACKWARD, bs.contentType);
+                    ///StartCoroutine(ButtonPressBuffer());
+                    break;
+                case "turnPageForward":
+                    bs.setPages(BookScript.PageDirection.FORWARD, bs.contentType);
+                    //StartCoroutine(ButtonPressBuffer());
+                    break;
+            }
+        }
+    }
+
+    //private float timer = 0f;
+    //IEnumerator ButtonPressBuffer()
+    //{
+    //    timer = 0f;
+    //    while(timer > .5f)
+    //    {
+    //        timer += Time.deltaTime;
+            
+    //    }
+    //    yield return null;
+    //}
 }

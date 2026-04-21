@@ -13,10 +13,7 @@ public class tutorialTrigger : MonoBehaviour
             if (tutorialManager.cursor < advanceCount)
             {
                 int count = advanceCount - tutorialManager.cursor; //lvl = 2
-                for (int i = 0; i < count; i++)
-                {
-                    tutorialManager.advanceTutorial();
-                }
+                tutorialManager.advanceTutorial(count);
             }
             Destroy(gameObject);
         }

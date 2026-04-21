@@ -23,12 +23,12 @@ public class BookScript : MonoBehaviour
     void Update()
     {
         //Debug
-        timer += Time.deltaTime;
-        if (timer > 3f)
-        {
-            setPages(PageDirection.FORWARD, contentType);
-            timer = 0;
-        }
+        //timer += Time.deltaTime;
+        //if (timer > 3f)
+        //{
+        //    setPages(PageDirection.FORWARD, contentType);
+        //    timer = 0;
+        //}
     }
 
     public void setPages(PageDirection dir, ContentType type)
