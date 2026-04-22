@@ -6,15 +6,16 @@ using UnityEngine;
 
 public class RecipeScorer : MonoBehaviour
 {
-    public float timer; //Time to wait in seconds for the player to stand in the box before scoring objects
-    public float score = 0;
-    public bool scoreCalculated;
+    public float waitTimeBeforeScoring; //Time to wait in seconds for the player to stand in the box before scoring objects
+    private float timer;
+    private float score = 0;
+    private bool scoreCalculated;
 
     public static event Action onScoreCalculate;
 
     //The objects the player brought to the end game area, added via end area OnTriggerEnter
-    public List<Food> foodsToScore = new List<Food>();
-    public List<Food> recipeRequirements;
+    private List<Food> foodsToScore = new List<Food>();
+    private List<Food> recipeRequirements;
 
     public TMP_Text scoreText;
     public TMP_Text displayText;
@@ -25,6 +26,7 @@ public class RecipeScorer : MonoBehaviour
         displayText.text = "0%";
 
         recipeRequirements = new List<Food>(GameplayManager.Instance.levelRecipe.requiredFood);
+        timer = waitTimeBeforeScoring;
     }
 
     private void OnEnable()
@@ -56,7 +58,7 @@ public class RecipeScorer : MonoBehaviour
         //If the player leaves too early, reset the timer
         if (other.gameObject.CompareTag("Player") && timer > 0)
         {
-            timer = 5;
+            timer = waitTimeBeforeScoring;
             displayText.text = "0%";
         }
     }
