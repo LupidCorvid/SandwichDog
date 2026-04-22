@@ -14,7 +14,7 @@ public class RecipeScorer : MonoBehaviour
 
     //The objects the player brought to the end game area, added via end area OnTriggerEnter
     private List<Food> foodsToScore = new List<Food>();
-    private List<Food> recipeRequirements;
+    private List<FoodRequirement> recipeRequirements;
 
     public TMP_Text scoreText;
     public TMP_Text displayText;
@@ -24,7 +24,7 @@ public class RecipeScorer : MonoBehaviour
         scoreCalculated = false;
         displayText.text = "0%";
 
-        recipeRequirements = new List<Food>(GameplayManager.Instance.gameLevel.levelRecipe.requiredFood);
+        recipeRequirements = new List<FoodRequirement>(GameplayManager.Instance.gameLevel.levelRecipe.requiredFood);
         timer = waitTimeBeforeScoring;
     }
 
@@ -86,20 +86,29 @@ public class RecipeScorer : MonoBehaviour
     public void CalculateScore()
     {
         float score = 0.0f;
+        float foodScore;
         float totalWeight = 0.0f;
-        Food foodToScore = null;
+        Food foodToScore;
+        FoodRequirement foodRequirementMet;
 
         while (foodsToScore.Count > 0)
         {
+            foodRequirementMet = null;
 
             foodToScore = foodsToScore[0];
             totalWeight += foodToScore.GetFoodWeight();
 
-            foodToScore = foodToScore.AttemptRemoveFoodFromRecipe(recipeRequirements);
-            // only applies pos influence if present in recipe            {
-            if (foodToScore)
+            foodRequirementMet = foodToScore.AttemptRemoveFoodFromRecipe(recipeRequirements);
+            // only applies pos influence if present in recipe
+            if (foodRequirementMet != null)
             {
-                score += foodToScore.ScoreFood();
+                foodScore = foodToScore.ScoreFood();
+                // subtract 50% for mismatched spread
+                if (foodRequirementMet.spread != foodToScore.currentSpread)
+                {
+                    foodScore *= 0.5f;
+                }
+                score += foodScore;
             }
 
             foodsToScore.RemoveAt(0);

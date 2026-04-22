@@ -42,25 +42,26 @@ public class Instruction
 
 public class ClipboardUI : MonoBehaviour
 {
-    private GameObject instructionTemplateObj;
-    private Instruction instructionTemplate;
+    //private GameObject instructionTemplateObj;
+    //private Instruction instructionTemplate;
 
     [SerializeField] private Canvas clipboardCanvas;
     [SerializeField] private TMP_Text instructionsHeader;
+
     //private List<Instruction> instructions;
 
-    [SerializeField] private float spaceBetweenLines;
-    private int maxNumLinesPerPage;
-    private int maxNumWordsPerLine;
+    //[SerializeField] private float spaceBetweenLines;
+    //private int maxNumLinesPerPage;
+    //private int maxNumWordsPerLine;
 
 
     private void Awake()
     {
-        instructionTemplate = instructionTemplateObj.GetComponent<Instruction>();
+        //instructionTemplate = instructionTemplateObj.GetComponent<Instruction>();
         // canvas height / (instruction height+space between instructs) = num instructions per page
-        maxNumLinesPerPage = (int)(LayoutUtility.GetPreferredHeight((RectTransform)clipboardCanvas.transform) / instructionTemplate.Text.preferredHeight);
+        //maxNumLinesPerPage = (int)(LayoutUtility.GetPreferredHeight((RectTransform)clipboardCanvas.transform) / instructionTemplate.Text.preferredHeight);
 
-        LoadRecipe(GameplayManager.Instance.gameLevel.levelRecipe);
+        LoadRecipeToClipboard(GameplayManager.Instance.gameLevel.levelRecipe);
     }
 
     private void OnEnable()
@@ -73,25 +74,27 @@ public class ClipboardUI : MonoBehaviour
         //GameplayManager.OnRecipeProgressUpdated -= UpdateRecipeText;
     }
 
-    private void LoadRecipe(Recipe_SO recipeToLoad)
+    private void LoadRecipeToClipboard(Recipe_SO recipeToLoad)
     {
         int instructionNum = 1;
         string instructionMsg = "";
 
-        instructionsHeader.text = recipeToLoad.name;
+        //instructionsHeader.text = recipeToLoad.name;
 
-        foreach (Food recipeFood in recipeToLoad.requiredFood)
+        foreach (FoodRequirement recipeReq in recipeToLoad.requiredFood)
         {
-            instructionMsg = instructionNum.ToString() + ". ";
+            Food recipeFood = recipeReq.food;
 
-            if (recipeFood.IsCookable)
+            instructionMsg += instructionNum.ToString() + ". ";
+
+            if (recipeReq.isCooked)
             {
                 instructionMsg += "Cook the " + recipeFood.name;
             }
 
-            if (recipeFood.HasSpread)
+            if (recipeReq.spread != Spread.NO_SPREAD)
             {
-                string spreadName = recipeFood.currentSpread.ToString().Replace("_", " ");
+                string spreadName = recipeReq.spread.ToString().Replace("_", " ").ToLower();
                 instructionMsg += "Spread " + spreadName + " on the " + recipeFood.name;
             }
             if (recipeFood.SliceSource)
@@ -99,16 +102,26 @@ public class ClipboardUI : MonoBehaviour
                 instructionMsg += "Chop the " + recipeFood.SliceSource.name;
             }
 
-            PushNewInstruction(instructionMsg);
+            //PushNewInstruction(instructionMsg);
+            instructionMsg += "\n";
             instructionNum++;
         }
-        instructionMsg = instructionNum.ToString() + ". ";
+
+        instructionMsg += "Construct the sandwich!";
+        instructionMsg += "\n";
+        instructionNum++;
+
+
+        instructionMsg += instructionNum.ToString() + ". ";
         instructionMsg += "Deliver the food to your owner!";
+
+        instructionsHeader.text = instructionMsg;
     }
 
-    private void PushNewInstruction(string instruction)
-    {
-        GameObject instructionObj = Instantiate(instructionTemplateObj);
-        instructionObj.transform.SetParent(this.transform);
-    }
+    //private void PushNewInstruction(string instruction)
+    //{
+    //    GameObject instructionObj = Instantiate(instructionTemplateObj);
+    //    instructionObj.transform.SetParent(this.transform);
+    //}
 }
+

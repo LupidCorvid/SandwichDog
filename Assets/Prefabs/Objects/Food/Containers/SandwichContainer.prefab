@@ -250,28 +250,31 @@ MonoBehaviour:
   rigidBody: {fileID: 4635222108684702575}
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
-  canGetDirty: 0
+  canGetDirty: 1
   canGetClean: 0
   amountToDirtyPerSecond: 0
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
-  isCookable: 0
+  isCookable: 1
   isOvercooked: 0
   isBurnt: 0
-  timeToCook: 0
-  timeToBurn: 0
+  timeToCook: 10
+  timeToBurn: 10
   cookAmount: 0
   overcookAmount: 0
-  cookedColor: {r: 0, g: 0, b: 0, a: 0}
+  cookedColor: {r: 1, g: 1, b: 1, a: 0}
   isStackable: 0
-  topStackSnapPoint: {fileID: 0}
+  isStackBase: 0
+  stackBase: {fileID: 0}
+  topPoint: {fileID: 0}
   debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0
-  sliceProduct: {fileID: 0}
   numCutsNeeded: 0
   slicedResultObject: {fileID: 0}
+  wasSliced: 0
+  sliceSource: {fileID: 0}
   foodOrder: []
   foodStackCollider: {fileID: 0}
 --- !u!1 &5101640486339707693

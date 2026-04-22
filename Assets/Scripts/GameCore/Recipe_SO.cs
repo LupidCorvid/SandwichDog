@@ -6,6 +6,6 @@ using UnityEngine;
 public class Recipe_SO : ScriptableObject
 {
     string recipeName;
-    public Food[] requiredFood;
+    public FoodRequirement[] requiredFood;
     //public China requiredPlate;
 }

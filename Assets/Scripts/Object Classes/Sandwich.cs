@@ -72,16 +72,16 @@ public class Sandwich : Food
         return true;
     }
 
-    public override Food AttemptRemoveFoodFromRecipe(List<Food> recipeFoods)
+    public override FoodRequirement AttemptRemoveFoodFromRecipe(List<FoodRequirement> recipeFoods)
     {
         foreach (Food sandwichFood in foodOrder)
         {
-            foreach (Food recipeFood in recipeFoods)
+            foreach (FoodRequirement recipeFood in recipeFoods)
             {
-                if (sandwichFood == recipeFood)
+                if (sandwichFood == recipeFood.food)
                 {
-                    foodOrder.Remove(recipeFood); // bad and destructive of the original data but shouldn't matter at the end of a level
-                    return sandwichFood;
+                    foodOrder.Remove(recipeFood.food); // bad and destructive of the original data but shouldn't matter at the end of a level
+                    return recipeFood;
                 }
             }
         }
@@ -221,5 +221,29 @@ public class Sandwich : Food
             targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, targetRotation.eulerAngles.z + 180.0f);
         }
         source.transform.rotation = targetRotation;
+    }
+
+    public override void Cook(float timePassed)
+    {
+        foreach (Food food in foodOrder)
+        {
+            if (food.IsCookable && food.CanBeFurtherCooked) food.Cook(timePassed);
+        }
+    }
+
+    public override void DirtyObject(float timePassed)
+    {
+        foreach (Food food in foodOrder)
+        {
+            if (food.CanGetDirty) food.DirtyObject(timePassed);
+        }
+    }
+
+    public override void CleanObject(float timeCleaned, float cleanCap = 1)
+    {
+        foreach (Food food in foodOrder)
+        {
+            if (food.CanGetClean) food.CleanObject(timeCleaned);
+        }
     }
 }

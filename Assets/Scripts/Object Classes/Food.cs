@@ -14,6 +14,8 @@ public class Food : ObjClass
     private GameObject bottomSpread;
 
     // === COOKABILITY === //
+    [SerializeField] protected GameObject smokeVFX;
+
     [SerializeField] protected bool isCookable;
     [SerializeField] protected bool isOvercooked;
     [SerializeField] protected bool isBurnt;
@@ -80,14 +82,15 @@ public class Food : ObjClass
     }
 
     // this is probably scuffed with the null return but it'll do
-    public virtual Food AttemptRemoveFoodFromRecipe(List<Food> recipeFoods)
+    public virtual FoodRequirement AttemptRemoveFoodFromRecipe(List<FoodRequirement> recipeFoods)
     {
         for (int i = 0; i < recipeFoods.Count; i++)
         {
-            if (recipeFoods[i] == this)
+            if (recipeFoods[i].food == this)
             {
+                FoodRequirement reqToReturn = recipeFoods[i];
                 recipeFoods.RemoveAt(i);
-                return this;
+                return reqToReturn;
             }
         }
         return null;
@@ -144,7 +147,7 @@ public class Food : ObjClass
         }
     }
 
-    public void Cook(float timePassed)
+    public virtual void Cook(float timePassed)
     {
         if (cookAmount < 1.0f)
         {

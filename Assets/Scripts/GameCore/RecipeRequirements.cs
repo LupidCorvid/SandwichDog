@@ -14,28 +14,26 @@
 using System;
 
 [Serializable]
-public class RecipeRequirement
+public class FoodRequirement
 {
-    public ObjClass item;
+    public Food food;
     public Spread spread;
-    public int quantity;
-
-    public RecipeRequirement(ObjClass inItem, int inQuantity)
-    {
-        item = inItem;
-        quantity = inQuantity;
-    }
+    public bool isCooked;
 
     public override bool Equals(object other)
     {
-        ObjClass otherObj = other as ObjClass;
+        FoodRequirement otherReq = other as FoodRequirement;
 
-        if (otherObj)
+        if (otherReq != null)
         {
-            RecipeRequirement otherReq = new RecipeRequirement(otherObj, 1);
-
-            return item == otherReq.item && quantity == otherReq.quantity;
+            return this.food == otherReq.food;
         }
+        Food otherFood = other as Food;
+        if (otherFood)
+        {
+            return this.food == otherFood;
+        }
+
         return false;
     }
 }
