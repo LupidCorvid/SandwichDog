@@ -1285,7 +1285,7 @@ MonoBehaviour:
   m_RaycastSnapVolumeInteraction: 1
   m_TargetNumCurveSegments: 1
   m_HitDetectionType: 2
-  m_CastDistance: 10
+  m_CastDistance: 3
   m_SphereCastRadius: 0.1
   m_ConeCastAngle: 6
   m_LiveConeCastDebugVisuals: 0
@@ -6699,6 +6699,7 @@ MonoBehaviour:
   highlighted: {fileID: 0}
   dog: {fileID: 0}
   standing: 0
+  heldObject: {fileID: 0}
 --- !u!114 &3348286097437280931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7248,6 +7249,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e3514e38-4344-4eec-8f57-06d0df01bb10
     m_ActionName: customActions/Move
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4630875933603814795}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: TurnPage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 44970b53-6ac0-4d43-882f-51573da934e4
+    m_ActionName: customActions/turnPageBack
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4630875933603814795}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: TurnPage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 941da71e-4d35-46f2-9c04-d601fba65d19
+    m_ActionName: customActions/turnPageForward
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: customActions
