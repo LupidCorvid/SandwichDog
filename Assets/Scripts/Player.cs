@@ -6,7 +6,7 @@ using UnityEngine.Animations;
 using UnityEngine.Animations.Rigging;
 using NUnit.Framework;
 
-public class Player : Singleton<Player>
+public class Player : MonoBehaviour
 {
 
     public ObjClass highlighted;

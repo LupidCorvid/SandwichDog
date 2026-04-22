@@ -120,12 +120,12 @@ public class ObjClass : MonoBehaviour
 
     private void HandlePlayerObjSelectionEntered(SelectEnterEventArgs args)
     {
-        Player.Instance.activeInteractedObjects.Add(this);
+        //Player.Instance.activeInteractedObjects.Add(this);
     }
 
     private void HandlePlayerObjSelectionExited(SelectExitEventArgs args)
     {
-        Player.Instance.activeInteractedObjects.Remove(this);
+        //Player.Instance.activeInteractedObjects.Remove(this);
     }
 
     public virtual void InteractedObjectUpdate()
