@@ -64,32 +64,6 @@ public class FoodStackCollider : MonoBehaviour
         // TODO setup so that position starts to lerp in update
     }
 
-    private IEnumerator RebindPhysicsRoutine(Food targetFood)
-    {
-        this.enabled = false;
-
-        sandwichBase.BaseFood.TransferAndDisableRigidBodiesTo();
-        targetFood.TransferAndDisableRigidBodiesTo();
-
-        this.transform.SetParent(sandwich.transform);
-        sandwichBase.BaseFood.transform.SetParent(sandwich.transform);
-        targetFood.transform.SetParent(sandwich.transform);
-
-        sandwichBase.BaseFood.transform.localPosition = Vector3.zero;
-        sandwich.foodOrder.Add(sandwichBase.BaseFood);
-
-        sandwich.SnapToTop(targetFood);
-        sandwich.foodOrder.Add(targetFood);
-
-        yield return new WaitForFixedUpdate();
-
-        this.enabled = true;
-
-        Physics.SyncTransforms();
-        sandwich.RigidBody.WakeUp();
-        sandwich.RigidBody.ResetCenterOfMass();
-    }
-
     public void HandleDestroySandwich()
     {
 

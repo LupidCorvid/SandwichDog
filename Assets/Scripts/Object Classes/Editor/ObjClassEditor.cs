@@ -112,7 +112,7 @@ public class ObjClassEditor : Editor
         // stacking
         SerializedProperty isStackableProperty;
         SerializedProperty topStackSnapPointProperty;
-        //SerializedProperty debugFoodToSnapToProperty;
+        SerializedProperty debugFoodToSnapToProperty;
 
         // making slices
         SerializedProperty isSliceableProperty;
@@ -141,7 +141,7 @@ public class ObjClassEditor : Editor
             wasSlicedProperty = serializedObject.FindProperty("wasSliced");
             sliceSourceProperty = serializedObject.FindProperty("sliceSource");
             
-            //debugFoodToSnapToProperty= serializedObject.FindProperty("debugFoodToSnapTo");
+            debugFoodToSnapToProperty = serializedObject.FindProperty("debugFoodToSnapTo");
         }
 
         protected override void DrawProperties()
@@ -186,7 +186,7 @@ public class ObjClassEditor : Editor
             //EditorGUILayout.PropertyField(debugFoodToSnapToProperty);
             //if (GUILayout.Button("Stack Food"))
             //{
-                //foodTarget.SnapTo(foodTarget.debugFoodToSnapTo);
+            //    Sandwich.SnapToTop(foodTarget.debugFoodToSnapTo, foodTarget);
             //}
         }
     }

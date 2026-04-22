@@ -108,11 +108,14 @@ public class Sandwich : Food
         sandwichBase.BaseFood.TransferAndDisableRigidBodiesTo(this);
         targetFood.TransferAndDisableRigidBodiesTo(this);
 
+        float foodOffset = sandwichBase.BaseFood.topStackSnapPoint.localPosition.y;
+
         foodStackCollider.transform.SetParent(this.transform, true);
         sandwichBase.BaseFood.transform.SetParent(this.transform, true);
         targetFood.transform.SetParent(this.transform, true);
 
-        sandwichBase.transform.localPosition = Vector3.zero;
+        foodStackCollider.transform.Translate(0.0f, foodOffset, 0.0f, Space.Self);
+
         SnapToTop(targetFood);
 
         this.RigidBody.WakeUp();
@@ -128,7 +131,7 @@ public class Sandwich : Food
         targetFood.TransferAndDisableRigidBodiesTo(this);
         targetFood.transform.SetParent(this.transform, true);
 
-        SnapToTop(targetFood);
+        //SnapToTop(TopFood, targetFood);
 
         yield return new WaitForFixedUpdate();
         this.RigidBody.ResetCenterOfMass();
@@ -148,6 +151,9 @@ public class Sandwich : Food
          * base food to snap to = target
         */
 
+        Debug.Log(source.transform.position + " " + source.topStackSnapPoint.transform.position);
+        Debug.Log(target.transform.position + " " + target.topStackSnapPoint.transform.position);
+
         float currOriginToTargetTop = (source.transform.position - target.topStackSnapPoint.position).sqrMagnitude;
         float currOriginToTargetOrigin = (source.transform.position - target.transform.position).sqrMagnitude;
         Vector3 targetTopPos = new Vector3(0.0f, Mathf.Abs(target.topStackSnapPoint.transform.position.y - target.transform.position.y), 0.0f);
@@ -157,35 +163,41 @@ public class Sandwich : Food
 
         if (areBothObjsSameDir)
         {
-            AlignWithTop(target.transform, false);
             // case 1: RU on RU, curr origin closest to target top
             if (currOriginToTargetTop < currOriginToTargetOrigin)
             {
+                Debug.Log("case 1");
                 distanceToMove = targetTopPos;
             }
             // case 2: UD on UD, curr top is closest to target origin
             else
             {
+                Debug.Log("case 2");
                 distanceToMove = currTopPos;
             }
+            AlignWithTop(target.transform, false);
         }
         // objs facing opposite directions
         else
         {
-            AlignWithTop(target.transform, true);
             // case 3: RU on UD, current origin is closest to target origin
             if (currOriginToTargetOrigin < currOriginToTargetTop)
             {
+                Debug.Log("case 3");
                 distanceToMove = Vector3.zero;
             }
             // case 4: UD on RU, current top is closest to target top
             else
             {
+                Debug.Log("case 4");
                 distanceToMove = targetTopPos + currTopPos;
             }
+            AlignWithTop(target.transform, true);
         }
         source.transform.position = target.transform.position + distanceToMove;
-        foodStackCollider.transform.position += targetTopPos;
+
+        foodStackCollider.transform.Translate(0.0f, targetTopPos.y, 0.0f, Space.Self);
+        //foodStackCollider.transform.Translate(0.0f, Mathf.Abs(targetTopPos.y), 0.0f, Space.Self);
     }
 
     private void AlignWithTop(Transform target, bool flipZRotation)
