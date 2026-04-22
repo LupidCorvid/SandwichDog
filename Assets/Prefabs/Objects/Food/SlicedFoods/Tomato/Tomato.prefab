@@ -156,7 +156,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 0}
+  - {fileID: 8386995132867432050}
+  - {fileID: 3772257711713292929}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -324,6 +325,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 916437776017b404894ef3af2a3ea0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xrgi: {fileID: 3227816901246688626}
+  xrggt: {fileID: 602371970352207821}
+  xriasp: {fileID: 3627459914914604641}
+  rigidBody: {fileID: 8100243580572967210}
+  objType: 0
+  objName: Tomato
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
   canGetDirty: 1
@@ -333,16 +340,26 @@ MonoBehaviour:
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
+  smokeVFX: {fileID: 0}
   isCookable: 0
-  isCooked: 0
+  isOvercooked: 0
   isBurnt: 0
   timeToCook: 0
+  postCookGraceTime: 0
   timeToBurn: 0
   cookAmount: 0
+  overcookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
+  isStackable: 0
+  isStackBase: 0
+  stackBase: {fileID: 0}
+  topPoint: {fileID: 0}
+  debugFoodToSnapTo: {fileID: 0}
   isSliceable: 1
   numCutsNeeded: 4
   slicedResultObject: {fileID: 1972924822521645177, guid: 40eb02bc45af55c4ca05749aa7a342ef, type: 3}
+  wasSliced: 0
+  sliceSource: {fileID: 0}
 --- !u!1 &4026672285530123574
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,6 +679,7 @@ GameObject:
   - component: {fileID: 7373836614577732211}
   - component: {fileID: 2817280976830393706}
   - component: {fileID: 6419484921757970750}
+  - component: {fileID: 3772257711713292929}
   m_Layer: 0
   m_Name: tomato_stem
   m_TagString: Untagged
@@ -737,3 +755,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3772257711713292929
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724879658563497901}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 310856016449768368, guid: db4d74f52f0564fbc9c36e99a32431ba, type: 3}

@@ -1,43 +1,15 @@
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
-using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.XR.CoreUtils;
 using System.Linq;
-
-public class FoodRequirement
-{
-    
-}
-
-[System.Serializable]
-public class ItemRequirement
-{
-    public ObjClass item;
-    public Spread spread;
-    public int quantity;
-
-    public ItemRequirement(ObjClass inItem, int inQuantity)
-    {
-        item = inItem;
-        quantity = inQuantity;
-    }
-
-    public override bool Equals(object other)
-    {
-        ObjClass otherObj = other as ObjClass;
-
-        if (otherObj)
-        {
-            ItemRequirement otherReq = new ItemRequirement(otherObj, 1);
-
-            return item == otherReq.item && quantity == otherReq.quantity;
-        }
-        return false;
-    }
-}
+using Unity.VisualScripting;
+using Unity.XR.CoreUtils;
+using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.State;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Transformers;
 
 public enum ObjType
 {
@@ -48,8 +20,8 @@ public enum ObjType
 
 public enum Spread
 {
-    NOSPREAD,
-    PEANUTBUTTER,
+    NO_SPREAD,
+    PEANUT_BUTTER,
     JELLY
 }
 
@@ -58,13 +30,27 @@ public class ObjClass : MonoBehaviour
 {
     protected const float MAX_CONDITION = 1.0f;
 
+    // === INTERACTION=== //
+    [SerializeField] protected XRGrabInteractable xrgi;
+    [SerializeField] protected XRGeneralGrabTransformer xrggt;
+    [SerializeField] protected XRInteractableAffordanceStateProvider xriasp;
+
+    [SerializeField] protected Rigidbody rigidBody;
+    public Rigidbody RigidBody => rigidBody;
+    private float rbMass; // saved to properly recreate rb
+    private List<Collider> xrgiColliders;
+    private int xrgiCollidersHash;
+
     // === BASIC INFO === //
-    [SerializeField]  public ObjType objType { get; private set; }
-    [SerializeField]  public string objName {  get; private set; }
+    [SerializeField] protected ObjType objType;
+    [SerializeField] protected string objName;
     [SerializeField] public GlobalObjSettings_SO objSettings;
     [SerializeField] private bool overrideGlobalSettings;
 
-    [SerializeField] public bool triggersTutorial {  get; private set; }
+    [SerializeField] public bool triggersTutorial { get; private set; }
+
+    public string ObjName => objName;
+    public ObjType ObjType => objType;
 
     // === CLEANLINESS === //
     [HideInInspector] public float objCleanliness { get; private set; }
@@ -91,24 +77,60 @@ public class ObjClass : MonoBehaviour
 
     // === SPREADS === //
     [SerializeField] protected bool canHaveSpreads;
-    public Spread currentSpread { get; protected set; }
+    public SpreadInfo currentSpreadData { get; protected set; }
+    [SerializeField] protected Spread currentSpread;
     [SerializeField] protected ObjSpreads_SO possibleSpreads;
 
+    public Spread CurrentSpread => currentSpread;
+
     public bool CanHaveSpreads => canHaveSpreads;
-    public bool HasSpread => (currentSpread != Spread.NOSPREAD);
+    public bool HasSpread => (currentSpread != Spread.NO_SPREAD);
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (!objRenderer) objRenderer = GetComponent<Renderer>();
+        if (!rigidBody) rigidBody = GetComponentInChildren<Rigidbody>();
+        if (!xrgi) xrgi = GetComponentInChildren<XRGrabInteractable>();
+        if (!xrggt) xrggt = GetComponentInChildren<XRGeneralGrabTransformer>();
+        if (!xriasp) xriasp = GetComponentInChildren<XRInteractableAffordanceStateProvider>();
+    }
+#endif
 
     protected void Awake()
     {
         inHand = false;
         inMouth = false;
 
+        if (xrgi) xrgi.selectEntered.AddListener(HandlePlayerObjSelectionEntered);
+        if (xrgi) xrgi.selectExited.AddListener(HandlePlayerObjSelectionExited);
+
         objCleanliness = MAX_CONDITION;
-        InitializeAppearanceLogic();
+
+        if (objRenderer)
+        {
+            InitializeAppearanceLogic();
+        }
 
         if (!overrideGlobalSettings)
         {
             InitializeSettings();
         }
+    }
+
+    private void HandlePlayerObjSelectionEntered(SelectEnterEventArgs args)
+    {
+        Player.Instance.activeInteractedObjects.Add(this);
+    }
+
+    private void HandlePlayerObjSelectionExited(SelectExitEventArgs args)
+    {
+        Player.Instance.activeInteractedObjects.Remove(this);
+    }
+
+    public virtual void InteractedObjectUpdate()
+    {
+
     }
 
     protected void Start()
@@ -136,8 +158,24 @@ public class ObjClass : MonoBehaviour
     {
         ObjClass otherObj = other as ObjClass;
 
+        Debug.Log("Obj Class Equals check");
         if (otherObj)
         {
+            Debug.Log(this.objName + " VS " + otherObj.objName);
+            return this.objName == otherObj.objName &&
+                this.objType == otherObj.objType && this.currentSpread == otherObj.currentSpread;
+        }
+        return false;
+    }
+
+    public bool BaseInfoEquals(object other)
+    {
+        ObjClass otherObj = other as ObjClass;
+
+        Debug.Log("Obj Class Equals check");
+        if (otherObj)
+        {
+            Debug.Log(this.objName + " VS " + otherObj.objName);
             return this.objName == otherObj.objName && 
                 this.objType == otherObj.objType;
         }
@@ -202,19 +240,75 @@ public class ObjClass : MonoBehaviour
     }
     public void DropFromMouth() { }
 
+
+    public void TransferAndDisableRigidBodiesTo(ObjClass incomingObj=null)
+    {
+        // record colliders before destruction
+        if (xrgi.colliders != null)
+        {
+            if (xrgiColliders == null || !xrgi.colliders.SequenceEqual(xrgiColliders))
+            {
+                xrgiColliders = new List<Collider>(xrgi.colliders);
+            }
+        }
+        if (incomingObj)
+        {
+            foreach (Collider collider in xrgiColliders)
+            {
+                incomingObj.xrgi.colliders.Add(collider);
+            }
+        }
+
+        xriasp.enabled = false;
+        xriasp.interactableSource = null;
+
+        Destroy(xrgi);
+
+        rbMass = rigidBody.mass;
+        Destroy(rigidBody);
+    }
+    public void EnableRigidBody()
+    {
+        rigidBody = this.AddComponent<Rigidbody>();
+        rigidBody.mass = rbMass;
+        xrgi = this.AddComponent<XRGrabInteractable>();
+        // restore colliders
+        if (xrgiColliders != null)
+        {
+            foreach (Collider collider in xrgiColliders)
+            {
+                xrgi.colliders.Add(collider);
+            }
+        }
+    }
+
+    public void DisableInteractability()
+    {
+        xrgi.selectEntered.RemoveListener(HandlePlayerObjSelectionEntered);
+        xrgi.selectExited.RemoveListener(HandlePlayerObjSelectionExited);
+        xrgi.enabled = true;
+
+        xrggt.enabled = true;
+    }
+    public void EnableInteractability()
+    {
+        xrgi.selectEntered.AddListener(HandlePlayerObjSelectionEntered);
+        xrgi.selectExited.AddListener(HandlePlayerObjSelectionExited);
+        xrgi.enabled = true;
+        xrggt.enabled = true;
+    }
+
     ///=============================================================================
     ///                             APPEARANCE
     ///=============================================================================
 
     protected virtual void InitializeAppearanceLogic()
     {
-        objRenderer ??= GetComponent<MeshRenderer>();
         cleanColor = objRenderer != null ? objRenderer.material.GetColor("_BaseColor") : Color.white; //cleanColor = objRenderer?.material?.GetColor("_BaseColor") ?? Color.red;
 
-
-        if (currentSpread != Spread.NOSPREAD)
+        if (currentSpread != Spread.NO_SPREAD)
         {
-            AddSpread(currentSpread);
+            AddSpread(currentSpread, this.transform);
         }
         if (canGetDirty)
         {
@@ -261,35 +355,46 @@ public class ObjClass : MonoBehaviour
     /// Adds new material that adds a material for the incoming spread and removes the previous one. 
     /// </summary>
     /// <returns>Returns if the add was successful or not</returns>
-    public bool AddSpread(Spread spreadToAdd)
+    public void AddSpread(Spread spreadToAdd, Transform source)
     {
-        if (spreadToAdd == Spread.NOSPREAD)
-        {
-            RemoveSpreads();
-            return true;
-        }
+        if (!canHaveSpreads) return;
 
-        Material spreadMaterial;
-        if (possibleSpreads.GetSpread(spreadToAdd, out spreadMaterial))
+        RemoveSpreads();
+
+        currentSpread = spreadToAdd;
+        currentSpreadData = possibleSpreads.GetSpreadInfo(spreadToAdd);
+
+        if (currentSpreadData != null)
         {
-            RemoveSpreads();
-            objRenderer.AddMaterial(spreadMaterial);
-            //Debug.Log(spreadMaterial);
-            return true;
+            ApplySpreadVisual(source);
         }
-        return false;
     }
 
-    public bool RemoveSpreads()
+    public virtual void ApplySpreadVisual(Transform source)
     {
-        Material spreadMaterial;
-        if (possibleSpreads.GetSpread(currentSpread, out spreadMaterial))
+        if (currentSpreadData.spreadMaterial)
         {
             List<Material> materials = objRenderer.materials.ToList();
-            materials.Remove(spreadMaterial);
+            materials.Insert(0, currentSpreadData.spreadMaterial);
             objRenderer.materials = materials.ToArray();
-            return true;
         }
-        return false;
+    }
+
+    public virtual void RemoveSpreads()
+    {
+        if (currentSpreadData == null) return;
+        if (currentSpreadData.spreadMaterial)
+        {
+            List<Material> materials = objRenderer.materials.ToList();
+            string materialToRemoveName = currentSpreadData.spreadMaterial.name;
+
+            Material materialToRemove = materials.Find(mat => mat.name.StartsWith(materialToRemoveName));
+            if (materialToRemove)
+            {
+                materials.Remove(materialToRemove);
+                Destroy(materialToRemove);
+            }
+            objRenderer.materials = materials.ToArray();
+        }
     }
 }

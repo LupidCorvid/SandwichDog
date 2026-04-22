@@ -1,31 +1,57 @@
 using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
+using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Food : ObjClass
 {
+    // === SPREADS === //
+    private GameObject topSpread;
+    private GameObject bottomSpread;
+
     // === COOKABILITY === //
+    [SerializeField] protected GameObject smokeVFX;
+
     [SerializeField] protected bool isCookable;
-    [SerializeField] protected bool isCooked;
+    [SerializeField] protected bool isOvercooked;
     [SerializeField] protected bool isBurnt;
     [SerializeField] protected float timeToCook;
+    [SerializeField] protected float postCookGraceTime;
     [SerializeField] protected float timeToBurn;
     [SerializeField] protected float cookAmount;
+    [SerializeField] protected float overcookAmount;
 
     // public getter properties
     public bool IsCookable => isCookable;
     public bool IsBurnt => isBurnt;
-    public bool IsCooked => IsCooked;
-
     public float TimeToCook => timeToCook;
     public float TimeToBurn => timeToBurn;
     public float CookAmount => cookAmount;
+    public float OvercookAmount => overcookAmount;
     // quick reference equation
     public bool CanBeFurtherCooked => (cookAmount < (timeToCook + timeToBurn));
 
     [SerializeField] Color cookedColor;
     private Color burntColor = Color.black;
 
+    // === STACKABILITY === //
+    [HideInInspector] public Food foodParent;
+    [SerializeField] public bool isStackable;
+    [SerializeField] private bool isStackBase;
+    [SerializeField] private SandwichBase stackBase;
+
+    [SerializeField] public Transform topPoint; // normal transform should act as bottom
+
+    [SerializeField] public Food debugFoodToSnapTo;
+
     // === SLICEABILITY === //
+    // making slices
     [SerializeField] protected bool isSliceable;
     [SerializeField] protected int numCutsNeeded;
     protected int numCutsMade;
@@ -33,10 +59,14 @@ public class Food : ObjClass
 
     public bool IsSliceable => isSliceable;
 
+    // results of sliues
+    [SerializeField] protected bool wasSliced;
+    [SerializeField] Food sliceSource;
+
+    public Food SliceSource => sliceSource;
+
     public Food(string inObjName = "", bool canCook = false) : base(ObjType.PICKUP, inObjName)
     {
-        currentSpread = Spread.NOSPREAD;
-
         isCookable = canCook;
     }
 
@@ -55,33 +85,130 @@ public class Food : ObjClass
         }
     }
 
-    //Compares all member variables of this object and the argument for equality and returns true if all of them match
-    public bool compareMemberVars(Food rhs)
+    // this is probably scuffed with the null return but it'll do
+    public virtual FoodRequirement AttemptRemoveFoodFromRecipe(List<FoodRequirement> recipeFoods)
     {
-        if (this.currentSpread != rhs.currentSpread) return false;
-        return true;
+        FoodRequirement potentialReq = null;
+
+        for (int i = 0; i < recipeFoods.Count; i++)
+        {
+            if (recipeFoods[i].food.Equals(this))
+            {
+                FoodRequirement reqToReturn = recipeFoods[i];
+                recipeFoods.RemoveAt(i);
+                return reqToReturn;
+            }
+            if (recipeFoods[i].food.BaseInfoEquals(this))
+            {
+                potentialReq = recipeFoods[i];
+            }
+        }
+        if (potentialReq != null)
+        {
+            recipeFoods.Remove(potentialReq);
+        }
+
+        return potentialReq;
     }
 
-    public void Cook(float timePassed)
+    public virtual float GetFoodWeight()
     {
-        cookAmount += timePassed;
+        return 1.0f;
+    }
 
-        if (cookAmount < timeToCook)
+    public virtual float AttemptScoreFood(List<FoodRequirement> recipeRequirements)
+    {
+        FoodRequirement foodRequirementMet = this.AttemptRemoveFoodFromRecipe(recipeRequirements);
+        // only applies pos influence if present in recipe
+        if (foodRequirementMet != null)
         {
-            Color cookColor = Color.Lerp(cleanColor, cookedColor, (cookAmount / TimeToCook));
-            objRenderer.material.SetColor("_BaseColor", cookColor);
-            isCooked = true;
+            return ScoreFood(foodRequirementMet);
         }
-        else if (cookAmount > timeToCook && cookAmount <= (timeToCook + timeToBurn))
+        return 0.0f;
+    }
+
+    public virtual float ScoreFood(FoodRequirement requirement)
+    {
+        float scoreSum = 0.0f;
+        float factorsScored = 0.0f;
+
+        if (requirement.spread != Spread.NO_SPREAD)
         {
-            Color burnColor = Color.Lerp(cookedColor, burntColor, ((cookAmount-timeToCook) / (timeToBurn)));
-            objRenderer.material.SetColor("_BaseColor", burnColor);
+            if (requirement.spread == this.currentSpread)
+            {
+                scoreSum += 1.0f;
+                Debug.Log("adding 1.0 from spread match");
+            } else { Debug.Log("adding 0.0 from spread match"); }
+            factorsScored += 1.0f;
+        }
+        if (requirement.isCooked)
+        {
+            scoreSum += Mathf.SmoothStep(0.0f, 1.0f, (cookAmount / timeToCook));
+            Debug.Log("adding " + Mathf.SmoothStep(0.0f, 1.0f, (cookAmount / timeToCook)) + " from cooking");
+            factorsScored += 1.0f;
+
+            if (isOvercooked)
+            {
+                scoreSum -= Mathf.SmoothStep(0.0f, 1.0f, overcookAmount);
+                Debug.Log("subtracting " + Mathf.SmoothStep(0.0f, 1.0f, overcookAmount) + " from overcooking");
+            }
+        }
+        if (canGetDirty)
+        {
+            scoreSum += Mathf.SmoothStep(0.0f, 1.0f, objCleanliness);
+            Debug.Log("adding " + Mathf.SmoothStep(0.0f, 1.0f, objCleanliness) + " from cleanliness");
+            factorsScored += 1.0f;
+        }
+        float score = (scoreSum / factorsScored);
+        Debug.Log(this.objName + " has a score of " + score);
+
+        return score;
+    }
+
+    public override void ApplySpreadVisual(Transform source)
+    {
+        if (!currentSpreadData.spreadObject) return;
+
+        float sourceDistToBottom = (this.transform.position - source.position).sqrMagnitude;
+        float sourceDistToTop = (this.topPoint.position - source.position).sqrMagnitude;
+
+        if (sourceDistToBottom < sourceDistToTop)
+        {
+            bottomSpread = Instantiate(currentSpreadData.spreadObject, this.transform);
+            bottomSpread.transform.Rotate(0.0f, 0.0f, 180.0f, Space.Self);
+            if (this.isStackBase) stackBase.topStackCollider.enabled = false;
         }
         else
         {
-            cookAmount = 1.0f;
-            objRenderer.material.SetColor("_BaseColor", burntColor);
+            topSpread = Instantiate(currentSpreadData.spreadObject, this.topPoint);
+            if (this.isStackBase) stackBase.topStackCollider.enabled = true;
+        }
+    }
+
+    public virtual void Cook(float timePassed)
+    {
+        if (cookAmount < 1.0f)
+        {
+            cookAmount = Mathf.Clamp((cookAmount + (timePassed / timeToCook)), 0.0f, 1.0f);
+            Color cookColor = Color.Lerp(cleanColor, cookedColor, cookAmount);
+            objRenderer.material.SetColor("_BaseColor", cookColor);
+        }
+        else if (postCookGraceTime < 0.0f)
+        {
+            postCookGraceTime -= timePassed;
+        }
+        else if (overcookAmount < 1.0f)
+        {
+            isOvercooked = true;
+            overcookAmount = Mathf.Clamp((overcookAmount + (timePassed / timeToBurn)), 0.0f, 1.0f);
+            Color overcookColor = Color.Lerp(cookedColor, burntColor, overcookAmount);
+            objRenderer.material.SetColor("_BaseColor", overcookColor);
+        }
+        else
+        {
             isBurnt = true;
+            overcookAmount = 1.0f;
+            objRenderer.material.SetColor("_BaseColor", burntColor);
         }
     }
 

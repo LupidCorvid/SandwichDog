@@ -1,5 +1,4 @@
-using Mono.Cecil.Cil;
-using Unity.Plastic.Newtonsoft.Json.Linq;
+using System.Net;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -7,10 +6,14 @@ using UnityEngine;
 [CustomEditor(typeof(ObjClass))]
 public class ObjClassEditor : Editor
 {
+    SerializedProperty objNameProperty;
+    SerializedProperty objTypeProperty;
+
     SerializedProperty objSettingsProperty;
     SerializedProperty overrideProperty;
 
     SerializedProperty canHaveSpreadsProperty;
+    SerializedProperty currentSpreadProperty;
     SerializedProperty possibleSpreadsProperty;
 
     SerializedProperty canGetDirtyProperty;
@@ -19,16 +22,21 @@ public class ObjClassEditor : Editor
     SerializedProperty canGetCleanProperty;
     SerializedProperty amountToCleanProperty;
 
-
     protected virtual void OnEnable()
     {
         AssignEditorSettings();
 
-        canHaveSpreadsProperty = serializedObject.FindProperty("canHaveSpreads");
-        possibleSpreadsProperty = serializedObject.FindProperty("possibleSpreads");
+        objNameProperty = serializedObject.FindProperty("objName");
+        objTypeProperty = serializedObject.FindProperty("objType");
 
         objSettingsProperty = serializedObject.FindProperty("objSettings");
         overrideProperty = serializedObject.FindProperty("overrideGlobalSettings");
+
+        canHaveSpreadsProperty = serializedObject.FindProperty("canHaveSpreads");
+        currentSpreadProperty = serializedObject.FindProperty("currentSpread");
+        possibleSpreadsProperty = serializedObject.FindProperty("possibleSpreads");
+
+
         dirtMaterialProperty = serializedObject.FindProperty("dirtMaterial");
         canGetDirtyProperty = serializedObject.FindProperty("canGetDirty");
         amountToDirtyProperty = serializedObject.FindProperty("amountToDirtyPerSecond");
@@ -42,6 +50,9 @@ public class ObjClassEditor : Editor
         if (!targetObj) return;
 
         serializedObject.Update();
+        EditorGUILayout.PropertyField(objNameProperty);
+        EditorGUILayout.PropertyField(objTypeProperty);
+
         EditorGUILayout.PropertyField(objSettingsProperty);
         EditorGUILayout.PropertyField(overrideProperty);
 
@@ -62,6 +73,7 @@ public class ObjClassEditor : Editor
         EditorGUILayout.PropertyField(canHaveSpreadsProperty);
         if (canHaveSpreadsProperty.boolValue)
         {
+            EditorGUILayout.PropertyField(currentSpreadProperty);
             EditorGUILayout.PropertyField(possibleSpreadsProperty);
         }
 
@@ -104,14 +116,27 @@ public class ObjClassEditor : Editor
     [CustomEditor(typeof(Food))]
     public class FoodClassEditor : ObjClassEditor
     {
+        // cooking
         SerializedProperty isCookableProperty;
         SerializedProperty timeToCookProperty;
         SerializedProperty timeToBurnProperty;
         SerializedProperty cookedColorProperty;
+        
+        // stacking
+        SerializedProperty isStackableProperty;
+        SerializedProperty isStackBaseProperty;
+        SerializedProperty stackBaseProperty;
+        SerializedProperty topPointProperty;
+        SerializedProperty debugFoodToSnapToProperty;
 
+        // making slices
         SerializedProperty isSliceableProperty;
         SerializedProperty numCutsNeededProperty;
         SerializedProperty slicedResultObjectProperty;
+        
+        SerializedProperty wasSlicedProperty;
+        SerializedProperty sliceSourceProperty;
+        
 
         protected override void OnEnable()
         {
@@ -120,15 +145,38 @@ public class ObjClassEditor : Editor
             timeToCookProperty = serializedObject.FindProperty("timeToCook");
             timeToBurnProperty = serializedObject.FindProperty("timeToBurn");
             cookedColorProperty = serializedObject.FindProperty("cookedColor");
+            
+            isStackableProperty = serializedObject.FindProperty("isStackable");
+            isStackBaseProperty = serializedObject.FindProperty("isStackBase");
+            stackBaseProperty = serializedObject.FindProperty("stackBase");
+            topPointProperty = serializedObject.FindProperty("topPoint");
 
             isSliceableProperty = serializedObject.FindProperty("isSliceable");
             numCutsNeededProperty = serializedObject.FindProperty("numCutsNeeded");
             slicedResultObjectProperty = serializedObject.FindProperty("slicedResultObject");
+                        
+            wasSlicedProperty = serializedObject.FindProperty("wasSliced");
+            sliceSourceProperty = serializedObject.FindProperty("sliceSource");
+            
+            debugFoodToSnapToProperty = serializedObject.FindProperty("debugFoodToSnapTo");
         }
 
         protected override void DrawProperties()
         {
+            Food foodTarget = target as Food;
+            if (!foodTarget) return; 
+
             base.DrawProperties();
+
+            EditorGUILayout.PropertyField(topPointProperty);
+
+            if (canHaveSpreadsProperty.boolValue)
+            {
+                if (!foodTarget.topPoint)
+                {
+                    InitializeTopPoint(foodTarget);
+                }
+            }
 
             EditorGUILayout.PropertyField(isCookableProperty);
             if (isCookableProperty.boolValue)
@@ -138,12 +186,45 @@ public class ObjClassEditor : Editor
                 EditorGUILayout.PropertyField(cookedColorProperty);
             }
 
+            EditorGUILayout.PropertyField(isStackableProperty);
+            if (isStackableProperty.boolValue)
+            {
+                if (!foodTarget.topPoint)
+                {
+                    InitializeTopPoint(foodTarget);
+                }
+                EditorGUILayout.PropertyField(isStackBaseProperty);
+                if (isStackBaseProperty.boolValue)
+                {
+                    EditorGUILayout.PropertyField(stackBaseProperty);
+                }
+            }
+
             EditorGUILayout.PropertyField(isSliceableProperty);
             if (isSliceableProperty.boolValue)
             {
                 EditorGUILayout.PropertyField(numCutsNeededProperty);
                 EditorGUILayout.PropertyField(slicedResultObjectProperty);
             }
+            EditorGUILayout.PropertyField(wasSlicedProperty);
+            if (wasSlicedProperty.boolValue)
+            {
+                EditorGUILayout.PropertyField(sliceSourceProperty);
+            }
+
+            //EditorGUILayout.PropertyField(debugFoodToSnapToProperty);
+            //if (GUILayout.Button("Stack Food"))
+            //{
+            //    Sandwich.SnapToTop(foodTarget.debugFoodToSnapTo, foodTarget);
+            //}
+        }
+
+        private void InitializeTopPoint(Food foodTarget)
+        {
+            foodTarget.topPoint = new GameObject(foodTarget.name + "TopPoint").transform;
+            foodTarget.topPoint.SetParent(foodTarget.transform, false);
+
+            topPointProperty.objectReferenceValue = foodTarget.topPoint;
         }
     }
 

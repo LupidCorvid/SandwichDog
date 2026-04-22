@@ -1,15 +1,19 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.Animations;
 using UnityEngine.Animations.Rigging;
+using NUnit.Framework;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
 
     public ObjClass highlighted;
     public GameObject dog;
     public bool standing;
+
+    public List<ObjClass> activeInteractedObjects = new List<ObjClass>();
 
     private float standScale = 1f;
     private float crouchScale = .65f; //.85f;
@@ -21,6 +25,14 @@ public class Player : MonoBehaviour
     {
         highlighted = null;
         standing = true;
+    }
+
+    private void FixedUpdate()
+    {
+        foreach (ObjClass interactedObj in activeInteractedObjects)
+        {
+            interactedObj.InteractedObjectUpdate();
+        }
     }
 
     public void ToggleStand(InputAction.CallbackContext context)

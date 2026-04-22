@@ -7,7 +7,7 @@ public class Silverware : ObjClass
 
     public Silverware() : base(ObjType.GRABBABLE)
     {
-        currentSpread = Spread.NOSPREAD;
+        //currentSpread.spread = Spread.NO_SPREAD;
     }
 
     private void OnCollisionEnter(Collision other)
@@ -20,9 +20,10 @@ public class Silverware : ObjClass
 
         if (foodObj)
         {
-            if (this.currentSpread != Spread.NOSPREAD && !foodObj.HasSpread && this.inHand)
+            //if (this.inHand && this.HasSpread && !foodObj.HasSpread)
+            if (this.HasSpread && !foodObj.HasSpread)
             {
-                otherObject.AddSpread(this.currentSpread);
+                otherObject.AddSpread(this.currentSpread, this.transform);
             }
             if (foodObj.IsSliceable && this.isSlicer)
             {

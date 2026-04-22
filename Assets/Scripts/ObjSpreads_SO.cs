@@ -2,16 +2,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
-public struct SpreadInfo
+public class SpreadInfo
 {
     public Spread spread;
+    public GameObject spreadObject;
     public Material spreadMaterial;
-
-    SpreadInfo(Spread in_spread, Material in_mat)
-    {
-        spread = in_spread;
-        spreadMaterial = in_mat;
-    }
 }
 
 [CreateAssetMenu(fileName = "ObjSpreads_SO", menuName = "Scriptable Objects/ObjSpreads_SO")]
@@ -19,17 +14,15 @@ public class ObjSpreads_SO : ScriptableObject
 {
     public SpreadInfo[] spreads;
 
-    public bool GetSpread(Spread spreadToFind, out Material matInfo)
+    public SpreadInfo GetSpreadInfo(Spread spreadToFind)
     {
-        foreach (SpreadInfo spread in spreads)
+        foreach (SpreadInfo spreadInfo in spreads)
         {
-            if (spread.spread == spreadToFind)
+            if (spreadInfo.spread == spreadToFind)
             {
-                matInfo = spread.spreadMaterial;
-                return true;
+                return spreadInfo;
             }
         }
-        matInfo = null;
-        return false;
+        return null;
     }
 }

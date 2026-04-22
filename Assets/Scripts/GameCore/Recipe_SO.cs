@@ -1,7 +1,11 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Recipe_SO", menuName = "Scriptable Objects/Recipe_SO")]
 public class Recipe_SO : ScriptableObject
 {
-    public ItemRequirement[] requirements;
+    string recipeName;
+    public FoodRequirement[] requiredFood;
+    //public China requiredPlate;
 }

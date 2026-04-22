@@ -12,13 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419e3f6578aeeb44ea81e2bdbcdfbf0b, type: 3}
   m_Name: Lvl_1_Recipe
   m_EditorClassIdentifier: 
-  requirements:
-  - item: {fileID: 6191959607592274193, guid: 8c8309018b65fc24dbd72a2f8f19ffd8, type: 3}
-    spread: 0
-    quantity: 1
-  - item: {fileID: 1055270508630881268, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
+  requiredFood:
+  - food: {fileID: 1055270508630881268, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
     spread: 1
-    quantity: 1
-  - item: {fileID: 1055270508630881268, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
+    isCooked: 0
+  - food: {fileID: 1055270508630881268, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
     spread: 2
-    quantity: 1
+    isCooked: 0

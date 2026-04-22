@@ -1,26 +1,24 @@
 using UnityEngine;
 
-public class Jar : ObjClass
+public class Jar : MonoBehaviour
 {
     public Spread availSpread;
-    public Jar() : base(ObjType.PICKUP)
+    public Jar()
     {
-        availSpread = Spread.PEANUTBUTTER;
+        availSpread = Spread.PEANUT_BUTTER;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        ObjClass otherObject = other.gameObject.GetComponent<ObjClass>();
-        if (!otherObject) return;
-
-        Silverware silverwareObj = otherObject as Silverware;
+        Silverware silverwareTarget = other.gameObject.GetComponent <Silverware>();
+        if (!silverwareTarget) return;
 
         // apply jar spread to silverware
-        if (silverwareObj)
+        if (silverwareTarget)
         {
-            if (!silverwareObj.HasSpread)
+            if (silverwareTarget.CurrentSpread == Spread.NO_SPREAD)
             {
-                silverwareObj.AddSpread(this.availSpread);
+                silverwareTarget.AddSpread(this.availSpread, this.transform);
             }
         }
     }

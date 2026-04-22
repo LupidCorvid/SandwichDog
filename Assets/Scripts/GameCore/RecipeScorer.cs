@@ -6,24 +6,39 @@ using UnityEngine;
 
 public class RecipeScorer : MonoBehaviour
 {
-    public float timer; //Time to wait in seconds for the player to stand in the box before scoring objects
-    public float scoreMax = 0.0f;
-    public float score = 0;
-    public bool gameOver;
+    public float waitTimeBeforeScoring; //Time to wait in seconds for the player to stand in the box before scoring objects
+    private float timer;
+    private bool scoreCalculated;
 
     public static event Action onScoreCalculate;
 
     //The objects the player brought to the end game area, added via end area OnTriggerEnter
-    public List<ItemRequirement> objectsToScore = new List<ItemRequirement>();
+    private List<Food> foodsToScore = new List<Food>();
+    private List<FoodRequirement> recipeRequirements;
 
-    public TMP_Text scoreText;
     public TMP_Text displayText;
+    public TMP_Text scoreText;
+
+    public GameObject scoreButton;
+    public GameObject[] postScoreButtons;
 
     private void Awake()
     {
-        gameOver = false;
-        displayText.text = "0%";
-        //scoreMax = levelRecipe[currentLevel - 1].requirements.Length;
+        scoreCalculated = false;
+        displayText.text = "";
+        scoreText.text = "";
+
+        timer = waitTimeBeforeScoring;
+
+        foreach (GameObject button in postScoreButtons)
+        {
+            button.SetActive(false);
+        }
+    }
+
+    private void Start()
+    {
+        recipeRequirements = new List<FoodRequirement>(GameplayManager.Instance.gameLevel.levelRecipe.requiredFood);
     }
 
     private void OnEnable()
@@ -31,40 +46,40 @@ public class RecipeScorer : MonoBehaviour
         onScoreCalculate += CalculateScore;
     }
 
-    //Add objects to the objectsToScore array
-    //TODO: Curretly doesn't remove objects that leave onTriggerExit
     private void OnTriggerEnter(Collider other)
     {
-        ObjClass obj = other.gameObject.GetComponentInChildren<ObjClass>();
+        Debug.Log(other.name + " HAS ENTERED END ZONE");
 
-        if (obj)
+        // ugly but needed for URCAD
+        Food targetFood = other.GetComponentInParent<Sandwich>();
+        if (!targetFood) targetFood = other.gameObject.GetComponentInChildren<Food>();
+
+        if (!targetFood) return;
+
+        if (targetFood && !targetFood.foodParent)
         {
-            Debug.Log("new item in scoring area: " + other.gameObject.name);
-            //CalculateScore();
-            //Debug.Log("Object added to score: " + other.gameObject.name);
-
-            if (objectsToScore.Contains(new ItemRequirement(obj, 1)))
+            Debug.Log(targetFood.name + " HAS ENTERED?");
+            if (!foodsToScore.Contains(targetFood))
             {
-                int foundIdx = objectsToScore.FindIndex(requirement => requirement.Equals(obj));
-                objectsToScore[foundIdx].quantity += 1;
-            }
-            else
-            {
-                objectsToScore.Add(new ItemRequirement(obj, 1));
-                Debug.Log("new requirement added, total # of objs now " + objectsToScore.Count);
+                foodsToScore.Add(targetFood);
             }
         }
     }
 
-    //If the player leaves too early, reset the timer
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("removing item in scoring area: " + other.gameObject.name);
+        Food targetFood = other.gameObject.GetComponentInChildren<Food>();
 
+        if (targetFood && !targetFood.foodParent)
+        {
+            foodsToScore.Remove(targetFood);
+        }
+
+        //If the player leaves too early, reset the timer
         if (other.gameObject.CompareTag("Player") && timer > 0)
         {
-            timer = 5;
-            displayText.text = "0%";
+            timer = waitTimeBeforeScoring;
+            displayText.text = "";
         }
     }
 
@@ -73,33 +88,60 @@ public class RecipeScorer : MonoBehaviour
     {
         //DEBUG checks if the plate entered the scoring layer
         //Change it to let the player click a UI element to start the scoring
-        if (other.gameObject.layer == 10) //if (other.gameObject.CompareTag("Player")) //if (other.gameObject.layer == 10)
-        {
-            timer -= Time.deltaTime;
+        //if (other.gameObject.CompareTag("Player")) //if (other.gameObject.CompareTag("Player")) //if (other.gameObject.layer == 10)
+        //{
+        //    if (timer > 0) timer -= Time.deltaTime;
 
-            if (timer <= 0)
-            {
-                onScoreCalculate?.Invoke();
-            }
-        }
+        //    if (timer > (waitTimeBeforeScoring * 0.75)) displayText.text = "Hold still";
+        //    else if (timer > (waitTimeBeforeScoring * 0.5)) displayText.text = "Hold still.";
+        //    else if (timer > (waitTimeBeforeScoring * 0.25)) displayText.text = "Hold still..";
+        //    else if (timer > 0) displayText.text = "Hold still...";
+        //    else if (timer <= 0 && !scoreCalculated)
+        //    {
+        //        onScoreCalculate?.Invoke();
+        //        scoreCalculated = true;
+        //    }
+        //}
     }
 
     public void CalculateScore()
     {
-        //List<ItemRequirement> itemRequirements = levelRecipe[currentLevel - 1].requirements.ToList();
+        displayText.text = "Your Score: ";
+        scoreCalculated = true;
+        scoreButton.SetActive(false);
 
-        float scoreCount = 0;
-        foreach (ItemRequirement objectToScore in objectsToScore)
+        float score = 0.0f;
+        float totalWeight = 0.0f;
+        Food foodToScore;
+
+        Debug.Log("SCORE TIME");
+        while (foodsToScore.Count > 0)
         {
-            //Debug.Log(objectToScore.item.gameObject.GetComponent<Rigidbody>() == null);
+            Debug.Log("SCORING...");
+            foodToScore = foodsToScore[0];
+            totalWeight += foodToScore.GetFoodWeight();
+            Debug.Log("Food to score:" + foodToScore.name + " with weight " + foodToScore.GetFoodWeight());
 
-            Debug.Log(objectToScore.item.objCleanliness);
-            scoreCount += objectToScore.item.objCleanliness * objectToScore.quantity;
+            score += foodToScore.AttemptScoreFood(recipeRequirements);
+
+            //Debug.Log(recipeRequirements.Count);
+            //Debug.Log(recipeRequirements.Count);
+
+            foodsToScore.RemoveAt(0);
         }
-        score = (scoreCount / scoreMax) * 100.0f;
+        Debug.Log("still " + recipeRequirements.Count + " food from recipe not in the end area!");
+        totalWeight += recipeRequirements.Count;
+
+        Debug.Log("total score of " + score + " vs weight of " + totalWeight);
+        score = (score / totalWeight) * 100.0f;
 
         //Update score text
         Debug.Log("Score:" + score);
-        displayText.text = score.ToString("F2").Truncate(5) + "%";
+        scoreText.text = score.ToString("F2").Truncate(5) + "%";
+
+        foreach (GameObject button in postScoreButtons)
+        {
+            button.SetActive(true);
+        }
     }
 }
