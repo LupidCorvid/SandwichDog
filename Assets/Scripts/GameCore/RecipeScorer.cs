@@ -68,11 +68,15 @@ public class RecipeScorer : MonoBehaviour
     {
         //DEBUG checks if the plate entered the scoring layer
         //Change it to let the player click a UI element to start the scoring
-        if (other.gameObject.layer == 10) //if (other.gameObject.CompareTag("Player")) //if (other.gameObject.layer == 10)
+        if (other.gameObject.CompareTag("Player")) //if (other.gameObject.CompareTag("Player")) //if (other.gameObject.layer == 10)
         {
-            timer -= Time.deltaTime;
+            if (timer > 0) timer -= Time.deltaTime;
 
-            if (timer <= 0 && !scoreCalculated)
+            if (timer > (waitTimeBeforeScoring * 0.75)) displayText.text = "Hold still";
+            else if (timer > (waitTimeBeforeScoring * 0.5)) displayText.text = "Hold still.";
+            else if (timer > (waitTimeBeforeScoring * 0.25)) displayText.text = "Hold still..";
+            else if (timer > 0) displayText.text = "Hold still...";
+            else if (timer <= 0 && !scoreCalculated)
             {
                 onScoreCalculate?.Invoke();
                 scoreCalculated = true;

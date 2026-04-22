@@ -37,15 +37,19 @@ public class Food : ObjClass
     [SerializeField] public Food debugFoodToSnapTo;
 
     // === SLICEABILITY === //
+    // making slices
     [SerializeField] protected bool isSliceable;
-    [SerializeField] Food sliceProduct;
     [SerializeField] protected int numCutsNeeded;
     protected int numCutsMade;
     [SerializeField] GameObject slicedResultObject;
 
-    public Food SliceProduct => sliceProduct;
-
     public bool IsSliceable => isSliceable;
+
+    // results of sliues
+    [SerializeField] protected bool wasSliced;
+    [SerializeField] Food sliceSource;
+
+    public Food SliceSource => sliceSource;
 
     public Food(string inObjName = "", bool canCook = false) : base(ObjType.PICKUP, inObjName)
     {

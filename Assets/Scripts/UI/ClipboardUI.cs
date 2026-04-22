@@ -94,9 +94,9 @@ public class ClipboardUI : MonoBehaviour
                 string spreadName = recipeFood.currentSpread.ToString().Replace("_", " ");
                 instructionMsg += "Spread " + spreadName + " on the " + recipeFood.name;
             }
-            if (recipeFood.SliceProduct)
+            if (recipeFood.SliceSource)
             {
-                instructionMsg += "Chop the " + recipeFood.SliceProduct.name;
+                instructionMsg += "Chop the " + recipeFood.SliceSource.name;
             }
 
             PushNewInstruction(instructionMsg);

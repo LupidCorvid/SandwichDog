@@ -103,19 +103,25 @@ public class ObjClassEditor : Editor
     [CustomEditor(typeof(Food))]
     public class FoodClassEditor : ObjClassEditor
     {
+        // cooking
         SerializedProperty isCookableProperty;
         SerializedProperty timeToCookProperty;
         SerializedProperty timeToBurnProperty;
         SerializedProperty cookedColorProperty;
         
+        // stacking
         SerializedProperty isStackableProperty;
         SerializedProperty topStackSnapPointProperty;
+        //SerializedProperty debugFoodToSnapToProperty;
 
+        // making slices
         SerializedProperty isSliceableProperty;
         SerializedProperty numCutsNeededProperty;
         SerializedProperty slicedResultObjectProperty;
         
-        SerializedProperty debugFoodToSnapToProperty;
+        SerializedProperty wasSlicedProperty;
+        SerializedProperty sliceSourceProperty;
+        
 
         protected override void OnEnable()
         {
@@ -131,10 +137,11 @@ public class ObjClassEditor : Editor
             isSliceableProperty = serializedObject.FindProperty("isSliceable");
             numCutsNeededProperty = serializedObject.FindProperty("numCutsNeeded");
             slicedResultObjectProperty = serializedObject.FindProperty("slicedResultObject");
+                        
+            wasSlicedProperty = serializedObject.FindProperty("wasSliced");
+            sliceSourceProperty = serializedObject.FindProperty("sliceSource");
             
-            slicedResultObjectProperty = serializedObject.FindProperty("slicedResultObject");
-            
-            debugFoodToSnapToProperty= serializedObject.FindProperty("debugFoodToSnapTo");
+            //debugFoodToSnapToProperty= serializedObject.FindProperty("debugFoodToSnapTo");
         }
 
         protected override void DrawProperties()
@@ -170,8 +177,13 @@ public class ObjClassEditor : Editor
                 EditorGUILayout.PropertyField(numCutsNeededProperty);
                 EditorGUILayout.PropertyField(slicedResultObjectProperty);
             }
+            EditorGUILayout.PropertyField(wasSlicedProperty);
+            if (wasSlicedProperty.boolValue)
+            {
+                EditorGUILayout.PropertyField(sliceSourceProperty);
+            }
 
-            EditorGUILayout.PropertyField(debugFoodToSnapToProperty);
+            //EditorGUILayout.PropertyField(debugFoodToSnapToProperty);
             //if (GUILayout.Button("Stack Food"))
             //{
                 //foodTarget.SnapTo(foodTarget.debugFoodToSnapTo);
