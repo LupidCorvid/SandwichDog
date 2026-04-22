@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public bool standing;
 
     private float standScale = 1f;
-    private float crouchScale = .85f;
+    private float crouchScale = .65f; //.85f;
 
     public GameObject heldObject;
 

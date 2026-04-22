@@ -9,7 +9,7 @@ public class FollowController : MonoBehaviour
     [SerializeField] public float forwardOffset; // = 0.2f;
     public float cameraOffsetAmount;
     //public float rotationOffset = 180;
-    private float fourLeg_ZOffset = 0.4f;   //Offset to add when player is not standing
+    private float fourLeg_ZOffset = -.5f;   //Offset to add when player is not standing
     public GameObject targetPosition;           //What the player object should match position of
     public GameObject targetRotation;           //What the player object should match rotation of
     public bool matchXRotation = false;
@@ -77,7 +77,7 @@ public class FollowController : MonoBehaviour
 
         //Apply rotation
         gameObject.transform.eulerAngles = newRot;
-        if (useRotationOffset) gameObject.transform.position += ApplyRotationOffset(target, forwardOffset);
+        if (useRotationOffset) gameObject.transform.position += ApplyRotationOffset(target, forwardOffset + currYOffset);
     }
 
     //If the camera local rotation overshoots a certain Y value, turn the entire body so that the player cant see their own head
