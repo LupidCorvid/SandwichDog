@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Food : ObjClass
 {
@@ -20,6 +22,7 @@ public class Food : ObjClass
     [SerializeField] protected bool isOvercooked;
     [SerializeField] protected bool isBurnt;
     [SerializeField] protected float timeToCook;
+    [SerializeField] protected float postCookGraceTime;
     [SerializeField] protected float timeToBurn;
     [SerializeField] protected float cookAmount;
     [SerializeField] protected float overcookAmount;
@@ -38,6 +41,7 @@ public class Food : ObjClass
     private Color burntColor = Color.black;
 
     // === STACKABILITY === //
+    [HideInInspector] public Food foodParent;
     [SerializeField] public bool isStackable;
     [SerializeField] private bool isStackBase;
     [SerializeField] private SandwichBase stackBase;
@@ -84,16 +88,27 @@ public class Food : ObjClass
     // this is probably scuffed with the null return but it'll do
     public virtual FoodRequirement AttemptRemoveFoodFromRecipe(List<FoodRequirement> recipeFoods)
     {
+        FoodRequirement potentialReq = null;
+
         for (int i = 0; i < recipeFoods.Count; i++)
         {
-            if (recipeFoods[i].food == this)
+            if (recipeFoods[i].food.Equals(this))
             {
                 FoodRequirement reqToReturn = recipeFoods[i];
                 recipeFoods.RemoveAt(i);
                 return reqToReturn;
             }
+            if (recipeFoods[i].food.BaseInfoEquals(this))
+            {
+                potentialReq = recipeFoods[i];
+            }
         }
-        return null;
+        if (potentialReq != null)
+        {
+            recipeFoods.Remove(potentialReq);
+        }
+
+        return potentialReq;
     }
 
     public virtual float GetFoodWeight()
@@ -101,15 +116,36 @@ public class Food : ObjClass
         return 1.0f;
     }
 
-    public virtual float ScoreFood()
+    public virtual float AttemptScoreFood(List<FoodRequirement> recipeRequirements)
+    {
+        FoodRequirement foodRequirementMet = this.AttemptRemoveFoodFromRecipe(recipeRequirements);
+        // only applies pos influence if present in recipe
+        if (foodRequirementMet != null)
+        {
+            return ScoreFood(foodRequirementMet);
+        }
+        return 0.0f;
+    }
+
+    public virtual float ScoreFood(FoodRequirement requirement)
     {
         float scoreSum = 0.0f;
         float factorsScored = 0.0f;
 
-        if (isCookable)
+        if (requirement.spread != Spread.NO_SPREAD)
+        {
+            if (requirement.spread == this.currentSpread)
+            {
+                scoreSum += 1.0f;
+                Debug.Log("adding 1.0 from spread match");
+            } else { Debug.Log("adding 0.0 from spread match"); }
+            factorsScored += 1.0f;
+        }
+        if (requirement.isCooked)
         {
             scoreSum += Mathf.SmoothStep(0.0f, 1.0f, (cookAmount / timeToCook));
-            Debug.Log("adding " + Mathf.SmoothStep(0.0f, 1.0f, (cookAmount % timeToCook)) + " from cooking");
+            Debug.Log("adding " + Mathf.SmoothStep(0.0f, 1.0f, (cookAmount / timeToCook)) + " from cooking");
+            factorsScored += 1.0f;
 
             if (isOvercooked)
             {
@@ -121,8 +157,10 @@ public class Food : ObjClass
         {
             scoreSum += Mathf.SmoothStep(0.0f, 1.0f, objCleanliness);
             Debug.Log("adding " + Mathf.SmoothStep(0.0f, 1.0f, objCleanliness) + " from cleanliness");
+            factorsScored += 1.0f;
         }
         float score = (scoreSum / factorsScored);
+        Debug.Log(this.objName + " has a score of " + score);
 
         return score;
     }
@@ -154,6 +192,10 @@ public class Food : ObjClass
             cookAmount = Mathf.Clamp((cookAmount + (timePassed / timeToCook)), 0.0f, 1.0f);
             Color cookColor = Color.Lerp(cleanColor, cookedColor, cookAmount);
             objRenderer.material.SetColor("_BaseColor", cookColor);
+        }
+        else if (postCookGraceTime < 0.0f)
+        {
+            postCookGraceTime -= timePassed;
         }
         else if (overcookAmount < 1.0f)
         {

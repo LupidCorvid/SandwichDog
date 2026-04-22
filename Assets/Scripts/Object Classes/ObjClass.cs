@@ -42,12 +42,15 @@ public class ObjClass : MonoBehaviour
     private int xrgiCollidersHash;
 
     // === BASIC INFO === //
-    [SerializeField] public ObjType objType { get; private set; }
-    [SerializeField] public string objName { get; private set; }
+    [SerializeField] protected ObjType objType;
+    [SerializeField] protected string objName;
     [SerializeField] public GlobalObjSettings_SO objSettings;
     [SerializeField] private bool overrideGlobalSettings;
 
     [SerializeField] public bool triggersTutorial { get; private set; }
+
+    public string ObjName => objName;
+    public ObjType ObjType => objType;
 
     // === CLEANLINESS === //
     [HideInInspector] public float objCleanliness { get; private set; }
@@ -153,8 +156,24 @@ public class ObjClass : MonoBehaviour
     {
         ObjClass otherObj = other as ObjClass;
 
+        Debug.Log("Obj Class Equals check");
         if (otherObj)
         {
+            Debug.Log(this.objName + " VS " + otherObj.objName);
+            return this.objName == otherObj.objName &&
+                this.objType == otherObj.objType && this.currentSpread == otherObj.currentSpread;
+        }
+        return false;
+    }
+
+    public bool BaseInfoEquals(object other)
+    {
+        ObjClass otherObj = other as ObjClass;
+
+        Debug.Log("Obj Class Equals check");
+        if (otherObj)
+        {
+            Debug.Log(this.objName + " VS " + otherObj.objName);
             return this.objName == otherObj.objName && 
                 this.objType == otherObj.objType;
         }

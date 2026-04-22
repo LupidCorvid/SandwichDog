@@ -1,3 +1,6 @@
+using System;
+using UnityEngine;
+
 // ABANDONED FOR URCAD
 //[Serializable]
 //public class PlatedFood : Food
@@ -11,7 +14,6 @@
 //    }
 //}
 
-using System;
 
 [Serializable]
 public class FoodRequirement
@@ -26,12 +28,12 @@ public class FoodRequirement
 
         if (otherReq != null)
         {
-            return this.food == otherReq.food;
+            return this.food.Equals(otherReq.food) && this.spread == otherReq.spread && this.isCooked && otherReq.isCooked;
         }
         Food otherFood = other as Food;
         if (otherFood)
         {
-            return this.food == otherFood;
+            return this.food.Equals(otherFood);
         }
 
         return false;

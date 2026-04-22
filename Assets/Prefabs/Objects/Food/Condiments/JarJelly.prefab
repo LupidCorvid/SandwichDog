@@ -100,14 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33564e34b0bb697479444ec6b7aeaca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
-  overrideGlobalSettings: 0
-  canGetDirty: 0
-  canGetClean: 0
-  amountToDirtyPerSecond: 0
-  amountToCleanPerSecond: 0
-  dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
-  possibleSpreads: {fileID: 11400000, guid: 52ada5e76b735314699b5ccc51235f06, type: 2}
   availSpread: 2
 --- !u!64 &3936458451293586216
 MeshCollider:
@@ -708,6 +700,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f320b2b728604174baf9b0d73ff3f514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xrgi: {fileID: 5892403243861829773}
+  xrggt: {fileID: 963824711075055207}
+  xriasp: {fileID: 1877539770573310431}
+  rigidBody: {fileID: 7123948604461037971}
+  objType: 0
+  objName: JarJellyLid
   objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
   overrideGlobalSettings: 0
   canGetDirty: 0
@@ -715,6 +713,7 @@ MonoBehaviour:
   amountToDirtyPerSecond: 0
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
+  canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
 --- !u!64 &2386299009111894240
 MeshCollider:
@@ -1405,6 +1404,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f320b2b728604174baf9b0d73ff3f514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xrgi: {fileID: 1092875656747263132}
+  xrggt: {fileID: 1079393088650414774}
+  xriasp: {fileID: 8125555224415997862}
+  rigidBody: {fileID: 4649932854642938711}
+  objType: 0
+  objName: JarJellyBody
   objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
   overrideGlobalSettings: 0
   canGetDirty: 0
@@ -1412,6 +1417,7 @@ MonoBehaviour:
   amountToDirtyPerSecond: 0
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
+  canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
 --- !u!64 &816775957021160949
 MeshCollider:
@@ -1498,7 +1504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 975804625191619451}
   m_Layer: 0
-  m_Name: jelly
+  m_Name: JarJelly
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

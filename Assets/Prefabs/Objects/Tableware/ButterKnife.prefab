@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 3049705592159364053}
   - component: {fileID: 753515876745672743}
   - component: {fileID: 6066638268342429246}
+  - component: {fileID: 8172623894078867678}
   m_Layer: 0
   m_Name: ButterKnife
   m_TagString: Untagged
@@ -561,6 +562,8 @@ MonoBehaviour:
   xrggt: {fileID: 8010835687030930129}
   xriasp: {fileID: 8482574894413227866}
   rigidBody: {fileID: 5226667796222314334}
+  objType: 0
+  objName: ButterKnife
   objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
   overrideGlobalSettings: 1
   canGetDirty: 1
@@ -647,6 +650,22 @@ MeshCollider:
   m_CookingOptions: 30
   m_Mesh: {fileID: 6329158148709259305, guid: 2136a3a7540195d4cbaf8724e95f8540, type: 3}
 --- !u!114 &6066638268342429246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7861188016737763862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77fd3a4defbe6354ebbcffd9c07be5b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expectedCursor: 5
+  expectedLevel: 1
+  triggerType: 0
+  destroyIfLevelDoesntMatch: 0
+--- !u!114 &8172623894078867678
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

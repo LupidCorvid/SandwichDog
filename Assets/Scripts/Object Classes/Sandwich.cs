@@ -49,8 +49,10 @@ public class Sandwich : Food
     {
         foodOrder.Remove(food);
         food.EnableRigidBody();
+        //food.EnableInteractability();
         // leave sandwich hierarchy
-        food.transform.SetParent(this.transform.parent, true); 
+        food.transform.SetParent(null, true); 
+        food.foodParent = null;
     }
 
     public override bool Equals(object other)
@@ -74,16 +76,11 @@ public class Sandwich : Food
 
     public override FoodRequirement AttemptRemoveFoodFromRecipe(List<FoodRequirement> recipeFoods)
     {
+        FoodRequirement potentialReq = null;
         foreach (Food sandwichFood in foodOrder)
         {
-            foreach (FoodRequirement recipeFood in recipeFoods)
-            {
-                if (sandwichFood == recipeFood.food)
-                {
-                    foodOrder.Remove(recipeFood.food); // bad and destructive of the original data but shouldn't matter at the end of a level
-                    return recipeFood;
-                }
-            }
+            potentialReq = sandwichFood.AttemptRemoveFoodFromRecipe(recipeFoods);
+            if (potentialReq != null) return potentialReq;
         }
         return null;
     }
@@ -93,12 +90,14 @@ public class Sandwich : Food
         return foodOrder.Count;
     }
 
-    public override float ScoreFood()
+    public override float AttemptScoreFood(List<FoodRequirement> recipeRequirements)
     {
+        if (foodOrder.Count == 0) return 0.0f;
+
         float scoreSum = 0.0f;
         foreach (Food food in foodOrder)
         {
-            scoreSum += food.ScoreFood();
+            scoreSum += food.AttemptScoreFood(recipeRequirements);
         }
         return (scoreSum / foodOrder.Count);
     }
@@ -113,6 +112,9 @@ public class Sandwich : Food
         foodStackCollider.transform.SetParent(this.transform, true);
         sandwichBase.BaseFood.transform.SetParent(this.transform, true);
         targetFood.transform.SetParent(this.transform, true);
+
+        sandwichBase.BaseFood.foodParent = this;
+        targetFood.foodParent = this;
 
         foodStackCollider.transform.Translate(0.0f, foodOffset, 0.0f, Space.Self);
 
@@ -130,6 +132,8 @@ public class Sandwich : Food
     {
         targetFood.TransferAndDisableRigidBodiesTo(this);
         targetFood.transform.SetParent(this.transform, true);
+
+        targetFood.foodParent = this;
 
         //SnapToTop(TopFood, targetFood);
 

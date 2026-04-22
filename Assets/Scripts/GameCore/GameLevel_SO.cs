@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameLevel_SO : ScriptableObject
 {
     public bool hasTutorialInfo;
-    ObjectAssignment_SO levelObjects;
+    public ObjectAssignment_SO levelObjects;
     public Recipe_SO levelRecipe;
     public GameLevel_SO nextLevel;
 }

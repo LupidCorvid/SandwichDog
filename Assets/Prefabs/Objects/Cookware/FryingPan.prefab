@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 3547896447395644267}
   - component: {fileID: 8783882379074285813}
   m_Layer: 0
-  m_Name: Frying pan model
+  m_Name: FryingPan
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

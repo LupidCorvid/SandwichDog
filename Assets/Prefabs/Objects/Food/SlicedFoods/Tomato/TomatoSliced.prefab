@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &747721164786638761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8151390869684074709}
+  m_Layer: 0
+  m_Name: bottom sliceTopPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8151390869684074709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747721164786638761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3262671760385772263}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &983679187163031807
 GameObject:
   m_ObjectHideFlags: 0
@@ -69,6 +100,7 @@ Transform:
   m_Children:
   - {fileID: 2835502792915009410}
   - {fileID: 8271222416845191198}
+  - {fileID: 7461667405438977983}
   m_Father: {fileID: 812655415186623537}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4565032536320905492
@@ -191,6 +223,8 @@ MonoBehaviour:
   xrggt: {fileID: 976440686805825354}
   xriasp: {fileID: 5975322735053243097}
   rigidBody: {fileID: 5907987706064892078}
+  objType: 0
+  objName: Tomato
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
   canGetDirty: 1
@@ -200,16 +234,20 @@ MonoBehaviour:
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
+  smokeVFX: {fileID: 0}
   isCookable: 0
   isOvercooked: 0
   isBurnt: 0
   timeToCook: 0
+  postCookGraceTime: 0
   timeToBurn: 0
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
   isStackable: 1
-  topStackSnapPoint: {fileID: 8271222416845191198}
+  isStackBase: 0
+  stackBase: {fileID: 0}
+  topPoint: {fileID: 7461667405438977983}
   debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0
   numCutsNeeded: 0
@@ -1086,6 +1124,37 @@ MonoBehaviour:
       m_Calls: []
   m_MaterialPropertyBlockHelper: {fileID: 2348821979712521366}
   m_FloatPropertyName: _RimPower
+--- !u!1 &2239536547629980798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1206279409378440390}
+  m_Layer: 0
+  m_Name: up mid sliceTopPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1206279409378440390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2239536547629980798}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5334754169445877498}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2899094151038142334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,6 +1193,7 @@ Transform:
   m_Children:
   - {fileID: 96834485959696779}
   - {fileID: 4206310081364397767}
+  - {fileID: 4317983993546831023}
   m_Father: {fileID: 812655415186623537}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4077028539599961223
@@ -1245,6 +1315,8 @@ MonoBehaviour:
   xrggt: {fileID: 327948928180227502}
   xriasp: {fileID: 1062878118108726203}
   rigidBody: {fileID: 5816348240264721138}
+  objType: 0
+  objName: Tomato
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
   canGetDirty: 1
@@ -1254,16 +1326,20 @@ MonoBehaviour:
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
+  smokeVFX: {fileID: 0}
   isCookable: 0
   isOvercooked: 0
   isBurnt: 0
   timeToCook: 0
+  postCookGraceTime: 0
   timeToBurn: 0
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
   isStackable: 1
-  topStackSnapPoint: {fileID: 4206310081364397767}
+  isStackBase: 0
+  stackBase: {fileID: 0}
+  topPoint: {fileID: 4317983993546831023}
   debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0
   numCutsNeeded: 0
@@ -1478,6 +1554,7 @@ Transform:
   m_Children:
   - {fileID: 3070785865131737811}
   - {fileID: 2067048742659472344}
+  - {fileID: 4598061460050282707}
   m_Father: {fileID: 812655415186623537}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6816085660857219121
@@ -1599,6 +1676,8 @@ MonoBehaviour:
   xrggt: {fileID: 1982443510569570529}
   xriasp: {fileID: 6816307589560529582}
   rigidBody: {fileID: 5845109793080964599}
+  objType: 0
+  objName: Tomato
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
   canGetDirty: 1
@@ -1608,16 +1687,20 @@ MonoBehaviour:
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
+  smokeVFX: {fileID: 0}
   isCookable: 0
   isOvercooked: 0
   isBurnt: 0
   timeToCook: 0
+  postCookGraceTime: 0
   timeToBurn: 0
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
   isStackable: 1
-  topStackSnapPoint: {fileID: 2067048742659472344}
+  isStackBase: 0
+  stackBase: {fileID: 0}
+  topPoint: {fileID: 4598061460050282707}
   debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0
   numCutsNeeded: 0
@@ -1988,6 +2071,37 @@ MonoBehaviour:
       m_Calls: []
   m_MaterialPropertyBlockHelper: {fileID: 5327629114178269083}
   m_FloatPropertyName: _RimPower
+--- !u!1 &3275263379686388071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7461667405438977983}
+  m_Layer: 0
+  m_Name: top sliceTopPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7461667405438977983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3275263379686388071}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8426822178134371947}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3321860905447765325
 GameObject:
   m_ObjectHideFlags: 0
@@ -2446,6 +2560,7 @@ Transform:
   m_Children:
   - {fileID: 1499034292024100942}
   - {fileID: 263947323365733281}
+  - {fileID: 8151390869684074709}
   m_Father: {fileID: 812655415186623537}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8584132030402286371
@@ -2567,6 +2682,8 @@ MonoBehaviour:
   xrggt: {fileID: 3993681768928056163}
   xriasp: {fileID: 1709114331508230406}
   rigidBody: {fileID: 6673290798885628715}
+  objType: 0
+  objName: Tomato
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
   canGetDirty: 0
@@ -2576,16 +2693,20 @@ MonoBehaviour:
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
+  smokeVFX: {fileID: 0}
   isCookable: 0
   isOvercooked: 0
   isBurnt: 0
   timeToCook: 0
+  postCookGraceTime: 0
   timeToBurn: 0
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
   isStackable: 1
-  topStackSnapPoint: {fileID: 263947323365733281}
+  isStackBase: 0
+  stackBase: {fileID: 0}
+  topPoint: {fileID: 8151390869684074709}
   debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0
   numCutsNeeded: 0
@@ -2762,6 +2883,37 @@ MonoBehaviour:
   m_MinimumScaleRatio: 0.25
   m_MaximumScaleRatio: 2
   m_ScaleMultiplier: 0.25
+--- !u!1 &6959420789489670934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4598061460050282707}
+  m_Layer: 0
+  m_Name: down mid sliceTopPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4598061460050282707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6959420789489670934}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1481910612012915824}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7146416343585243918
 GameObject:
   m_ObjectHideFlags: 0
@@ -2831,6 +2983,7 @@ Transform:
   m_Children:
   - {fileID: 6634154130594621221}
   - {fileID: 3740730182297014127}
+  - {fileID: 1206279409378440390}
   m_Father: {fileID: 812655415186623537}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3346761470906287752
@@ -2952,6 +3105,8 @@ MonoBehaviour:
   xrggt: {fileID: 4477013031037223493}
   xriasp: {fileID: 7711692863072800999}
   rigidBody: {fileID: 8721617866603478378}
+  objType: 0
+  objName: Tomato
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
   canGetDirty: 1
@@ -2961,16 +3116,20 @@ MonoBehaviour:
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
+  smokeVFX: {fileID: 0}
   isCookable: 0
   isOvercooked: 0
   isBurnt: 0
   timeToCook: 0
+  postCookGraceTime: 0
   timeToBurn: 0
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
   isStackable: 1
-  topStackSnapPoint: {fileID: 3740730182297014127}
+  isStackBase: 0
+  stackBase: {fileID: 0}
+  topPoint: {fileID: 1206279409378440390}
   debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0
   numCutsNeeded: 0
@@ -3311,6 +3470,37 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_Variable: {fileID: 0}
+--- !u!1 &8287268954366863238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4317983993546831023}
+  m_Layer: 0
+  m_Name: mid sliceTopPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4317983993546831023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8287268954366863238}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1832758525986670825}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8794298775772895633
 GameObject:
   m_ObjectHideFlags: 0

@@ -248,6 +248,8 @@ MonoBehaviour:
   xrggt: {fileID: 7916582220314170474}
   xriasp: {fileID: 4579614501313255059}
   rigidBody: {fileID: 4635222108684702575}
+  objType: 1
+  objName: Sandwich
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
   canGetDirty: 1
@@ -257,14 +259,17 @@ MonoBehaviour:
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
+  smokeVFX: {fileID: 0}
   isCookable: 1
   isOvercooked: 0
   isBurnt: 0
   timeToCook: 10
+  postCookGraceTime: 0
   timeToBurn: 10
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 1, g: 1, b: 1, a: 0}
+  foodParent: {fileID: 0}
   isStackable: 0
   isStackBase: 0
   stackBase: {fileID: 0}

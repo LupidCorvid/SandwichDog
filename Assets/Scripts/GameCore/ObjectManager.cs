@@ -24,13 +24,6 @@ public ObjectAssignment_SO levelObjects;
 
     void Start()
     {
-        foreach (ObjectSpawner spawner in levelObjects.objectAssignments)
-        {
-            GameObject spawnedObject = Instantiate(spawner.prefabToSpawn, spawner.positionToSpawn, spawner.rotationToSpawn);
 
-            //spawnedObject.transform.position = spawner.positionToSpawn;
-            //spawnedObject.transform.rotation = spawner.rotationToSpawn;
-            spawnedObject.transform.localScale = spawner.scaleToSpawn;
-        }
     }
 }

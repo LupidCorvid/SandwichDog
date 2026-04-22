@@ -26,24 +26,37 @@ public class GameplayManager : Singleton<GameplayManager>
         if (currentLevel == 1) TutorialManager.Instance.startTutorial(currentLevel);
         PrepareLevel();
     }
-
     void Update()
     {
         //print(currentLevel);
     }
 
+    //Call on scene start
+    public void PrepareLevel()
+    {
+        SpawnLevelObjects();
+    }
+
+    private void SpawnLevelObjects()
+    {
+        foreach (ObjectSpawner spawner in gameLevel.levelObjects.objectAssignments)
+        {
+            GameObject spawnedObject = Instantiate(spawner.prefabToSpawn, spawner.positionToSpawn, spawner.rotationToSpawn);
+
+            spawnedObject.transform.localScale = spawner.scaleToSpawn;
+        }
+    }
     //Call on scene end, when player clicks next level button
     public void IncrementLevel()
     {
-        currentLevel++;
-        if (currentLevel > maxLevels)
+        if (gameLevel.nextLevel)
         {
-            currentLevel = 1;
-            SceneManager.LoadScene("MainMenu");
+            gameLevel = gameLevel.nextLevel;
+            ResetLevel();
         }
         else
         {
-            SceneManager.LoadScene("GameRoom");
+            SceneManager.LoadScene("MainMenu");
         }
     } 
 
@@ -54,12 +67,6 @@ public class GameplayManager : Singleton<GameplayManager>
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
-    }
-
-    //Call on scene start
-    public void PrepareLevel()
-    {
-        
     }
 
     public void SwapOutObj(GameObject objToDelete, GameObject objToSpawn)

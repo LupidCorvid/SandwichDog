@@ -555,6 +555,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f320b2b728604174baf9b0d73ff3f514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xrgi: {fileID: 8718698299588726651}
+  xrggt: {fileID: 4353989519380149807}
+  xriasp: {fileID: 7754299465909447365}
+  rigidBody: {fileID: 3830635901770064778}
+  objType: 0
+  objName: JarPeanutButterBody
   objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
   overrideGlobalSettings: 0
   canGetDirty: 0
@@ -562,6 +568,7 @@ MonoBehaviour:
   amountToDirtyPerSecond: 0
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
+  canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
 --- !u!64 &4942698425288005036
 MeshCollider:
@@ -886,6 +893,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f320b2b728604174baf9b0d73ff3f514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xrgi: {fileID: 5292955146742724580}
+  xrggt: {fileID: 5134106455185321932}
+  xriasp: {fileID: 6319831274624441751}
+  rigidBody: {fileID: 7090056865147717875}
+  objType: 0
+  objName: JarPeanutButterLid
   objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
   overrideGlobalSettings: 0
   canGetDirty: 0
@@ -893,6 +906,7 @@ MonoBehaviour:
   amountToDirtyPerSecond: 0
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
+  canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
 --- !u!64 &7401902024564481608
 MeshCollider:
@@ -1016,14 +1030,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33564e34b0bb697479444ec6b7aeaca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
-  overrideGlobalSettings: 0
-  canGetDirty: 0
-  canGetClean: 0
-  amountToDirtyPerSecond: 0
-  amountToCleanPerSecond: 0
-  dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
-  possibleSpreads: {fileID: 11400000, guid: 850bb59bb8f924445a4738004f94b585, type: 2}
   availSpread: 1
 --- !u!64 &1236433015285768255
 MeshCollider:
@@ -1057,7 +1063,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4475243525476829419}
   m_Layer: 0
-  m_Name: PB jar
+  m_Name: JarPeanutButter
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -615,6 +615,8 @@ MonoBehaviour:
   xrggt: {fileID: 1399569737534805431}
   xriasp: {fileID: 372220467662305059}
   rigidBody: {fileID: 3813148906024207715}
+  objType: 0
+  objName: TestTomatoBase
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
   canGetDirty: 0
@@ -624,15 +626,19 @@ MonoBehaviour:
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
+  smokeVFX: {fileID: 0}
   isCookable: 0
   isOvercooked: 0
   isBurnt: 0
   timeToCook: 0
+  postCookGraceTime: 0
   timeToBurn: 0
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
   isStackable: 1
+  isStackBase: 0
+  stackBase: {fileID: 0}
   topPoint: {fileID: 3682714419635803203}
   debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0

@@ -6,6 +6,9 @@ using UnityEngine;
 [CustomEditor(typeof(ObjClass))]
 public class ObjClassEditor : Editor
 {
+    SerializedProperty objNameProperty;
+    SerializedProperty objTypeProperty;
+
     SerializedProperty objSettingsProperty;
     SerializedProperty overrideProperty;
 
@@ -22,12 +25,16 @@ public class ObjClassEditor : Editor
     {
         AssignEditorSettings();
 
-        canHaveSpreadsProperty = serializedObject.FindProperty("canHaveSpreads");
-        
-        possibleSpreadsProperty = serializedObject.FindProperty("possibleSpreads");
+        objNameProperty = serializedObject.FindProperty("objName");
+        objTypeProperty = serializedObject.FindProperty("objType");
 
         objSettingsProperty = serializedObject.FindProperty("objSettings");
         overrideProperty = serializedObject.FindProperty("overrideGlobalSettings");
+
+        canHaveSpreadsProperty = serializedObject.FindProperty("canHaveSpreads");
+        possibleSpreadsProperty = serializedObject.FindProperty("possibleSpreads");
+
+
         dirtMaterialProperty = serializedObject.FindProperty("dirtMaterial");
         canGetDirtyProperty = serializedObject.FindProperty("canGetDirty");
         amountToDirtyProperty = serializedObject.FindProperty("amountToDirtyPerSecond");
@@ -41,6 +48,9 @@ public class ObjClassEditor : Editor
         if (!targetObj) return;
 
         serializedObject.Update();
+        EditorGUILayout.PropertyField(objNameProperty);
+        EditorGUILayout.PropertyField(objTypeProperty);
+
         EditorGUILayout.PropertyField(objSettingsProperty);
         EditorGUILayout.PropertyField(overrideProperty);
 

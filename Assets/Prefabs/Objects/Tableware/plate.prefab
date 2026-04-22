@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 2133791941762333747}
   - component: {fileID: 2017171424890727809}
   m_Layer: 0
-  m_Name: plate
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -524,6 +524,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94472c31801a7c541a15cb7f0fec23fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xrgi: {fileID: 1910492551221828114}
+  xrggt: {fileID: 1632444449174459267}
+  xriasp: {fileID: 4777540749523095892}
+  rigidBody: {fileID: 2547351495596244401}
+  objType: 1
+  objName: Plate
   objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
   overrideGlobalSettings: 0
   canGetDirty: 0
@@ -531,6 +537,7 @@ MonoBehaviour:
   amountToDirtyPerSecond: 0
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
+  canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
 --- !u!33 &7302263183507703675
 MeshFilter:

@@ -781,6 +781,8 @@ MonoBehaviour:
   xrggt: {fileID: 1204370549364847952}
   xriasp: {fileID: 6485481028446755466}
   rigidBody: {fileID: 996836298990229532}
+  objType: 0
+  objName: Bread
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
   canGetDirty: 1
@@ -790,10 +792,12 @@ MonoBehaviour:
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 1
   possibleSpreads: {fileID: 11400000, guid: 220855c7f465b5440a45860342f0e080, type: 2}
+  smokeVFX: {fileID: 0}
   isCookable: 1
   isOvercooked: 0
   isBurnt: 0
   timeToCook: 10
+  postCookGraceTime: 0
   timeToBurn: 10
   cookAmount: 0
   overcookAmount: 0

@@ -16,16 +16,29 @@ public class RecipeScorer : MonoBehaviour
     private List<Food> foodsToScore = new List<Food>();
     private List<FoodRequirement> recipeRequirements;
 
-    public TMP_Text scoreText;
     public TMP_Text displayText;
+    public TMP_Text scoreText;
+
+    public GameObject scoreButton;
+    public GameObject[] postScoreButtons;
 
     private void Awake()
     {
         scoreCalculated = false;
-        displayText.text = "0%";
+        displayText.text = "";
+        scoreText.text = "";
 
-        recipeRequirements = new List<FoodRequirement>(GameplayManager.Instance.gameLevel.levelRecipe.requiredFood);
         timer = waitTimeBeforeScoring;
+
+        foreach (GameObject button in postScoreButtons)
+        {
+            button.SetActive(false);
+        }
+    }
+
+    private void Start()
+    {
+        recipeRequirements = new List<FoodRequirement>(GameplayManager.Instance.gameLevel.levelRecipe.requiredFood);
     }
 
     private void OnEnable()
@@ -33,14 +46,16 @@ public class RecipeScorer : MonoBehaviour
         onScoreCalculate += CalculateScore;
     }
 
-    //Add objects to the objectsToScore array
-    //TODO: Curretly doesn't remove objects that leave onTriggerExit
     private void OnTriggerEnter(Collider other)
     {
         Food targetFood = other.gameObject.GetComponentInChildren<Food>();
 
-        if (targetFood)
+        if (targetFood && !targetFood.foodParent)
         {
+            foreach (Food food in foodsToScore)
+            {
+                if (ReferenceEquals(targetFood, food)) return;
+            }
             foodsToScore.Add(targetFood);
         }
     }
@@ -49,7 +64,7 @@ public class RecipeScorer : MonoBehaviour
     {
         Food targetFood = other.gameObject.GetComponentInChildren<Food>();
 
-        if (targetFood)
+        if (targetFood && !targetFood.foodParent)
         {
             foodsToScore.Remove(targetFood);
         }
@@ -58,7 +73,7 @@ public class RecipeScorer : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && timer > 0)
         {
             timer = waitTimeBeforeScoring;
-            displayText.text = "0%";
+            displayText.text = "";
         }
     }
 
@@ -67,59 +82,63 @@ public class RecipeScorer : MonoBehaviour
     {
         //DEBUG checks if the plate entered the scoring layer
         //Change it to let the player click a UI element to start the scoring
-        if (other.gameObject.CompareTag("Player")) //if (other.gameObject.CompareTag("Player")) //if (other.gameObject.layer == 10)
-        {
-            if (timer > 0) timer -= Time.deltaTime;
+        //if (other.gameObject.CompareTag("Player")) //if (other.gameObject.CompareTag("Player")) //if (other.gameObject.layer == 10)
+        //{
+        //    if (timer > 0) timer -= Time.deltaTime;
 
-            if (timer > (waitTimeBeforeScoring * 0.75)) displayText.text = "Hold still";
-            else if (timer > (waitTimeBeforeScoring * 0.5)) displayText.text = "Hold still.";
-            else if (timer > (waitTimeBeforeScoring * 0.25)) displayText.text = "Hold still..";
-            else if (timer > 0) displayText.text = "Hold still...";
-            else if (timer <= 0 && !scoreCalculated)
-            {
-                onScoreCalculate?.Invoke();
-                scoreCalculated = true;
-            }
-        }
+        //    if (timer > (waitTimeBeforeScoring * 0.75)) displayText.text = "Hold still";
+        //    else if (timer > (waitTimeBeforeScoring * 0.5)) displayText.text = "Hold still.";
+        //    else if (timer > (waitTimeBeforeScoring * 0.25)) displayText.text = "Hold still..";
+        //    else if (timer > 0) displayText.text = "Hold still...";
+        //    else if (timer <= 0 && !scoreCalculated)
+        //    {
+        //        onScoreCalculate?.Invoke();
+        //        scoreCalculated = true;
+        //    }
+        //}
     }
 
     public void CalculateScore()
     {
+        displayText.text = "Your Score: ";
+        scoreCalculated = true;
+        scoreButton.SetActive(false);
+
         float score = 0.0f;
-        float foodScore;
         float totalWeight = 0.0f;
         Food foodToScore;
         FoodRequirement foodRequirementMet;
 
+        Debug.Log("SCORE TIME");
         while (foodsToScore.Count > 0)
         {
+            Debug.Log("SCORING...");
             foodRequirementMet = null;
 
             foodToScore = foodsToScore[0];
             totalWeight += foodToScore.GetFoodWeight();
+            Debug.Log("Food to score:" + foodToScore.name + " with weight " + foodToScore.GetFoodWeight());
 
-            foodRequirementMet = foodToScore.AttemptRemoveFoodFromRecipe(recipeRequirements);
-            // only applies pos influence if present in recipe
-            if (foodRequirementMet != null)
-            {
-                foodScore = foodToScore.ScoreFood();
-                // subtract 50% for mismatched spread
-                if (foodRequirementMet.spread != foodToScore.currentSpread)
-                {
-                    foodScore *= 0.5f;
-                }
-                score += foodScore;
-            }
+            score += foodToScore.AttemptScoreFood(recipeRequirements);
+
+            //Debug.Log(recipeRequirements.Count);
+            //Debug.Log(recipeRequirements.Count);
 
             foodsToScore.RemoveAt(0);
         }
         Debug.Log("still " + recipeRequirements.Count + " food from recipe not in the end area!");
         totalWeight += recipeRequirements.Count;
 
+        Debug.Log("total score of " + score + " vs weight of " + totalWeight);
         score = (score / totalWeight) * 100.0f;
 
         //Update score text
         Debug.Log("Score:" + score);
-        displayText.text = score.ToString("F2").Truncate(5) + "%";
+        scoreText.text = score.ToString("F2").Truncate(5) + "%";
+
+        foreach (GameObject button in postScoreButtons)
+        {
+            button.SetActive(true);
+        }
     }
 }
