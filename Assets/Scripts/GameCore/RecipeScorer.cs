@@ -16,6 +16,7 @@ public class RecipeScorer : MonoBehaviour
     private List<Food> foodsToScore = new List<Food>();
     private List<FoodRequirement> recipeRequirements;
 
+    public TMP_Text recipeToMakeText;
     public TMP_Text displayText;
     public TMP_Text scoreText;
 
@@ -27,6 +28,9 @@ public class RecipeScorer : MonoBehaviour
         scoreCalculated = false;
         displayText.text = "";
         scoreText.text = "";
+
+        if (GameplayManager.Instance.currentLevel == 1) recipeToMakeText.text = "Make a PBJ!";
+        else if (GameplayManager.Instance.currentLevel == 2) recipeToMakeText.text = "Make a Grilled Cheese!";
 
         timer = waitTimeBeforeScoring;
 

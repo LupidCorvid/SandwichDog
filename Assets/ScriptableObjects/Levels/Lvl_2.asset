@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 452515afe16c6dc42bdf3e3cc3505ff4, type: 3}
   m_Name: Lvl_2
   m_EditorClassIdentifier: 
+  levelNumber: 2
   hasTutorialInfo: 0
+  levelObjects: {fileID: 0}
   levelRecipe: {fileID: 11400000, guid: bbcec2c9f2fe7d14099379dc94709da3, type: 2}
   nextLevel: {fileID: 11400000, guid: 0e5f8b84d0d7ffb448ebf493c2212820, type: 2}
