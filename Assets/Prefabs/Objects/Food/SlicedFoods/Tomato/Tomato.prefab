@@ -339,6 +339,7 @@ MonoBehaviour:
   amountToCleanPerSecond: 0.1
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
+  currentSpread: 0
   possibleSpreads: {fileID: 0}
   smokeVFX: {fileID: 0}
   isCookable: 0
@@ -350,6 +351,7 @@ MonoBehaviour:
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
+  foodParent: {fileID: 0}
   isStackable: 0
   isStackBase: 0
   stackBase: {fileID: 0}
@@ -774,6 +776,6 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 310856016449768368, guid: db4d74f52f0564fbc9c36e99a32431ba, type: 3}
