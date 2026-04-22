@@ -67,7 +67,7 @@ public class ObjClass : MonoBehaviour
     // === INTERACTION === //
     public bool inHand { get; private set; }
     public bool inMouth { get; private set; }
-    private float grabBuffer = .1f; //Coyote time for 2 handed grab
+    private float grabBuffer = .7f; //Coyote time for 2 handed grab
 
     // === VISUALS === //
     public Renderer objRenderer { get; private set; }

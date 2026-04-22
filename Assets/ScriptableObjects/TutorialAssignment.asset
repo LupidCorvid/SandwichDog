@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assignedTutorialObjs:
   - arrowPositionToSpawn: {x: -1.18, y: 2.41, z: 9.93}
-    UIPositionToSpawn: {x: -2.07, y: 2.21, z: 9.38}
+    UIPositionToSpawn: {x: -2.07, y: 2, z: 8}
     arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
     instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
     controllerImg1: {fileID: 21300000, guid: 2b9533a9cecf56648a0acae046d7f47a, type: 3}
     controllerImg2: {fileID: 21300000, guid: 44b2c46631196a54f92c76e459084317, type: 3}
     UIText: Press and Hold both Side Triggers at the same time to pick up objects
   - arrowPositionToSpawn: {x: 0, y: 0, z: 0}
-    UIPositionToSpawn: {x: 0.12, y: 2.21, z: 9.38}
+    UIPositionToSpawn: {x: 0.12, y: 2, z: 8}
     arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
     instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
     controllerImg1: {fileID: 21300000, guid: 12065d353c8b9864196bbcb167a55aee, type: 3}
