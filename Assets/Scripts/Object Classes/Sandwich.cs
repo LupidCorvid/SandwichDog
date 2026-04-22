@@ -99,7 +99,7 @@ public class Sandwich : Food
         {
             scoreSum += food.AttemptScoreFood(recipeRequirements);
         }
-        return (scoreSum / foodOrder.Count);
+        return scoreSum;
     }
 
     private IEnumerator SandwichFirstStackPhysicsRoutine(Food targetFood)

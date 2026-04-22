@@ -13,6 +13,7 @@ public class ObjClassEditor : Editor
     SerializedProperty overrideProperty;
 
     SerializedProperty canHaveSpreadsProperty;
+    SerializedProperty currentSpreadProperty;
     SerializedProperty possibleSpreadsProperty;
 
     SerializedProperty canGetDirtyProperty;
@@ -32,6 +33,7 @@ public class ObjClassEditor : Editor
         overrideProperty = serializedObject.FindProperty("overrideGlobalSettings");
 
         canHaveSpreadsProperty = serializedObject.FindProperty("canHaveSpreads");
+        currentSpreadProperty = serializedObject.FindProperty("currentSpread");
         possibleSpreadsProperty = serializedObject.FindProperty("possibleSpreads");
 
 
@@ -71,6 +73,7 @@ public class ObjClassEditor : Editor
         EditorGUILayout.PropertyField(canHaveSpreadsProperty);
         if (canHaveSpreadsProperty.boolValue)
         {
+            EditorGUILayout.PropertyField(currentSpreadProperty);
             EditorGUILayout.PropertyField(possibleSpreadsProperty);
         }
 

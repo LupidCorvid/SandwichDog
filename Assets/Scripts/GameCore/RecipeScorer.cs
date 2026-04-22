@@ -48,15 +48,21 @@ public class RecipeScorer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Food targetFood = other.gameObject.GetComponentInChildren<Food>();
+        Debug.Log(other.name + " HAS ENTERED END ZONE");
+
+        // ugly but needed for URCAD
+        Food targetFood = other.GetComponentInParent<Sandwich>();
+        if (!targetFood) targetFood = other.gameObject.GetComponentInChildren<Food>();
+
+        if (!targetFood) return;
 
         if (targetFood && !targetFood.foodParent)
         {
-            foreach (Food food in foodsToScore)
+            Debug.Log(targetFood.name + " HAS ENTERED?");
+            if (!foodsToScore.Contains(targetFood))
             {
-                if (ReferenceEquals(targetFood, food)) return;
+                foodsToScore.Add(targetFood);
             }
-            foodsToScore.Add(targetFood);
         }
     }
 
@@ -107,14 +113,11 @@ public class RecipeScorer : MonoBehaviour
         float score = 0.0f;
         float totalWeight = 0.0f;
         Food foodToScore;
-        FoodRequirement foodRequirementMet;
 
         Debug.Log("SCORE TIME");
         while (foodsToScore.Count > 0)
         {
             Debug.Log("SCORING...");
-            foodRequirementMet = null;
-
             foodToScore = foodsToScore[0];
             totalWeight += foodToScore.GetFoodWeight();
             Debug.Log("Food to score:" + foodToScore.name + " with weight " + foodToScore.GetFoodWeight());

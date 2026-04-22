@@ -28,12 +28,12 @@ public class FoodRequirement
 
         if (otherReq != null)
         {
-            return this.food.Equals(otherReq.food) && this.spread == otherReq.spread && this.isCooked && otherReq.isCooked;
+            return this.food.Equals(otherReq.food) && this.spread == otherReq.spread && this.isCooked == otherReq.isCooked;
         }
         Food otherFood = other as Food;
         if (otherFood)
         {
-            return this.food.Equals(otherFood);
+            return this.food.Equals(otherFood) && this.spread == otherFood.CurrentSpread;
         }
 
         return false;

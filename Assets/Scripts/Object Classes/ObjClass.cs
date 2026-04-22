@@ -78,8 +78,10 @@ public class ObjClass : MonoBehaviour
     // === SPREADS === //
     [SerializeField] protected bool canHaveSpreads;
     public SpreadInfo currentSpreadData { get; protected set; }
-    public Spread currentSpread { get; protected set; }
+    [SerializeField] protected Spread currentSpread;
     [SerializeField] protected ObjSpreads_SO possibleSpreads;
+
+    public Spread CurrentSpread => currentSpread;
 
     public bool CanHaveSpreads => canHaveSpreads;
     public bool HasSpread => (currentSpread != Spread.NO_SPREAD);
@@ -304,10 +306,10 @@ public class ObjClass : MonoBehaviour
     {
         cleanColor = objRenderer != null ? objRenderer.material.GetColor("_BaseColor") : Color.white; //cleanColor = objRenderer?.material?.GetColor("_BaseColor") ?? Color.red;
 
-        //if (currentSpread.spread != Spread.NO_SPREAD)
-        //{
-        //    AddSpread(currentSpread.spread, null);
-        //}
+        if (currentSpread != Spread.NO_SPREAD)
+        {
+            AddSpread(currentSpread, this.transform);
+        }
         if (canGetDirty)
         {
             AddDirtMaterial();

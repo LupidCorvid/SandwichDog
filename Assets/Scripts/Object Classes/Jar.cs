@@ -16,7 +16,7 @@ public class Jar : MonoBehaviour
         // apply jar spread to silverware
         if (silverwareTarget)
         {
-            if (silverwareTarget.currentSpread == Spread.NO_SPREAD)
+            if (silverwareTarget.CurrentSpread == Spread.NO_SPREAD)
             {
                 silverwareTarget.AddSpread(this.availSpread, this.transform);
             }
