@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1169907702003902801}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.04338, z: 0}
+  m_LocalPosition: {x: 0, y: 0.045, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -67,7 +67,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e66e8b93a36bf4eab083350bfe46d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stackCollider: {fileID: 0}
+  stackCollider: {fileID: 1816911305113296994}
+  emptySandwichObject: {fileID: 4766069664014610040, guid: e887bdb896bb6174b917b945f33356b7, type: 3}
+  sandwichBase: {fileID: 8449596220253142055}
+  timeToSnap: 0
+  timeSpentSnapping: 0
+  timeToSnapRemaining: 0
 --- !u!1 &3065621754027848916
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +447,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e66e8b93a36bf4eab083350bfe46d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stackCollider: {fileID: 0}
+  stackCollider: {fileID: 5520592698932627217}
+  emptySandwichObject: {fileID: 4766069664014610040, guid: e887bdb896bb6174b917b945f33356b7, type: 3}
+  sandwichBase: {fileID: 8449596220253142055}
+  timeToSnap: 0
+  timeSpentSnapping: 0
+  timeToSnapRemaining: 0
 --- !u!1 &8848617789596595006
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,11 +625,12 @@ MonoBehaviour:
   canHaveSpreads: 0
   possibleSpreads: {fileID: 0}
   isCookable: 0
-  isCooked: 0
+  isOvercooked: 0
   isBurnt: 0
   timeToCook: 0
   timeToBurn: 0
   cookAmount: 0
+  overcookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
   isStackable: 1
   topStackSnapPoint: {fileID: 3682714419635803203}
@@ -627,6 +638,8 @@ MonoBehaviour:
   isSliceable: 0
   numCutsNeeded: 0
   slicedResultObject: {fileID: 0}
+  wasSliced: 0
+  sliceSource: {fileID: 0}
 --- !u!114 &1442805811591244483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,10 +822,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1edb09848c7571347943014284d8b104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emptySandwichObject: {fileID: 4766069664014610040, guid: e887bdb896bb6174b917b945f33356b7, type: 3}
+  baseFood: {fileID: 2836815545867167559}
   topStackCollider: {fileID: 5090447128212603053}
   bottomStackCollider: {fileID: 3096497373507951353}
-  baseFood: {fileID: 2836815545867167559}
-  timeToSnap: 0
-  timeSpentSnapping: 0
-  timeToSnapRemaining: 0
