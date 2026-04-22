@@ -60,7 +60,7 @@ public class ClipboardUI : MonoBehaviour
         // canvas height / (instruction height+space between instructs) = num instructions per page
         maxNumLinesPerPage = (int)(LayoutUtility.GetPreferredHeight((RectTransform)clipboardCanvas.transform) / instructionTemplate.Text.preferredHeight);
 
-        LoadRecipe(GameplayManager.Instance.levelRecipe);
+        LoadRecipe(GameplayManager.Instance.gameLevel.levelRecipe);
     }
 
     private void OnEnable()

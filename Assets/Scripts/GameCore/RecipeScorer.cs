@@ -24,7 +24,7 @@ public class RecipeScorer : MonoBehaviour
         scoreCalculated = false;
         displayText.text = "0%";
 
-        recipeRequirements = new List<Food>(GameplayManager.Instance.levelRecipe.requiredFood);
+        recipeRequirements = new List<Food>(GameplayManager.Instance.gameLevel.levelRecipe.requiredFood);
         timer = waitTimeBeforeScoring;
     }
 
