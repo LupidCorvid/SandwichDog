@@ -111,6 +111,8 @@ public class ObjClassEditor : Editor
         
         // stacking
         SerializedProperty isStackableProperty;
+        SerializedProperty isStackBaseProperty;
+        SerializedProperty stackBaseProperty;
         SerializedProperty topPointProperty;
         SerializedProperty debugFoodToSnapToProperty;
 
@@ -132,6 +134,8 @@ public class ObjClassEditor : Editor
             cookedColorProperty = serializedObject.FindProperty("cookedColor");
             
             isStackableProperty = serializedObject.FindProperty("isStackable");
+            isStackBaseProperty = serializedObject.FindProperty("isStackBase");
+            stackBaseProperty = serializedObject.FindProperty("stackBase");
             topPointProperty = serializedObject.FindProperty("topPoint");
 
             isSliceableProperty = serializedObject.FindProperty("isSliceable");
@@ -175,6 +179,11 @@ public class ObjClassEditor : Editor
                 if (!foodTarget.topPoint)
                 {
                     InitializeTopPoint(foodTarget);
+                }
+                EditorGUILayout.PropertyField(isStackBaseProperty);
+                if (isStackBaseProperty.boolValue)
+                {
+                    EditorGUILayout.PropertyField(stackBaseProperty);
                 }
             }
 

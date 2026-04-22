@@ -37,6 +37,8 @@ public class Food : ObjClass
 
     // === STACKABILITY === //
     [SerializeField] public bool isStackable;
+    [SerializeField] private bool isStackBase;
+    [SerializeField] private SandwichBase stackBase;
 
     [SerializeField] public Transform topPoint; // normal transform should act as bottom
 
@@ -131,12 +133,14 @@ public class Food : ObjClass
 
         if (sourceDistToBottom < sourceDistToTop)
         {
-            topSpread = Instantiate(currentSpreadData.spreadObject, this.transform);
+            bottomSpread = Instantiate(currentSpreadData.spreadObject, this.transform);
+            bottomSpread.transform.Rotate(0.0f, 0.0f, 180.0f, Space.Self);
+            if (this.isStackBase) stackBase.topStackCollider.enabled = false;
         }
         else
         {
-            bottomSpread = Instantiate(currentSpreadData.spreadObject, this.topPoint);
-            bottomSpread.transform.Rotate(0.0f, 0.0f, 180.0f, Space.Self);
+            topSpread = Instantiate(currentSpreadData.spreadObject, this.topPoint);
+            if (this.isStackBase) stackBase.topStackCollider.enabled = true;
         }
     }
 
