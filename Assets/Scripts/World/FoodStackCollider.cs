@@ -33,7 +33,19 @@ public class FoodStackCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name + " definitely entered collider!");
+        //Debug.Log(other.gameObject.name + " definitely entered collider!");
+        SandwichBase otherSandwichBase;
+        other.TryGetComponent<SandwichBase>(out otherSandwichBase);
+        if (otherSandwichBase)
+        {
+            // deterministically ensures only 1 sandwich takes ownership of the other
+            if (this.GetInstanceID() < otherSandwichBase.GetInstanceID())
+            {
+                this.sandwichBase.DisableBothTriggers();
+                return;
+            }
+        }
+
         Food targetFood = other.GetComponentInChildren<Food>();
 
         if (!targetFood) return;

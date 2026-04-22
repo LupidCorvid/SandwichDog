@@ -21,4 +21,11 @@ public class SandwichBase : MonoBehaviour
             topStackCollider.enabled = false;
         }
     }
+
+    // called when another SandwichBase has taken ownership of this
+    public void DisableBothTriggers()
+    {
+        bottomStackCollider.enabled = false;
+        topStackCollider.enabled = false;
+    }
 }
