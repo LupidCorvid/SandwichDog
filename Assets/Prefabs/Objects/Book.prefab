@@ -249,8 +249,8 @@ MonoBehaviour:
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
-  m_SelectMode: 0
-  m_FocusMode: 1
+  m_SelectMode: 1
+  m_FocusMode: 2
   m_CustomReticle: {fileID: 0}
   m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
@@ -389,6 +389,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f320b2b728604174baf9b0d73ff3f514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xrgi: {fileID: 495978068345571091}
+  xrggt: {fileID: 8662105574610200912}
+  xriasp: {fileID: 7763181503092253089}
+  rigidBody: {fileID: 2380053610319122417}
+  objType: 0
+  objName: 
   objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
   overrideGlobalSettings: 0
   canGetDirty: 0
@@ -397,6 +403,7 @@ MonoBehaviour:
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
+  currentSpread: 0
   possibleSpreads: {fileID: 0}
 --- !u!114 &5823833295280736777
 MonoBehaviour:

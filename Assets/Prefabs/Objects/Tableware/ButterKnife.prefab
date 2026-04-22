@@ -522,7 +522,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  m_FarAttachMode: 1
+  m_FarAttachMode: 0
 --- !u!114 &8010835687030930129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,6 +572,7 @@ MonoBehaviour:
   amountToCleanPerSecond: 1
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 1
+  currentSpread: 0
   possibleSpreads: {fileID: 11400000, guid: 448a7dbec5155044db99cbb34dae058a, type: 2}
   isSlicer: 0
 --- !u!33 &5249355576974602731

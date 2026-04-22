@@ -222,7 +222,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 0
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -299,6 +299,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f320b2b728604174baf9b0d73ff3f514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xrgi: {fileID: 1915744769864787314}
+  xrggt: {fileID: 2600558020391086958}
+  xriasp: {fileID: 3828537814100385354}
+  rigidBody: {fileID: 7080738656441263823}
+  objType: 0
+  objName: 
   objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
   overrideGlobalSettings: 0
   canGetDirty: 0
@@ -306,6 +312,8 @@ MonoBehaviour:
   amountToDirtyPerSecond: 0
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
+  canHaveSpreads: 0
+  currentSpread: 0
   possibleSpreads: {fileID: 0}
 --- !u!1 &3358337747356794387
 GameObject:
