@@ -8,7 +8,6 @@ public class RecipeScorer : MonoBehaviour
 {
     public float waitTimeBeforeScoring; //Time to wait in seconds for the player to stand in the box before scoring objects
     private float timer;
-    private float score = 0;
     private bool scoreCalculated;
 
     public static event Action onScoreCalculate;

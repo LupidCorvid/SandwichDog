@@ -72,6 +72,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.024288725, y: 0.23570158, z: 0.2181808}
   m_Center: {x: 0.02389, y: -0.00013437867, z: -0.0011310354}
+--- !u!1 &1219722220613867036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8954659944660294446}
+  m_Layer: 0
+  m_Name: BreadTopPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8954659944660294446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219722220613867036}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0113, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6270127726463729036}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1271484979070817764
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,37 +451,6 @@ MonoBehaviour:
       m_Calls: []
   m_MaterialPropertyBlockHelper: {fileID: 7369816142598348861}
   m_FloatPropertyName: _RimPower
---- !u!1 &4921073666535027093
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1527219911591408063}
-  m_Layer: 0
-  m_Name: BreadTopPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1527219911591408063
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4921073666535027093}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0113, y: -0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6270127726463729036}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7689749912656311809
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +491,7 @@ Transform:
   - {fileID: 8457349374622378299}
   - {fileID: 6772622897128897811}
   - {fileID: 5061164470203410163}
-  - {fileID: 1527219911591408063}
+  - {fileID: 8954659944660294446}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &649298267199926794
@@ -788,8 +788,8 @@ MonoBehaviour:
   amountToDirtyPerSecond: 0.1
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
-  canHaveSpreads: 0
-  possibleSpreads: {fileID: 0}
+  canHaveSpreads: 1
+  possibleSpreads: {fileID: 11400000, guid: 220855c7f465b5440a45860342f0e080, type: 2}
   isCookable: 1
   isOvercooked: 0
   isBurnt: 0
@@ -799,12 +799,13 @@ MonoBehaviour:
   overcookAmount: 0
   cookedColor: {r: 0.6509434, g: 0.30031347, b: 0, a: 0}
   isStackable: 1
-  topStackSnapPoint: {fileID: 1527219911591408063}
+  topPoint: {fileID: 8954659944660294446}
   debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0
-  sliceProduct: {fileID: 0}
   numCutsNeeded: 0
   slicedResultObject: {fileID: 0}
+  wasSliced: 0
+  sliceSource: {fileID: 0}
 --- !u!114 &110813168775492774
 MonoBehaviour:
   m_ObjectHideFlags: 0

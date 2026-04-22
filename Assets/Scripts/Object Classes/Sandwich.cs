@@ -108,7 +108,7 @@ public class Sandwich : Food
         sandwichBase.BaseFood.TransferAndDisableRigidBodiesTo(this);
         targetFood.TransferAndDisableRigidBodiesTo(this);
 
-        float foodOffset = sandwichBase.BaseFood.topStackSnapPoint.localPosition.y;
+        float foodOffset = sandwichBase.BaseFood.topPoint.localPosition.y;
 
         foodStackCollider.transform.SetParent(this.transform, true);
         sandwichBase.BaseFood.transform.SetParent(this.transform, true);
@@ -151,13 +151,13 @@ public class Sandwich : Food
          * base food to snap to = target
         */
 
-        Debug.Log(source.transform.position + " " + source.topStackSnapPoint.transform.position);
-        Debug.Log(target.transform.position + " " + target.topStackSnapPoint.transform.position);
+        Debug.Log(source.transform.position + " " + source.topPoint.transform.position);
+        Debug.Log(target.transform.position + " " + target.topPoint.transform.position);
 
-        float currOriginToTargetTop = (source.transform.position - target.topStackSnapPoint.position).sqrMagnitude;
+        float currOriginToTargetTop = (source.transform.position - target.topPoint.position).sqrMagnitude;
         float currOriginToTargetOrigin = (source.transform.position - target.transform.position).sqrMagnitude;
-        Vector3 targetTopPos = new Vector3(0.0f, Mathf.Abs(target.topStackSnapPoint.transform.position.y - target.transform.position.y), 0.0f);
-        Vector3 currTopPos = new Vector3(0.0f, Mathf.Abs(source.topStackSnapPoint.transform.position.y - source.transform.position.y), 0.0f);
+        Vector3 targetTopPos = new Vector3(0.0f, Mathf.Abs(target.topPoint.transform.position.y - target.transform.position.y), 0.0f);
+        Vector3 currTopPos = new Vector3(0.0f, Mathf.Abs(source.topPoint.transform.position.y - source.transform.position.y), 0.0f);
 
         Vector3 distanceToMove = Vector3.zero;
 

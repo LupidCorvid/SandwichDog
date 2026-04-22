@@ -10,17 +10,15 @@ public class Jar : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        ObjClass otherObject = other.gameObject.GetComponent<ObjClass>();
-        if (!otherObject) return;
-
-        Silverware silverwareObj = otherObject as Silverware;
+        Silverware silverwareTarget = other.gameObject.GetComponent <Silverware>();
+        if (!silverwareTarget) return;
 
         // apply jar spread to silverware
-        if (silverwareObj)
+        if (silverwareTarget)
         {
-            if (!silverwareObj.HasSpread)
+            if (silverwareTarget.currentSpread == Spread.NO_SPREAD)
             {
-                silverwareObj.AddSpread(this.availSpread);
+                silverwareTarget.AddSpread(this.availSpread, this.transform);
             }
         }
     }

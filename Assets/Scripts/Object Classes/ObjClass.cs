@@ -42,12 +42,12 @@ public class ObjClass : MonoBehaviour
     private int xrgiCollidersHash;
 
     // === BASIC INFO === //
-    [SerializeField]  public ObjType objType { get; private set; }
-    [SerializeField]  public string objName {  get; private set; }
+    [SerializeField] public ObjType objType { get; private set; }
+    [SerializeField] public string objName { get; private set; }
     [SerializeField] public GlobalObjSettings_SO objSettings;
     [SerializeField] private bool overrideGlobalSettings;
 
-    [SerializeField] public bool triggersTutorial {  get; private set; }
+    [SerializeField] public bool triggersTutorial { get; private set; }
 
     // === CLEANLINESS === //
     [HideInInspector] public float objCleanliness { get; private set; }
@@ -74,6 +74,7 @@ public class ObjClass : MonoBehaviour
 
     // === SPREADS === //
     [SerializeField] protected bool canHaveSpreads;
+    public SpreadInfo currentSpreadData { get; protected set; }
     public Spread currentSpread { get; protected set; }
     [SerializeField] protected ObjSpreads_SO possibleSpreads;
 
@@ -284,10 +285,10 @@ public class ObjClass : MonoBehaviour
     {
         cleanColor = objRenderer != null ? objRenderer.material.GetColor("_BaseColor") : Color.white; //cleanColor = objRenderer?.material?.GetColor("_BaseColor") ?? Color.red;
 
-        if (currentSpread != Spread.NO_SPREAD)
-        {
-            AddSpread(currentSpread);
-        }
+        //if (currentSpread.spread != Spread.NO_SPREAD)
+        //{
+        //    AddSpread(currentSpread.spread, null);
+        //}
         if (canGetDirty)
         {
             AddDirtMaterial();
@@ -333,35 +334,46 @@ public class ObjClass : MonoBehaviour
     /// Adds new material that adds a material for the incoming spread and removes the previous one. 
     /// </summary>
     /// <returns>Returns if the add was successful or not</returns>
-    public bool AddSpread(Spread spreadToAdd)
+    public void AddSpread(Spread spreadToAdd, Transform source)
     {
-        if (spreadToAdd == Spread.NO_SPREAD)
-        {
-            RemoveSpreads();
-            return true;
-        }
+        if (!canHaveSpreads) return;
 
-        Material spreadMaterial;
-        if (possibleSpreads.GetSpread(spreadToAdd, out spreadMaterial))
+        RemoveSpreads();
+
+        currentSpread = spreadToAdd;
+        currentSpreadData = possibleSpreads.GetSpreadInfo(spreadToAdd);
+
+        if (currentSpreadData != null)
         {
-            RemoveSpreads();
-            objRenderer.AddMaterial(spreadMaterial);
-            //Debug.Log(spreadMaterial);
-            return true;
+            ApplySpreadVisual(source);
         }
-        return false;
     }
 
-    public bool RemoveSpreads()
+    public virtual void ApplySpreadVisual(Transform source)
     {
-        Material spreadMaterial;
-        if (possibleSpreads.GetSpread(currentSpread, out spreadMaterial))
+        if (currentSpreadData.spreadMaterial)
         {
             List<Material> materials = objRenderer.materials.ToList();
-            materials.Remove(spreadMaterial);
+            materials.Insert(0, currentSpreadData.spreadMaterial);
             objRenderer.materials = materials.ToArray();
-            return true;
         }
-        return false;
+    }
+
+    public virtual void RemoveSpreads()
+    {
+        if (currentSpreadData == null) return;
+        if (currentSpreadData.spreadMaterial)
+        {
+            List<Material> materials = objRenderer.materials.ToList();
+            string materialToRemoveName = currentSpreadData.spreadMaterial.name;
+
+            Material materialToRemove = materials.Find(mat => mat.name.StartsWith(materialToRemoveName));
+            if (materialToRemove)
+            {
+                materials.Remove(materialToRemove);
+                Destroy(materialToRemove);
+            }
+            objRenderer.materials = materials.ToArray();
+        }
     }
 }

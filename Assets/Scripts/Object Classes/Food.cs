@@ -2,11 +2,17 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 
 public class Food : ObjClass
 {
+    // === SPREADS === //
+    private GameObject topSpread;
+    private GameObject bottomSpread;
+
     // === COOKABILITY === //
     [SerializeField] protected bool isCookable;
     [SerializeField] protected bool isOvercooked;
@@ -32,7 +38,7 @@ public class Food : ObjClass
     // === STACKABILITY === //
     [SerializeField] public bool isStackable;
 
-    [SerializeField][HideInInspector] public Transform topStackSnapPoint; // normal transform should act as bottom
+    [SerializeField] public Transform topPoint; // normal transform should act as bottom
 
     [SerializeField] public Food debugFoodToSnapTo;
 
@@ -53,8 +59,6 @@ public class Food : ObjClass
 
     public Food(string inObjName = "", bool canCook = false) : base(ObjType.PICKUP, inObjName)
     {
-        currentSpread = Spread.NO_SPREAD;
-
         isCookable = canCook;
     }
 
@@ -116,6 +120,24 @@ public class Food : ObjClass
         float score = (scoreSum / factorsScored);
 
         return score;
+    }
+
+    public override void ApplySpreadVisual(Transform source)
+    {
+        if (!currentSpreadData.spreadObject) return;
+
+        float sourceDistToBottom = (this.transform.position - source.position).sqrMagnitude;
+        float sourceDistToTop = (this.topPoint.position - source.position).sqrMagnitude;
+
+        if (sourceDistToBottom < sourceDistToTop)
+        {
+            topSpread = Instantiate(currentSpreadData.spreadObject, this.transform);
+        }
+        else
+        {
+            bottomSpread = Instantiate(currentSpreadData.spreadObject, this.topPoint);
+            bottomSpread.transform.Rotate(0.0f, 0.0f, 180.0f, Space.Self);
+        }
     }
 
     public void Cook(float timePassed)

@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class SinkCollider : MonoBehaviour
 {
-    public bool canClean;
-
     private void OnTriggerEnter(Collider other)
     {
         ObjClass otherObject = other.gameObject.GetComponent<ObjClass>();
@@ -11,7 +9,8 @@ public class SinkCollider : MonoBehaviour
 
         if (otherObject.CanGetClean)
         {
-            otherObject.RemoveSpreads();
+            otherObject.AddSpread(Spread.NO_SPREAD, this.transform);
+            if (otherObject.CanGetDirty) otherObject.CleanObject(1.0f);
         }
     }
 }

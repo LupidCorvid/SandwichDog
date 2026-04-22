@@ -111,7 +111,7 @@ public class ObjClassEditor : Editor
         
         // stacking
         SerializedProperty isStackableProperty;
-        SerializedProperty topStackSnapPointProperty;
+        SerializedProperty topPointProperty;
         SerializedProperty debugFoodToSnapToProperty;
 
         // making slices
@@ -132,7 +132,7 @@ public class ObjClassEditor : Editor
             cookedColorProperty = serializedObject.FindProperty("cookedColor");
             
             isStackableProperty = serializedObject.FindProperty("isStackable");
-            topStackSnapPointProperty = serializedObject.FindProperty("topStackSnapPoint");
+            topPointProperty = serializedObject.FindProperty("topPoint");
 
             isSliceableProperty = serializedObject.FindProperty("isSliceable");
             numCutsNeededProperty = serializedObject.FindProperty("numCutsNeeded");
@@ -151,6 +151,16 @@ public class ObjClassEditor : Editor
 
             base.DrawProperties();
 
+            EditorGUILayout.PropertyField(topPointProperty);
+
+            if (canHaveSpreadsProperty.boolValue)
+            {
+                if (!foodTarget.topPoint)
+                {
+                    InitializeTopPoint(foodTarget);
+                }
+            }
+
             EditorGUILayout.PropertyField(isCookableProperty);
             if (isCookableProperty.boolValue)
             {
@@ -162,12 +172,9 @@ public class ObjClassEditor : Editor
             EditorGUILayout.PropertyField(isStackableProperty);
             if (isStackableProperty.boolValue)
             {
-                if (!foodTarget.topStackSnapPoint)
+                if (!foodTarget.topPoint)
                 {
-                    foodTarget.topStackSnapPoint = new GameObject(foodTarget.name + "TopPoint").transform;
-                    foodTarget.topStackSnapPoint.SetParent(foodTarget.transform, false);
-
-                    topStackSnapPointProperty.objectReferenceValue = foodTarget.topStackSnapPoint;
+                    InitializeTopPoint(foodTarget);
                 }
             }
 
@@ -188,6 +195,14 @@ public class ObjClassEditor : Editor
             //{
             //    Sandwich.SnapToTop(foodTarget.debugFoodToSnapTo, foodTarget);
             //}
+        }
+
+        private void InitializeTopPoint(Food foodTarget)
+        {
+            foodTarget.topPoint = new GameObject(foodTarget.name + "TopPoint").transform;
+            foodTarget.topPoint.SetParent(foodTarget.transform, false);
+
+            topPointProperty.objectReferenceValue = foodTarget.topPoint;
         }
     }
 

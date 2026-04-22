@@ -633,7 +633,7 @@ MonoBehaviour:
   overcookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
   isStackable: 1
-  topStackSnapPoint: {fileID: 3682714419635803203}
+  topPoint: {fileID: 3682714419635803203}
   debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0
   numCutsNeeded: 0
