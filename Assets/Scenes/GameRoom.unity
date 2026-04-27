@@ -420,7 +420,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6270127726463729036, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.822
+      value: -0.626
       objectReference: {fileID: 0}
     - target: {fileID: 6270127726463729036, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1796,6 +1796,10 @@ PrefabInstance:
     - target: {fileID: 5306668784810609918, guid: bccac0abc450c494c9d1bc5e0f4d0f1f, type: 3}
       propertyPath: m_Name
       value: Frying pan model
+      objectReference: {fileID: 0}
+    - target: {fileID: 5306668784810609918, guid: bccac0abc450c494c9d1bc5e0f4d0f1f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5723402964401791995, guid: bccac0abc450c494c9d1bc5e0f4d0f1f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4520,10 +4524,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3188968434985743542, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_PhysicsLayerMask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4630875933603814795, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
       propertyPath: dog
       value: 
       objectReference: {fileID: 659858997}
+    - target: {fileID: 7227569027020844371, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
+      propertyPath: m_PhysicsLayerMask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7316701157122579918, guid: 119885d9e92fb224badaadd6802317ce, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)

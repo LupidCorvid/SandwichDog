@@ -37,6 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2945613271794362167}
+  - {fileID: 2577435546645944355}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6055386347318891115
@@ -111,8 +112,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.20047617, y: 0.019158006, z: 0.20470798}
+  m_Center: {x: -0.01424998, y: 0.00500983, z: 0.013906181}
 --- !u!54 &2059974495956493966
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -349,10 +350,10 @@ MonoBehaviour:
   overcookAmount: 0
   cookedColor: {r: 0.97735846, g: 0.45150864, b: 0.08667136, a: 0}
   foodParent: {fileID: 0}
-  isStackable: 0
+  isStackable: 1
   isStackBase: 0
   stackBase: {fileID: 0}
-  topPoint: {fileID: 0}
+  topPoint: {fileID: 2577435546645944355}
   debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0
   numCutsNeeded: 0
@@ -635,3 +636,34 @@ MonoBehaviour:
       m_Calls: []
   m_MaterialPropertyBlockHelper: {fileID: 5860856459133166472}
   m_FloatPropertyName: _RimPower
+--- !u!1 &7169892797722016255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2577435546645944355}
+  m_Layer: 0
+  m_Name: CheeseTopPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2577435546645944355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7169892797722016255}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8707518375889422727}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
