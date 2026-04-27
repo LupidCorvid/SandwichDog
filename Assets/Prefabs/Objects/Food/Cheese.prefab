@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.8588, y: 1.128, z: 1.5277}
-  m_LocalScale: {x: 0.16548443, y: 0.0253, z: 0.17072096}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2945613271794362167}
@@ -46,7 +46,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281516860660975838}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 3994952331074961647, guid: 9c0d345d9dd7e814597c9a7e456f0bb2, type: 3}
 --- !u!23 &1417191839290219771
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -336,6 +336,7 @@ MonoBehaviour:
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
+  currentSpread: 0
   possibleSpreads: {fileID: 0}
   smokeVFX: {fileID: 0}
   isCookable: 1
@@ -347,6 +348,7 @@ MonoBehaviour:
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 0.97735846, g: 0.45150864, b: 0.08667136, a: 0}
+  foodParent: {fileID: 0}
   isStackable: 0
   isStackBase: 0
   stackBase: {fileID: 0}
