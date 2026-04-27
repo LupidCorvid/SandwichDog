@@ -57,8 +57,8 @@ MonoBehaviour:
     controllerImg1: {fileID: 21300000, guid: efae278f32bf3574ba1c486d2ce4d8fd, type: 3}
     controllerImg2: {fileID: 21300000, guid: efae278f32bf3574ba1c486d2ce4d8fd, type: 3}
     UIText: Cabinets can be opened with one paw with the left or right Side Trigger.
-  - arrowPositionToSpawn: {x: -1.18, y: 2.41, z: 9.93}
-    UIPositionToSpawn: {x: 2.5, y: 1.66, z: 10}
+  - arrowPositionToSpawn: {x: -2.3, y: 2.41, z: 9.9}
+    UIPositionToSpawn: {x: 3.7, y: 1.66, z: -3.32}
     arrow: {fileID: 1071263081800748239, guid: f8f3fbff27752fe4687b8962fe83e9df, type: 3}
     instructionUI: {fileID: 3833984938164011954, guid: 293bd7dbfcf201a4b94f9754701f1f6e, type: 3}
     controllerImg1: {fileID: 21300000, guid: efae278f32bf3574ba1c486d2ce4d8fd, type: 3}

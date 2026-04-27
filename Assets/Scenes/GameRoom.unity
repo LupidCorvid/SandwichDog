@@ -618,6 +618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: -1
+  submitEffect: {fileID: 1034081394}
   levelTutorialObjects:
   - {fileID: 11400000, guid: 78281658fb6a2f846a8797cf00ffa863, type: 2}
   - {fileID: 11400000, guid: 78281658fb6a2f846a8797cf00ffa863, type: 2}
@@ -1575,6 +1576,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 589c33b418b02ad4abda9c92dc7c2f97, type: 3}
+--- !u!1 &1034081394 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9116672682621144784, guid: 18151277f9741bf47888b2fadeed136a, type: 3}
+  m_PrefabInstance: {fileID: 8292768364464207263}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1034930640
 GameObject:
   m_ObjectHideFlags: 0

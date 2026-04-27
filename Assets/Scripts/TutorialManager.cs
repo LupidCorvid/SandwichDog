@@ -12,6 +12,7 @@ public class TutorialManager : Singleton<TutorialManager>
     int maxSize = 0;
     public int cursor = -1; //Where you currently are in the tutorial
     GameObject lastArrow = null;
+    public GameObject submitEffect; //In lvl 1 it should remain disabled until last tutorial procs
 
     public TutorialAssignment [] levelTutorialObjects;
     //public GameObject[] lvl1Objects;  
@@ -40,6 +41,7 @@ public class TutorialManager : Singleton<TutorialManager>
         //tutorialActive = true;
         tutorialLevel = level;
         maxSize = levelTutorialObjects[tutorialLevel - 1].assignedTutorialObjs.Length; //7
+        if (tutorialLevel == 1) submitEffect.SetActive(false);
         advanceTutorial(1);
     }
 
@@ -85,6 +87,11 @@ public class TutorialManager : Singleton<TutorialManager>
                 }
             }
             else break; //tutorialActive = false;
+        }
+
+        if (cursor >= maxSize - 2)
+        {
+            submitEffect.SetActive(true);
         }
     }
 }
