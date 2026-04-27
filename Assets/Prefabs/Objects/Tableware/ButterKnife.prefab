@@ -566,7 +566,7 @@ MonoBehaviour:
   objName: ButterKnife
   objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
   overrideGlobalSettings: 1
-  canGetDirty: 1
+  canGetDirty: 0
   canGetClean: 1
   amountToDirtyPerSecond: 0.25
   amountToCleanPerSecond: 1
