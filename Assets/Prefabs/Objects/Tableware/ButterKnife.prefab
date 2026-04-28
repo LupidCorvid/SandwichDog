@@ -522,7 +522,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  m_FarAttachMode: 0
+  m_FarAttachMode: 1
 --- !u!114 &8010835687030930129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,7 +566,7 @@ MonoBehaviour:
   objName: ButterKnife
   objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
   overrideGlobalSettings: 1
-  canGetDirty: 1
+  canGetDirty: 0
   canGetClean: 1
   amountToDirtyPerSecond: 0.25
   amountToCleanPerSecond: 1

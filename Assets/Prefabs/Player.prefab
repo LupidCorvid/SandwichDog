@@ -902,7 +902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a20ee26a4df62489aa1b2832a5306a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardOffset: -0.2
+  forwardOffset: -0.25
   cameraOffsetAmount: -0.65
   targetPosition: {fileID: 0}
   targetRotation: {fileID: 0}
