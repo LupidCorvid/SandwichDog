@@ -6,7 +6,8 @@ public class Mirror : MonoBehaviour
     void Start()
     {
         Matrix4x4 mat = gameObject.GetComponent<Camera>().projectionMatrix;
-        mat *= Matrix4x4.Scale(new Vector3(-1, 1, 1));
+        //mat *= Matrix4x4.Scale(new Vector3(1, -1, 1));
+        mat = mat.inverse;
         gameObject.GetComponent<Camera>().projectionMatrix = mat;
     }
 
