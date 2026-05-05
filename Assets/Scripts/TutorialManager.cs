@@ -74,6 +74,7 @@ public class TutorialManager : Singleton<TutorialManager>
                 if (spawner.UIPositionToSpawn != Vector3.zero)
                 {
                     GameObject instructionUI = Instantiate(spawner.instructionUI, spawner.UIPositionToSpawn, Quaternion.identity);
+                    instructionUI.transform.eulerAngles = spawner.UIRotationToSpawn;
                     instructionUI.GetComponentInChildren<Text>().text = spawner.UIText;
                     instructionUI.transform.Find("ControllerImage1").GetComponent<Image>().sprite = spawner.controllerImg1;
                     instructionUI.transform.Find("ControllerImage2").GetComponent<Image>().sprite = spawner.controllerImg2;
