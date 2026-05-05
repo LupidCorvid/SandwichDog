@@ -71,7 +71,7 @@ public class GameplayManager : Singleton<GameplayManager>
             gameLevel.hasTutorialInfo = gameLevel.nextLevel.hasTutorialInfo;
             gameLevel.levelObjects = gameLevel.nextLevel.levelObjects;
             gameLevel.levelRecipe = gameLevel.nextLevel.levelRecipe;
-            gameLevel.nextLevel = gameLevel.nextLevel.nextLevel == null ? gameLevel.nextLevel.nextLevel : null;
+            gameLevel.nextLevel = gameLevel.nextLevel.nextLevel;// == null ? gameLevel.nextLevel.nextLevel : null;
             ResetLevel();
         }
         else
@@ -96,7 +96,7 @@ public class GameplayManager : Singleton<GameplayManager>
         gameLevel.hasTutorialInfo = gameLevel.firstLevel.hasTutorialInfo;
         gameLevel.levelObjects = gameLevel.firstLevel.levelObjects;
         gameLevel.levelRecipe = gameLevel.firstLevel.levelRecipe;
-        gameLevel.nextLevel = gameLevel.firstLevel.nextLevel == null ? gameLevel.nextLevel.nextLevel : null;
+        gameLevel.nextLevel = gameLevel.firstLevel.nextLevel;// == null ? gameLevel.nextLevel.nextLevel : null;
     }
 
     public void SwapOutObj(GameObject objToDelete, GameObject objToSpawn)
