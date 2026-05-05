@@ -27,13 +27,13 @@ public class TutorialManager : Singleton<TutorialManager>
     
     void Update()
     {
-        //Debug
-        //timer += Time.deltaTime;
-        //if (timer >= 3)
-        //{
-        //    timer = 0;
-        //    advanceTutorial(1);
-        //}
+        //Debug to auto advance tutorial
+        timer += Time.deltaTime;
+        if (timer >= 3)
+        {
+            timer = 0;
+            advanceTutorial(1);
+        }
     }
 
     public void startTutorial(int level)

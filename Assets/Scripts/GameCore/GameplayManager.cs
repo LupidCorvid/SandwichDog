@@ -65,7 +65,7 @@ public class GameplayManager : Singleton<GameplayManager>
     //Call on scene end, when player clicks next level button
     public void IncrementLevel()
     {
-        if (gameLevel.nextLevel)
+        if (gameLevel.nextLevel != null)
         {
             gameLevel.levelNumber = gameLevel.nextLevel.levelNumber;
             gameLevel.hasTutorialInfo = gameLevel.nextLevel.hasTutorialInfo;
