@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lvl_2
   m_EditorClassIdentifier: 
   levelNumber: 2
-  hasTutorialInfo: 0
+  hasTutorialInfo: 1
   levelObjects: {fileID: 0}
   levelRecipe: {fileID: 11400000, guid: bbcec2c9f2fe7d14099379dc94709da3, type: 2}
   nextLevel: {fileID: 0}

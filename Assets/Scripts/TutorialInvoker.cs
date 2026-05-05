@@ -5,10 +5,16 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class TutorialInvoker : MonoBehaviour
 {
-    public int expectedCursor; //What stage of the tutorial the object expects to be triggered at
-    public int expectedLevel; //What level this tutorial object should proc at
+    [Tooltip("What's the next tutorial stage, as seen in editor, after this object is triggered")]
+    public int expectedCursor;
+
+    [Tooltip("What level this tutorial object should proc at")]
+    public int expectedLevel;
+
+    [Tooltip("How to interact with the object to trigger the next tutorial")]
     public enum TriggerType { PICKUP, INTERACT, PASS_THROUGH};
     public TriggerType triggerType;
+
     private bool levelMatches;
     public bool destroyIfLevelDoesntMatch;
     private XRGrabInteractable xrgi;
