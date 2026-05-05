@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEditor;
 
 public class GameplayManager : Singleton<GameplayManager>
 {
@@ -24,12 +25,25 @@ public class GameplayManager : Singleton<GameplayManager>
 
     void Start()
     {
-        if (currentLevel == 1) TutorialManager.Instance.startTutorial(currentLevel);
-        PrepareLevel();
+        //If the amount of tutorials is greater than the current level, then there's a tutorial to proc
+        if (TutorialManager.Instance.levelTutorialObjects.Length >= currentLevel && gameLevel.hasTutorialInfo) TutorialManager.Instance.startTutorial(currentLevel);
+
+        //Set all other objects
+        //PrepareLevel();
     }
-    void Update()
+
+    GameplayManager()
     {
-        //print(currentLevel);
+        EditorApplication.playModeStateChanged += OnPlayStateExited;
+    }
+
+    //Since the SO edit is a permanent change, it needs to reset when unity playmode is exited
+    public void OnPlayStateExited(PlayModeStateChange state)
+    {
+        if(state == PlayModeStateChange.ExitingPlayMode)
+        {
+            ResetSO();
+        }
     }
 
     //Call on scene start
@@ -47,16 +61,22 @@ public class GameplayManager : Singleton<GameplayManager>
             spawnedObject.transform.localScale = spawner.scaleToSpawn;
         }
     }
+    
     //Call on scene end, when player clicks next level button
     public void IncrementLevel()
     {
         if (gameLevel.nextLevel)
         {
-            gameLevel = gameLevel.nextLevel;
+            gameLevel.levelNumber = gameLevel.nextLevel.levelNumber;
+            gameLevel.hasTutorialInfo = gameLevel.nextLevel.hasTutorialInfo;
+            gameLevel.levelObjects = gameLevel.nextLevel.levelObjects;
+            gameLevel.levelRecipe = gameLevel.nextLevel.levelRecipe;
+            gameLevel.nextLevel = gameLevel.nextLevel.nextLevel == null ? gameLevel.nextLevel.nextLevel : null;
             ResetLevel();
         }
         else
         {
+            ResetSO();
             SceneManager.LoadScene("MainMenu");
         }
     } 
@@ -68,6 +88,15 @@ public class GameplayManager : Singleton<GameplayManager>
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void ResetSO()
+    {
+        gameLevel.levelNumber = gameLevel.firstLevel.levelNumber;
+        gameLevel.hasTutorialInfo = gameLevel.firstLevel.hasTutorialInfo;
+        gameLevel.levelObjects = gameLevel.firstLevel.levelObjects;
+        gameLevel.levelRecipe = gameLevel.firstLevel.levelRecipe;
+        gameLevel.nextLevel = gameLevel.firstLevel.nextLevel == null ? gameLevel.nextLevel.nextLevel : null;
     }
 
     public void SwapOutObj(GameObject objToDelete, GameObject objToSpawn)
