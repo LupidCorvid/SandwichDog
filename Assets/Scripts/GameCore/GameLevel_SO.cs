@@ -8,4 +8,5 @@ public class GameLevel_SO : ScriptableObject
     public ObjectAssignment_SO levelObjects;
     public Recipe_SO levelRecipe;
     public GameLevel_SO nextLevel;
+    public GameLevel_SO firstLevel;
 }
