@@ -24,11 +24,20 @@ public class Sandwich : Food
 
         foodOrder.Add(sandwichBase.BaseFood);
         StartCoroutine(SandwichFirstStackPhysicsRoutine(firstFilling));
+
+        // disable incoming food ticking, as the sandwich now governs it
+        sandwichBase.BaseFood.enabled = false;
+        firstFilling.enabled = false;
+
+        this.AcquireChild(sandwichBase.BaseFood);
+        this.AcquireChild(firstFilling);
     }
 
     public void PushNewFood(Food newFood)
     {
         StartCoroutine(SandwichNewItemPhysicsRoutine(newFood));
+        newFood.enabled = false;
+        this.AcquireChild(newFood);
     }
 
     public void PopTopFood()

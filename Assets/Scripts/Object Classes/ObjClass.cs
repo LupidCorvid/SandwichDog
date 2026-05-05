@@ -47,6 +47,10 @@ public class ObjClass : MonoBehaviour
     [SerializeField] public GlobalObjSettings_SO objSettings;
     [SerializeField] private bool overrideGlobalSettings;
 
+    public ObjClass objOwner = null;
+    public event Action<ObjClass> OnTransferOwnership;
+    public Stack<ObjClass> newChildren = new Stack<ObjClass>();
+
     [SerializeField] public bool triggersTutorial { get; private set; }
 
     public string ObjName => objName;
@@ -190,6 +194,12 @@ public class ObjClass : MonoBehaviour
 
         canGetClean = objSettings.canGetClean;
         amountToCleanPerSecond = objSettings.amountToCleanPerSecond; 
+    }
+
+    public void AcquireChild(ObjClass newChild)
+    {
+        OnTransferOwnership.Invoke(newChild);
+        this.newChildren.Push(newChild);
     }
 
     ///=============================================================================

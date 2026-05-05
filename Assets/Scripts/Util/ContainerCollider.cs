@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ContainerCollider<T> : MonoBehaviour
-    where T : MonoBehaviour
+    where T : ObjClass
 {
     protected List<T> items = new List<T>();
 

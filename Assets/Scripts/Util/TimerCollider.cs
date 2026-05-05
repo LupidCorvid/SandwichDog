@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 [SerializeField]
-public struct Timer<T> where T : MonoBehaviour
+public struct Timer<T> where T : ObjClass
 {
     private T scriptToAffect;
     private float startTime;
@@ -17,6 +17,7 @@ public struct Timer<T> where T : MonoBehaviour
     public T GetObject()
     {
         return scriptToAffect;
+        GameplayManager.Instance.currentLevel
     }
 
     public float GetTimePassed()
@@ -26,7 +27,7 @@ public struct Timer<T> where T : MonoBehaviour
 }
 
 public class TimerCollider<T> : MonoBehaviour 
-    where T : MonoBehaviour
+    where T : ObjClass
 {
     protected List<Timer<T>> timers = new List<Timer<T>>();
 
@@ -48,6 +49,33 @@ public class TimerCollider<T> : MonoBehaviour
         return false;
     }
 
+    public void AddTimer(T script)
+    {
+        timers.Add(new Timer<T>(script));
+        script.OnTransferOwnership += this.TransferTimer;
+    }
+
+    public void RemoveTimer(Timer<T> timer)
+    {
+        timer.GetObject().OnTransferOwnership -= this.TransferTimer;
+        timers.Remove(timer);
+    }
+
+    private void TransferTimer(ObjClass objToTransferFrom)
+    {
+        Debug.Log("disable timer on " + objToTransferFrom.name);
+        if (!objToTransferFrom.objOwner) return;
+
+        for (int i = 0; i < timers.Count; i++)
+        {
+            if (timers[i].GetObject() == objToTransferFrom)
+            {
+                RemoveTimer(timers[i]);
+                return;
+            }
+        }
+    }
+
     private void Update()
     {
         for (int i = 0; i < timers.Count; i++)
@@ -56,7 +84,7 @@ public class TimerCollider<T> : MonoBehaviour
 
             if (ShouldRemoveTimer(timers[i].GetObject()))
             {
-                timers.Remove(timers[i]);
+                RemoveTimer(timers[i]);
             }
         }
     }
@@ -70,7 +98,7 @@ public class TimerCollider<T> : MonoBehaviour
 
         if (!timers.Any(timer => timer.GetObject() == script))
         {
-            timers.Add(new Timer<T>(script));
+            AddTimer(script);
         }
     }
 
@@ -90,8 +118,20 @@ public class TimerCollider<T> : MonoBehaviour
             if (ReferenceEquals(timers[i].GetObject(), script))
             {
                 Debug.Log(other.name + " remove timer!");
-                timers.Remove(timers[i]);
+                RemoveTimer(timers[i]);
             }
         }            
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        T script = other.gameObject.GetComponentInChildren<T>();
+
+        if (!script) return;
+
+        while (script.newChildren.Count > 0)
+        {
+            this.AddTimer(script.newChildren.Pop());
+        }
     }
 }
