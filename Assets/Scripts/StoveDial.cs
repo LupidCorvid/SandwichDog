@@ -13,7 +13,7 @@ public class StoveDial : MonoBehaviour
     float lowerBound = 0;
     float upperBound = 90;
     float maxRotation = 180;
-    float errorWindow = 1.5f; //How much extra room to give in degrees so it's not liiking for exactly one value
+    float errorWindow = 5f; //How much extra room to give in degrees so it's not liiking for exactly one value
     private float startingRotationZ = 0;
     bool burnerOn = false;
     public bool rotationEnabled = false;
@@ -28,8 +28,9 @@ public class StoveDial : MonoBehaviour
     {
         if (rotationEnabled)
         {
-            float currentRotation = transform.localEulerAngles.z % 360;
-            KeepDialInBounds(currentRotation);
+            float currentRotation = transform.localEulerAngles.z % 360; //Bound to be within 360 degrees, including negative numbers
+
+            //KeepDialInBounds(currentRotation);
             CheckToTurnOnStove(currentRotation);
         }
     }
@@ -39,24 +40,27 @@ public class StoveDial : MonoBehaviour
     void KeepDialInBounds(float curr)
     {
         //Undershot (wrap around from 360)
-        if (curr > 360 - errorWindow*2) gameObject.transform.localEulerAngles = new Vector3(gameObject.transform.localEulerAngles.x, gameObject.transform.localEulerAngles.y, lowerBound);
+        if (curr > 360 - errorWindow*5 && curr < 360 - errorWindow*2) gameObject.transform.localEulerAngles = new Vector3(gameObject.transform.localEulerAngles.x, gameObject.transform.localEulerAngles.y, lowerBound - .5f);
         
         //Overshot
-        else if (curr > maxRotation) gameObject.transform.localEulerAngles = new Vector3(gameObject.transform.localEulerAngles.x, gameObject.transform.localEulerAngles.y, maxRotation);
+        else if (curr > maxRotation) gameObject.transform.localEulerAngles = new Vector3(gameObject.transform.localEulerAngles.x, gameObject.transform.localEulerAngles.y, maxRotation - 1);
     }
 
     void CheckToTurnOnStove(float curr)
     {
         //Turn on burner
-        if(curr > (upperBound - errorWindow) && curr < (360 - errorWindow*4) && !burnerOn)
+        //180 +- error
+        if(curr > (upperBound - errorWindow) && curr < (upperBound + errorWindow) && !burnerOn)
         {
             burnerOn = true;
             cookingArea.GetComponent<CookCollider>().enabled = true;
             flames.SetActive(true);
             indicator.GetComponent<MeshRenderer>().material = indicator.GetComponent<MeshRenderer>().materials[1];
         }
+
         //Turn off burner
-        if(curr < lowerBound + errorWindow && burnerOn)
+        // 0 +- error
+        if(curr < (lowerBound + errorWindow) || curr > (360 - errorWindow) && burnerOn)
         {
             burnerOn = false;
             cookingArea.GetComponent<CookCollider>().enabled = false;
