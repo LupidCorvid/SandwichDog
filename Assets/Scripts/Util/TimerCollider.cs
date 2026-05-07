@@ -61,6 +61,7 @@ public class TimerCollider<T> : MonoBehaviour
         timer.GetObject().OnReceiveTimers -= this.RemoveObjectTimer;
         timer.GetObject().OnReceiveTimers -= this.AddObjectTimer;
         timers.Remove(timer);
+        //if (temp) Debug.Log(timer.GetObject().name + "'s timer on " + this.name + " was removed!");
     }
 
     private void Update()

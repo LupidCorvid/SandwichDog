@@ -28,8 +28,7 @@ public class ContainerCollider<T> : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log(other.name + " has left the collider!");
-        T script = other as T;
+        T script = other.gameObject.GetComponentInChildren<T>();
         if (!script) return;
 
         items.Remove(script);
