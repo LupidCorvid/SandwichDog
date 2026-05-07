@@ -28,9 +28,9 @@ public class ContainerCollider<T> : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        Debug.Log(other.name + " has left the collider!");
         T script = other as T;
         if (!script) return;
-        if (!CanAddItem(script)) return; // if it couldn't be added then there's no reason to search for it when removing
 
         items.Remove(script);
     }

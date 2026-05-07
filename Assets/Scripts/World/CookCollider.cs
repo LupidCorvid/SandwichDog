@@ -39,7 +39,6 @@ public class CookwareCooker : TimerCollider<Cookware>
 
     protected override void TickTimer(Cookware cookware, float timePassed)
     {
-        Debug.Log("cookware cook");
         cookware.Collider.CookFood(timePassed * heatLevel * cookMultiplier);
     }
 }

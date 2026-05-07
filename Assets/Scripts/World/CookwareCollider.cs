@@ -6,6 +6,7 @@ public class CookwareCollider : ContainerCollider<Food>
     {
         for (int i = 0; i < items.Count; i++)
         {
+            //Debug.Log("cookware cook");
             items[i].Cook(amountToCook);
 
             if (ShouldStopCooking(items[i]))
