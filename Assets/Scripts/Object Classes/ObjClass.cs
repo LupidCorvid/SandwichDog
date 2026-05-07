@@ -201,8 +201,8 @@ public class ObjClass : MonoBehaviour
     public virtual void AcquireChild(ObjClass newChild)
     {
         newChild.objOwner = this;
-        OnRemoveTimers.Invoke(newChild);
-        OnReceiveTimers.Invoke(this);
+        OnRemoveTimers?.Invoke(newChild);
+        OnReceiveTimers?.Invoke(this);
     }
 
     ///=============================================================================
