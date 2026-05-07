@@ -19,8 +19,9 @@ public class ContainerCollider<T> : MonoBehaviour
         if (!script) return;
         if (!CanAddItem(script)) return;
 
-        if (!items.Any(item => item == script))
+        if (!items.Any(item => ReferenceEquals(item, script))) ;
         {
+            //Debug.Log(this.name + " will add " + script.name + " into its list");
             items.Add(script);
         }
     }

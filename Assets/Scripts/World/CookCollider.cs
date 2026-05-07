@@ -32,14 +32,15 @@ class CookCollider : MonoBehaviour
     }
 }
 
-public class CookwareCooker : TimerCollider<CookwareCollider>
+public class CookwareCooker : TimerCollider<Cookware>
 {
     public float cookMultiplier = 1.0f; // I think the idea behind this at the time was if some foods inherently cook faster/slower than others at the same temp
     public float heatLevel;
 
-    protected override void TickTimer(CookwareCollider cookware, float timePassed)
+    protected override void TickTimer(Cookware cookware, float timePassed)
     {
-        cookware.CookFood(timePassed * heatLevel * cookMultiplier);
+        Debug.Log("cookware cook");
+        cookware.Collider.CookFood(timePassed * heatLevel * cookMultiplier);
     }
 }
 
@@ -50,6 +51,7 @@ public class FoodCooker : TimerCollider<Food>
 
     protected override void TickTimer(Food food, float timePassed)
     {
+        Debug.Log("food sear cook");
         food.Cook(timePassed * heatLevel * cookMultiplier);
     }
 

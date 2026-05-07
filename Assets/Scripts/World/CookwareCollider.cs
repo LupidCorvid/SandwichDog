@@ -4,13 +4,13 @@ public class CookwareCollider : ContainerCollider<Food>
 {
     public void CookFood(float amountToCook)
     {
-        foreach (Food food in items)
+        for (int i = 0; i < items.Count; i++)
         {
-            food.Cook(amountToCook);
+            items[i].Cook(amountToCook);
 
-            if (ShouldStopCooking(food))
+            if (ShouldStopCooking(items[i]))
             {
-                items.Remove(food);
+                items.Remove(items[i]);
             }
         }
     }

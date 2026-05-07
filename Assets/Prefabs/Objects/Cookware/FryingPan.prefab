@@ -344,8 +344,7 @@ GameObject:
   - component: {fileID: 2734025679784930547}
   - component: {fileID: 2539724735704472912}
   - component: {fileID: 5204554880129003570}
-  - component: {fileID: 3547896447395644267}
-  - component: {fileID: 8783882379074285813}
+  - component: {fileID: 1691876091521769634}
   m_Layer: 0
   m_Name: FryingPan
   m_TagString: Pickup
@@ -622,52 +621,36 @@ MonoBehaviour:
   m_MinimumScaleRatio: 0.25
   m_MaximumScaleRatio: 2
   m_ScaleMultiplier: 0.25
---- !u!114 &3547896447395644267
+--- !u!114 &1691876091521769634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5306668784810609918}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0a1302d0d134fa8a2a5b3bf4aec3c20, type: 3}
+  m_Script: {fileID: 11500000, guid: 76c61d580995ecf4498729ef1ed7cb9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PermittedDisplacementAxes: -1
-  m_ConstrainedAxisDisplacementMode: 1
-  m_TwoHandedRotationMode: 1
-  m_AllowOneHandedScaling: 1
-  m_AllowTwoHandedScaling: 0
-  m_OneHandedScaleSpeed: 0.5
-  m_ThresholdMoveRatioForScale: 0.05
-  m_ClampScaling: 1
-  m_MinimumScaleRatio: 0.25
-  m_MaximumScaleRatio: 2
-  m_ScaleMultiplier: 0.25
---- !u!114 &8783882379074285813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5306668784810609918}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0a1302d0d134fa8a2a5b3bf4aec3c20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PermittedDisplacementAxes: -1
-  m_ConstrainedAxisDisplacementMode: 1
-  m_TwoHandedRotationMode: 1
-  m_AllowOneHandedScaling: 1
-  m_AllowTwoHandedScaling: 0
-  m_OneHandedScaleSpeed: 0.5
-  m_ThresholdMoveRatioForScale: 0.05
-  m_ClampScaling: 1
-  m_MinimumScaleRatio: 0.25
-  m_MaximumScaleRatio: 2
-  m_ScaleMultiplier: 0.25
+  xrgi: {fileID: 2539724735704472912}
+  xrggt: {fileID: 5204554880129003570}
+  xriasp: {fileID: 297130369284399542}
+  rigidBody: {fileID: 2734025679784930547}
+  objType: 0
+  objName: FryingPan
+  objSettings: {fileID: 11400000, guid: 6afe848ea65a9ff45949c51ca6bb8628, type: 2}
+  overrideGlobalSettings: 1
+  objOwner: {fileID: 0}
+  canGetDirty: 0
+  canGetClean: 0
+  amountToDirtyPerSecond: 0
+  amountToCleanPerSecond: 0
+  dirtMaterial: {fileID: 0}
+  canHaveSpreads: 0
+  currentSpread: 0
+  possibleSpreads: {fileID: 0}
+  collider: {fileID: 5411048649925944260}
 --- !u!1 &5560193195859328149
 GameObject:
   m_ObjectHideFlags: 0

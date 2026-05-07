@@ -70,7 +70,7 @@ public class FoodStackCollider : MonoBehaviour
         else
         {
             Debug.Log("sandwich exists");
-            sandwich.PushNewFood(targetFood);
+            sandwich.AcquireChild(targetFood);
 
         }
         // TODO setup so that position starts to lerp in update

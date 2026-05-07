@@ -33,13 +33,6 @@ public class Sandwich : Food
         this.AcquireChild(firstFilling);
     }
 
-    public void PushNewFood(Food newFood)
-    {
-        StartCoroutine(SandwichNewItemPhysicsRoutine(newFood));
-        newFood.enabled = false;
-        this.AcquireChild(newFood);
-    }
-
     public void PopTopFood()
     {
         Food topFood = TopFood;
@@ -234,6 +227,16 @@ public class Sandwich : Food
             targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, targetRotation.eulerAngles.z + 180.0f);
         }
         source.transform.rotation = targetRotation;
+    }
+
+    public override void AcquireChild(ObjClass newChild)
+    {
+        Food newFood = newChild as Food;
+        if (!newFood) return;
+
+        StartCoroutine(SandwichNewItemPhysicsRoutine(newFood));
+        base.AcquireChild(newFood); // remove timers on child
+        newFood.enabled = false;
     }
 
     public override void Cook(float timePassed)
