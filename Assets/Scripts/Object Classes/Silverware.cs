@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Silverware : ObjClass
 {
@@ -29,6 +30,14 @@ public class Silverware : ObjClass
             {
                 foodObj.Slice();
             }
+        }
+    }
+
+    public void UnfreezeRB(SelectEnterEventArgs args)
+    {
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        if (rb != null) {
+            rb.constraints = RigidbodyConstraints.None;
         }
     }
 }
