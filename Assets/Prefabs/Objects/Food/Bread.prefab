@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stackCollider: {fileID: 8337556929766357850}
-  emptySandwichObject: {fileID: 4766069664014610040, guid: e887bdb896bb6174b917b945f33356b7, type: 3}
   sandwichBase: {fileID: 110813168775492774}
   timeToSnap: 0
   timeSpentSnapping: 0
@@ -149,7 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stackCollider: {fileID: 2346738689087687288}
-  emptySandwichObject: {fileID: 4766069664014610040, guid: e887bdb896bb6174b917b945f33356b7, type: 3}
   sandwichBase: {fileID: 110813168775492774}
   timeToSnap: 0
   timeSpentSnapping: 0
@@ -827,5 +825,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseFood: {fileID: 1055270508630881268}
+  emptySandwichObject: {fileID: 4766069664014610040, guid: e887bdb896bb6174b917b945f33356b7, type: 3}
   topStackCollider: {fileID: 294680420606243547}
   bottomStackCollider: {fileID: 4304286171493073793}

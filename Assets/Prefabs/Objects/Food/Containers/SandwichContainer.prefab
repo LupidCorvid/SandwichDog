@@ -258,6 +258,7 @@ MonoBehaviour:
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
+  currentSpread: 0
   possibleSpreads: {fileID: 0}
   smokeVFX: {fileID: 0}
   isCookable: 1
