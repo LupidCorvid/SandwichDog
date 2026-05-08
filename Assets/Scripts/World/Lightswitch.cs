@@ -14,14 +14,14 @@ public class Lightswitch : MonoBehaviour
             if(col.name == "OffArea")
             {
                 light.SetActive(false);
-                gameObject.transform.localEulerAngles = new Vector3(gameObject.transform.localEulerAngles.x, gameObject.transform.localEulerAngles.y, -snapAngle);
+                //gameObject.transform.localEulerAngles = new Vector3(gameObject.transform.localEulerAngles.x, gameObject.transform.localEulerAngles.y, -snapAngle);
             }
 
             //Turn on lights
             if (col.name == "OnArea")
             {
                 light.SetActive(true);
-                gameObject.transform.localEulerAngles = new Vector3(gameObject.transform.localEulerAngles.x, gameObject.transform.localEulerAngles.y, snapAngle);
+                //gameObject.transform.localEulerAngles = new Vector3(gameObject.transform.localEulerAngles.x, gameObject.transform.localEulerAngles.y, snapAngle);
             }
         }
     }
