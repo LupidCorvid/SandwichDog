@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [SerializeField]
-public struct Timer<T> where T : MonoBehaviour
+public struct Timer<T> where T : ObjClass
 {
     private T scriptToAffect;
     private float startTime;
@@ -26,7 +27,7 @@ public struct Timer<T> where T : MonoBehaviour
 }
 
 public class TimerCollider<T> : MonoBehaviour 
-    where T : MonoBehaviour
+    where T : ObjClass
 {
     protected List<Timer<T>> timers = new List<Timer<T>>();
 
@@ -48,6 +49,21 @@ public class TimerCollider<T> : MonoBehaviour
         return false;
     }
 
+    public void AddTimer(T script)
+    {
+        timers.Add(new Timer<T>(script));
+        script.OnRemoveTimers += this.RemoveObjectTimer;
+        script.OnReceiveTimers += this.AddObjectTimer;
+    }
+
+    public void RemoveTimer(Timer<T> timer)
+    {
+        timer.GetObject().OnReceiveTimers -= this.RemoveObjectTimer;
+        timer.GetObject().OnReceiveTimers -= this.AddObjectTimer;
+        timers.Remove(timer);
+        //if (temp) Debug.Log(timer.GetObject().name + "'s timer on " + this.name + " was removed!");
+    }
+
     private void Update()
     {
         for (int i = 0; i < timers.Count; i++)
@@ -56,7 +72,7 @@ public class TimerCollider<T> : MonoBehaviour
 
             if (ShouldRemoveTimer(timers[i].GetObject()))
             {
-                timers.Remove(timers[i]);
+                RemoveTimer(timers[i]);
             }
         }
     }
@@ -64,13 +80,90 @@ public class TimerCollider<T> : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         T script = other.gameObject.GetComponentInChildren<T>();
+        //Debug.Log(this.name + " received " + other.name);
+
+        // try to get script from parent GO if child failed
+        if (!script && other.attachedRigidbody)
+        {
+            script = other.attachedRigidbody.GetComponent<T>();
+        }
 
         if (!script) return;
+        //Debug.Log(this.name + " received right type of " + script.name);
         if (!CanAddTimer(script)) return;
 
-        if (!timers.Any(timer => timer.GetObject() == script))
+        //Debug.Log(this.name + " will add try to add timer for " + script.name);
+        AddObjectTimer(script);
+    }
+
+    private void AddObjectTimer(ObjClass obj)
+    {
+        T templatedObj = obj as T;
+        if (templatedObj)
         {
-            timers.Add(new Timer<T>(script));
+            AddObjectTimer(templatedObj);
+        }
+    }
+
+    private void AddObjectTimer(T script)
+    {
+        // get top-most parent
+        T parent = script;
+        T validParent = null;
+        while (parent.objOwner)
+        {
+            parent = parent.objOwner as T;
+            if (parent)
+            {
+                validParent = parent;
+            }
+        }
+
+        // we can only add the timer to the parent if it also intersects this collider
+        if (validParent != null)
+        {
+            script = validParent;
+            bool stillIntersects = false;
+            Collider thisCollider = this.GetComponent<Collider>();
+            foreach (Collider collider in validParent.XRGI.colliders)
+            {
+                if (collider.bounds.Intersects(thisCollider.bounds))
+                {
+                    stillIntersects = true;
+                    break;
+                }
+            }
+
+            if (!stillIntersects) return;
+        }
+
+        // only add a timer if there's not already one present for the incoming obj
+        if (!timers.Any(timer => ReferenceEquals(timer.GetObject(), script)))
+        {
+            Debug.Log(this.name + " will add timer for " + script.name);
+            AddTimer(script);
+        }
+    }
+
+    private void RemoveObjectTimer(ObjClass obj)
+    {
+        T templatedObj = obj as T;
+        if (templatedObj)
+        {
+            RemoveObjectTimer(templatedObj);
+        }
+    }
+
+    private void RemoveObjectTimer(T script)
+    {
+        for (int i = 0; i < timers.Count; i++)
+        {
+            //Debug.Log(other.name + " timer check");
+            if (ReferenceEquals(timers[i].GetObject(), script))
+            {
+                //Debug.Log(other.name + " remove timer!");
+                RemoveTimer(timers[i]);
+            }
         }
     }
 
@@ -78,20 +171,32 @@ public class TimerCollider<T> : MonoBehaviour
     {
         T script = other.gameObject.GetComponentInChildren<T>();
 
-        Debug.Log(other.name + " has exited the trigger!");
+        // try to get script from parent GO if child failed
+        if (!script && other.attachedRigidbody)
+        {
+            script = other.attachedRigidbody.GetComponent<T>();
+        }
+
+        //Debug.Log(other.name + " has exited the trigger!");
 
         if (!script) return;
 
-        Debug.Log(other.name + " is of our templated type");
+        //Debug.Log(other.name + " is of our templated type");      
 
-        for (int i = 0; i < timers.Count ;i++)
-        {
-            Debug.Log(other.name + " timer check");
-            if (ReferenceEquals(timers[i].GetObject(), script))
-            {
-                Debug.Log(other.name + " remove timer!");
-                timers.Remove(timers[i]);
-            }
-        }            
+        RemoveObjectTimer(script);
     }
+
+    //private void OnTriggerStay(Collider other)
+    //{
+        //T script = other.gameObject.GetComponentInChildren<T>();
+
+        //if (!script) return;
+
+        //Debug.Log(script.newChildren.Count);
+
+        //while (script.newChildren.Count > 0)
+        //{
+            //this.AddTimer(script.newChildren.Pop() as T);
+        //}
+    //}
 }

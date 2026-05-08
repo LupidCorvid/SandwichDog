@@ -35,6 +35,8 @@ public class ObjClass : MonoBehaviour
     [SerializeField] protected XRGeneralGrabTransformer xrggt;
     [SerializeField] protected XRInteractableAffordanceStateProvider xriasp;
 
+    public XRGrabInteractable XRGI => xrgi;
+
     [SerializeField] protected Rigidbody rigidBody;
     public Rigidbody RigidBody => rigidBody;
     private float rbMass; // saved to properly recreate rb
@@ -46,6 +48,10 @@ public class ObjClass : MonoBehaviour
     [SerializeField] protected string objName;
     [SerializeField] public GlobalObjSettings_SO objSettings;
     [SerializeField] private bool overrideGlobalSettings;
+
+    public ObjClass objOwner = null;
+    public event Action<ObjClass> OnRemoveTimers;
+    public event Action<ObjClass> OnReceiveTimers;
 
     [SerializeField] public bool triggersTutorial { get; private set; }
 
@@ -192,6 +198,13 @@ public class ObjClass : MonoBehaviour
 
         canGetClean = objSettings.canGetClean;
         amountToCleanPerSecond = objSettings.amountToCleanPerSecond; 
+    }
+
+    public virtual void AcquireChild(ObjClass newChild)
+    {
+        newChild.objOwner = this;
+        OnRemoveTimers?.Invoke(newChild);
+        OnReceiveTimers?.Invoke(this);
     }
 
     ///=============================================================================

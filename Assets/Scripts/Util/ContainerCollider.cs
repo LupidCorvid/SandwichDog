@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ContainerCollider<T> : MonoBehaviour
-    where T : MonoBehaviour
+    where T : ObjClass
 {
     protected List<T> items = new List<T>();
 
@@ -19,17 +19,17 @@ public class ContainerCollider<T> : MonoBehaviour
         if (!script) return;
         if (!CanAddItem(script)) return;
 
-        if (!items.Any(item => item == script))
+        if (!items.Any(item => ReferenceEquals(item, script))) ;
         {
+            //Debug.Log(this.name + " will add " + script.name + " into its list");
             items.Add(script);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        T script = other as T;
+        T script = other.gameObject.GetComponentInChildren<T>();
         if (!script) return;
-        if (!CanAddItem(script)) return; // if it couldn't be added then there's no reason to search for it when removing
 
         items.Remove(script);
     }
