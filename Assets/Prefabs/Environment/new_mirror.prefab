@@ -124,6 +124,10 @@ PrefabInstance:
       value: MirrorCamera
       objectReference: {fileID: 0}
     - target: {fileID: 4899315902136978509, guid: dd711083c1518424d9c413d8e733ecef, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01007322
+      objectReference: {fileID: 0}
+    - target: {fileID: 4899315902136978509, guid: dd711083c1518424d9c413d8e733ecef, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.001
       objectReference: {fileID: 0}
@@ -168,14 +172,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6897593322592250821, guid: dd711083c1518424d9c413d8e733ecef, type: 3}
+      propertyPath: m_ClearFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6897593322592250821, guid: dd711083c1518424d9c413d8e733ecef, type: 3}
       propertyPath: field of view
-      value: 91
+      value: 77
       objectReference: {fileID: 0}
     - target: {fileID: 6897593322592250821, guid: dd711083c1518424d9c413d8e733ecef, type: 3}
       propertyPath: m_FOVAxisMode
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6897593322592250821, guid: dd711083c1518424d9c413d8e733ecef, type: 3}
+      propertyPath: orthographic size
+      value: 9.68
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6595992059741661836, guid: dd711083c1518424d9c413d8e733ecef, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
