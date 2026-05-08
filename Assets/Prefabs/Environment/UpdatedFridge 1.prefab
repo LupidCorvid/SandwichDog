@@ -1721,7 +1721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a762c34895f901842aae4e51d5b5aa22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperBound: 100
+  upperBound: 120
   lowerBound: 0
   rotationAxis: 1
 --- !u!1 &6572519591633525331
@@ -2187,8 +2187,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.249778, y: 0.18667102, z: 0.74539256}
-  m_Center: {x: 0.8684162, y: 0.6569197, z: 0.2312988}
+  m_Size: {x: 1.3744719, y: 0.18667102, z: 0.74539256}
+  m_Center: {x: 0.80606925, y: 0.6569197, z: 0.2312988}
 --- !u!1 &7819622762344442869
 GameObject:
   m_ObjectHideFlags: 0
@@ -2628,8 +2628,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.249778, y: 0.18667102, z: 0.74539256}
-  m_Center: {x: 0.8684162, y: 0.6569197, z: 0.2312988}
+  m_Size: {x: 1.3350596, y: 0.18667102, z: 0.74539256}
+  m_Center: {x: 0.8257754, y: 0.6569197, z: 0.2312988}
 --- !u!1 &8629293740901947966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3075,7 +3075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a762c34895f901842aae4e51d5b5aa22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperBound: 100
+  upperBound: 120
   lowerBound: 0
   rotationAxis: 1
 --- !u!1 &9131248159065815173
