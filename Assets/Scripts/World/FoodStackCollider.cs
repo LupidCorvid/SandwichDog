@@ -36,10 +36,17 @@ public class FoodStackCollider : MonoBehaviour
         //Debug.Log(other.gameObject.name + " definitely entered collider!");
         SandwichBase otherSandwichBase;
         other.TryGetComponent<SandwichBase>(out otherSandwichBase);
+
         if (otherSandwichBase)
         {
-            // deterministically ensures only 1 sandwich takes ownership of the other
-            if (this.GetInstanceID() < otherSandwichBase.GetInstanceID())
+            // prevent unintentional creation of sandwiches
+            if (!otherSandwichBase.BaseFood.inHand && !this.sandwichBase.BaseFood.inHand) return;
+
+            // prevent forming purely bread sandwiches
+            if (otherSandwichBase.BaseFood.CurrentSpread == Spread.NO_SPREAD && this.sandwichBase.BaseFood.CurrentSpread == Spread.NO_SPREAD) return;
+
+            // whichever sandwich base is moving more will relinquish ownership to the other
+            if (this.sandwichBase.BaseFood.RigidBody.linearVelocity.magnitude < otherSandwichBase.BaseFood.RigidBody.linearVelocity.magnitude)
             {
                 this.sandwichBase.DisableBothTriggers();
                 return;
@@ -50,6 +57,7 @@ public class FoodStackCollider : MonoBehaviour
 
         if (!targetFood) return;
         if (!targetFood.isStackable) return;
+        if (!targetFood.inHand && !this.sandwichBase.BaseFood.inHand) return;
         if (sandwich)
         {
             if (targetFood.transform.IsChildOf(sandwich.transform)) return;

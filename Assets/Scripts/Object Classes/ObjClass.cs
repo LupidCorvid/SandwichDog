@@ -121,11 +121,13 @@ public class ObjClass : MonoBehaviour
     private void HandlePlayerObjSelectionEntered(SelectEnterEventArgs args)
     {
         //Player.Instance.activeInteractedObjects.Add(this);
+        inHand = true;
     }
 
     private void HandlePlayerObjSelectionExited(SelectExitEventArgs args)
     {
         //Player.Instance.activeInteractedObjects.Remove(this);
+        inHand = false;
     }
 
     public virtual void InteractedObjectUpdate()
@@ -273,7 +275,7 @@ public class ObjClass : MonoBehaviour
         rigidBody.mass = rbMass;
         xrgi = this.AddComponent<XRGrabInteractable>();
         // restore colliders
-        if (xrgiColliders != null)
+        if (xrgiColliders != null && xrgi != null)
         {
             foreach (Collider collider in xrgiColliders)
             {
