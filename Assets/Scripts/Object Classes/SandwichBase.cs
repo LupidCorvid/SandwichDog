@@ -22,10 +22,10 @@ public class SandwichBase : MonoBehaviour
         if (otherSandwichBase)
         {
             // prevent unintentional creation of sandwiches
-            //if (!otherSandwichBase.BaseFood.inHand && !this.sandwichBase.BaseFood.inHand) return;
+            if (!otherSandwichBase.BaseFood.inHand && !this.BaseFood.inHand) return;
 
             // prevent forming purely bread sandwiches
-            //if (otherSandwichBase.BaseFood.CurrentSpread == Spread.NO_SPREAD && this.sandwichBase.BaseFood.CurrentSpread == Spread.NO_SPREAD) return;
+            if (otherSandwichBase.BaseFood.CurrentSpread == Spread.NO_SPREAD && this.BaseFood.CurrentSpread == Spread.NO_SPREAD) return;
 
             // whichever sandwich base is moving more will relinquish ownership to the other
             if (this.BaseFood.RigidBody.linearVelocity.magnitude < otherSandwichBase.BaseFood.RigidBody.linearVelocity.magnitude)
@@ -77,7 +77,7 @@ public class SandwichBase : MonoBehaviour
         else if (sandwich)
         {
             Debug.Log("sandwich exists");
-            sandwich.PushNewFood(targetFood);
+            sandwich.AcquireChild(targetFood);
 
         }
         // TODO setup so that position starts to lerp in update
