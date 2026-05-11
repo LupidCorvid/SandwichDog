@@ -783,14 +783,16 @@ MonoBehaviour:
   objName: Bread
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
+  objOwner: {fileID: 0}
   canGetDirty: 1
   canGetClean: 0
-  amountToDirtyPerSecond: 0.1
+  amountToDirtyPerSecond: 0.05
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 1
   currentSpread: 0
   possibleSpreads: {fileID: 11400000, guid: 220855c7f465b5440a45860342f0e080, type: 2}
+  foodWeight: 1
   smokeVFX: {fileID: 0}
   isCookable: 1
   isOvercooked: 0
@@ -801,7 +803,6 @@ MonoBehaviour:
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 0.6509434, g: 0.30031347, b: 0, a: 0}
-  foodParent: {fileID: 0}
   isStackable: 1
   isStackBase: 1
   stackBase: {fileID: 110813168775492774}

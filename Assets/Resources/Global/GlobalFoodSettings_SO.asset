@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canGetDirty: 1
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
-  amountToDirtyPerSecond: 0.1
+  amountToDirtyPerSecond: 0.05
   canGetClean: 0
   amountToCleanPerSecond: 0

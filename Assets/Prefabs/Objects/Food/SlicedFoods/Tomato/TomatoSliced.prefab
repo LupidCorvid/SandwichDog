@@ -227,13 +227,16 @@ MonoBehaviour:
   objName: Tomato
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
+  objOwner: {fileID: 0}
   canGetDirty: 1
-  canGetClean: 0
-  amountToDirtyPerSecond: 0.1
-  amountToCleanPerSecond: 0
+  canGetClean: 1
+  amountToDirtyPerSecond: 0.05
+  amountToCleanPerSecond: 0.1
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
+  currentSpread: 0
   possibleSpreads: {fileID: 0}
+  foodWeight: 0.2
   smokeVFX: {fileID: 0}
   isCookable: 0
   isOvercooked: 0
@@ -1319,13 +1322,16 @@ MonoBehaviour:
   objName: Tomato
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
+  objOwner: {fileID: 0}
   canGetDirty: 1
-  canGetClean: 0
-  amountToDirtyPerSecond: 0.1
-  amountToCleanPerSecond: 0
+  canGetClean: 1
+  amountToDirtyPerSecond: 0.05
+  amountToCleanPerSecond: 0.1
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
+  currentSpread: 0
   possibleSpreads: {fileID: 0}
+  foodWeight: 0.2
   smokeVFX: {fileID: 0}
   isCookable: 0
   isOvercooked: 0
@@ -1680,13 +1686,16 @@ MonoBehaviour:
   objName: Tomato
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
+  objOwner: {fileID: 0}
   canGetDirty: 1
-  canGetClean: 0
-  amountToDirtyPerSecond: 0.1
-  amountToCleanPerSecond: 0
+  canGetClean: 1
+  amountToDirtyPerSecond: 0.05
+  amountToCleanPerSecond: 0.1
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
+  currentSpread: 0
   possibleSpreads: {fileID: 0}
+  foodWeight: 0.2
   smokeVFX: {fileID: 0}
   isCookable: 0
   isOvercooked: 0
@@ -2686,13 +2695,16 @@ MonoBehaviour:
   objName: Tomato
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
-  canGetDirty: 0
-  canGetClean: 0
-  amountToDirtyPerSecond: 0.1
-  amountToCleanPerSecond: 0
+  objOwner: {fileID: 0}
+  canGetDirty: 1
+  canGetClean: 1
+  amountToDirtyPerSecond: 0.05
+  amountToCleanPerSecond: 0.1
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
+  currentSpread: 0
   possibleSpreads: {fileID: 0}
+  foodWeight: 0.2
   smokeVFX: {fileID: 0}
   isCookable: 0
   isOvercooked: 0
@@ -3109,13 +3121,16 @@ MonoBehaviour:
   objName: Tomato
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
+  objOwner: {fileID: 0}
   canGetDirty: 1
-  canGetClean: 0
-  amountToDirtyPerSecond: 0.1
-  amountToCleanPerSecond: 0
+  canGetClean: 1
+  amountToDirtyPerSecond: 0.05
+  amountToCleanPerSecond: 0.1
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
+  currentSpread: 0
   possibleSpreads: {fileID: 0}
+  foodWeight: 0.2
   smokeVFX: {fileID: 0}
   isCookable: 0
   isOvercooked: 0
