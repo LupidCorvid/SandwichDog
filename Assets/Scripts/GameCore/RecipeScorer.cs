@@ -8,6 +8,7 @@ using UnityEngine;
 public class RecipeScorer : MonoBehaviour
 {
     private const float MAX_SCORE_DRAIN_NO_MATCH = 0.2f;
+    private const float PENALTY_PER_EXTRA_OBJ = 0.05f;
 
     public float waitTimeBeforeScoring; //Time to wait in seconds for the player to stand in the box before scoring objects
     private float timer;
@@ -125,24 +126,41 @@ public class RecipeScorer : MonoBehaviour
         scoreCalculated = true;
         scoreButton.SetActive(false);
 
-        float score = 0.0f;
+        float scoreRaw = 0.0f;
         float totalWeight = 0.0f;
+        float scorePercent = 0.0f;
 
         // get all best matches first
         FoodRequirement currReq;
         Food foodToScore;
         int currRecipeIdx = 0;
         float testScore, bestScore;
-        int recipeToRemoveIdx = 0;
+        int reqToRemoveIdx = 0;
         int foodToRemoveIdx = 0;
 
-        while (foodsToScore.Count > 0 && recipeRequirements.Count > 0)
+        while (currRecipeIdx < recipeRequirements.Count)
         {
-            bestScore = 0;
+            //Debug.Log("our curr recipe reqs are:");
+            //for (int i = 0; i < recipeRequirements.Count; i++)
+            //{
+            //    Debug.Log(recipeRequirements[i].food.name);
+            //}
+            //Debug.Log("our curr foods to score are:");
+            //for (int i = 0; i < foodsToScore.Count; i++)
+            //{
+            //    Debug.Log(foodsToScore[i].name);
+            //}
+            //Debug.Log("our curr recipe idx is: " + currRecipeIdx);
+
             currReq = recipeRequirements[currRecipeIdx];
+            bestScore = 0;
+
+            // start from 1st food for curr req
+            foodToRemoveIdx = -1;
             foodToScore = null;
 
             // check all foods against the curr req for the best match
+            // recipe req stable (nonchanging), food unstable (changing)
             for (int i = 0; i < foodsToScore.Count; i++)
             {
                 foodToScore = foodsToScore[i];
@@ -159,11 +177,13 @@ public class RecipeScorer : MonoBehaviour
                 }
             }
             // can only score if there was some match for the req
-            if (foodToScore)
+            if (foodToRemoveIdx >= 0)
             {
-                recipeToRemoveIdx = currRecipeIdx;
+                foodToScore = foodsToScore[foodToRemoveIdx];
+                reqToRemoveIdx = currRecipeIdx;
 
                 // check if that food satisfies another req better
+                // food stable, recipe req unstable
                 for (int i = 0; i < recipeRequirements.Count; i++)
                 {
                     if (recipeRequirements[i].food.Equals(foodToScore))
@@ -174,21 +194,27 @@ public class RecipeScorer : MonoBehaviour
                         if (testScore > bestScore)
                         {
                             bestScore = testScore;
-                            recipeToRemoveIdx = i;
+                            reqToRemoveIdx = i;
                         }
                     }
                 }
 
                 // remove whichever req-food pair was decided on and add its score
-                score += bestScore;
-                totalWeight += recipeRequirements[recipeToRemoveIdx].food.FoodWeight;
+                scoreRaw += bestScore;
+                totalWeight += recipeRequirements[reqToRemoveIdx].food.FoodWeight;
 
-                Debug.Log(recipeRequirements[recipeToRemoveIdx].food.name + " was judged as the best req for " + foodToScore.name +
+                Debug.Log(recipeRequirements[reqToRemoveIdx].food.name + 
+                    " was judged as the best req for " + foodsToScore[foodToRemoveIdx].name +
                     ", with a score of " + bestScore +
-                    " and weight of " + recipeRequirements[recipeToRemoveIdx].food.FoodWeight);
+                    " and weight of " + recipeRequirements[reqToRemoveIdx].food.FoodWeight);
 
-                recipeRequirements.RemoveAt(recipeToRemoveIdx);
+                recipeRequirements.RemoveAt(reqToRemoveIdx);
                 foodsToScore.RemoveAt(foodToRemoveIdx);
+                // account for going back if curr recipe was used in the match
+                if (reqToRemoveIdx == currRecipeIdx)
+                {
+                    currRecipeIdx--;
+                }
                 // next loop will go again with whichever recipe is now at the head of the req lis
             }
             // if no food matches, go to next reqs
@@ -205,34 +231,33 @@ public class RecipeScorer : MonoBehaviour
         }
 
         // all extra foods that meet no reqs contribute to a negative % loss of total score
-        float nonMatchWeight = 1.0f;
+        float nonMatchPenalty = 0.0f;
 
         for (int i = 0; i < foodsToScore.Count; i++)
         {
-            nonMatchWeight -= (foodsToScore[i].FoodWeight / totalWeight);
+            nonMatchPenalty += PENALTY_PER_EXTRA_OBJ;
 
-            if (nonMatchWeight < (1.0f - MAX_SCORE_DRAIN_NO_MATCH))
+            if (nonMatchPenalty >= MAX_SCORE_DRAIN_NO_MATCH)
             {
-                nonMatchWeight = (1.0f - MAX_SCORE_DRAIN_NO_MATCH);
+                nonMatchPenalty = MAX_SCORE_DRAIN_NO_MATCH;
                 break;
             }
         }
+        // apply penalty for 
 
         // get base score from all met reqs
         if (totalWeight > 0.0f)
         {
-            score = (score / totalWeight) * 100.0f;
+            scorePercent = scoreRaw / totalWeight;
+            scorePercent = Mathf.Clamp(scorePercent - nonMatchPenalty, 0.0f, 1.0f);
+            scorePercent *= 100.0f;
         }
-        else { score = 0.0f; }
 
-        // negative % influence from completely irrelevant ingredients
-        score *= nonMatchWeight;
-
-        Debug.Log("total weight in end area is " + totalWeight);
+        //Debug.Log("total weight in end area is " + totalWeight);
 
         //Update score text
-        Debug.Log("Score:" + score);
-        scoreText.text = score.ToString("F2").Truncate(5) + "%";
+        //Debug.Log("Score:" + score);
+        scoreText.text = scorePercent.ToString("F2").Truncate(5) + "%";
 
         foreach (GameObject button in postScoreButtons)
         {
