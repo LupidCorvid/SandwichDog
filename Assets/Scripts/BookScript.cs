@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class BookScript : MonoBehaviour
 {
@@ -37,9 +38,11 @@ public class BookScript : MonoBehaviour
         {
             case PageDirection.FORWARD:
                 cursor = (cursor + numberOfPagesToIncrement) < pageContents.Length - 1 ? cursor + numberOfPagesToIncrement : cursor;
+                GetComponent<AudioSource>().Play();
                 break;
             case PageDirection.BACKWARD:
                 cursor = (cursor - numberOfPagesToIncrement) > -1 ? cursor - numberOfPagesToIncrement : cursor;
+                GetComponent<AudioSource>().Play();
                 break;
             case PageDirection.STATIC:
                 break;
