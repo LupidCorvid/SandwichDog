@@ -4110,6 +4110,14 @@ PrefabInstance:
       propertyPath: m_InnerSpotAngle
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4587810587012521160, guid: 6714cd62f73e512449068764ec88e381, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706283707629716446, guid: 6714cd62f73e512449068764ec88e381, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4859839488341637367, guid: 6714cd62f73e512449068764ec88e381, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.45
@@ -4165,6 +4173,18 @@ PrefabInstance:
     - target: {fileID: 5304059106711662987, guid: 6714cd62f73e512449068764ec88e381, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.008
+      objectReference: {fileID: 0}
+    - target: {fileID: 5562092362202965265, guid: 6714cd62f73e512449068764ec88e381, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625702922929919687, guid: 6714cd62f73e512449068764ec88e381, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688561474401420234, guid: 6714cd62f73e512449068764ec88e381, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 9136640219982105747, guid: 6714cd62f73e512449068764ec88e381, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4584,13 +4604,29 @@ PrefabInstance:
       propertyPath: directSearAmount
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5803874174264507992, guid: 3072b128b9cf3684b8ee5fc99f16d7bb, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6266177474385088758, guid: 3072b128b9cf3684b8ee5fc99f16d7bb, type: 3}
       propertyPath: m_Name
       value: Stove
       objectReference: {fileID: 0}
+    - target: {fileID: 6526460841373654051, guid: 3072b128b9cf3684b8ee5fc99f16d7bb, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623428886186150211, guid: 3072b128b9cf3684b8ee5fc99f16d7bb, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8670733930548614239, guid: 3072b128b9cf3684b8ee5fc99f16d7bb, type: 3}
       propertyPath: directSearAmount
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707495165967391543, guid: 3072b128b9cf3684b8ee5fc99f16d7bb, type: 3}
+      propertyPath: player
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
