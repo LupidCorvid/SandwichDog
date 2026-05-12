@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Transformers;
@@ -21,16 +22,17 @@ public class Sandwich : Food
         foodStackCollider = stackCollider;
 
         this.isStackable = true;
+        foodWeight = inSandwichBase.BaseFood.FoodWeight + firstFilling.FoodWeight;
 
         foodOrder.Add(sandwichBase.BaseFood);
         StartCoroutine(SandwichFirstStackPhysicsRoutine(firstFilling));
+        
+        inSandwichBase.BaseFood.objOwner = this;
+        firstFilling.objOwner = this;
 
         // disable incoming food ticking, as the sandwich now governs it
         sandwichBase.BaseFood.enabled = false;
         firstFilling.enabled = false;
-
-        this.AcquireChild(sandwichBase.BaseFood);
-        this.AcquireChild(firstFilling);
     }
 
     public void PopTopFood()
@@ -54,7 +56,7 @@ public class Sandwich : Food
         //food.EnableInteractability();
         // leave sandwich hierarchy
         food.transform.SetParent(null, true); 
-        food.foodParent = null;
+        food.objOwner = null;
     }
 
     public override bool Equals(object other)
@@ -74,34 +76,6 @@ public class Sandwich : Food
             if (otherSandwich.foodOrder[i] != this.foodOrder[i]) return false;
         }
         return true;
-    }
-
-    public override FoodRequirement AttemptRemoveFoodFromRecipe(List<FoodRequirement> recipeFoods)
-    {
-        FoodRequirement potentialReq = null;
-        foreach (Food sandwichFood in foodOrder)
-        {
-            potentialReq = sandwichFood.AttemptRemoveFoodFromRecipe(recipeFoods);
-            if (potentialReq != null) return potentialReq;
-        }
-        return null;
-    }
-
-    public override float GetFoodWeight()
-    {
-        return foodOrder.Count;
-    }
-
-    public override float AttemptScoreFood(List<FoodRequirement> recipeRequirements)
-    {
-        if (foodOrder.Count == 0) return 0.0f;
-
-        float scoreSum = 0.0f;
-        foreach (Food food in foodOrder)
-        {
-            scoreSum += food.AttemptScoreFood(recipeRequirements);
-        }
-        return scoreSum;
     }
 
     private IEnumerator SandwichFirstStackPhysicsRoutine(Food targetFood)
@@ -143,11 +117,13 @@ public class Sandwich : Food
 
         SnapToTop(targetFood);
         this.RigidBody.WakeUp();
+        //SnapToTop(TopFood, targetFood);
 
         yield return new WaitForFixedUpdate();
         this.RigidBody.ResetCenterOfMass();
 
         foodOrder.Add(targetFood);
+        foodWeight += targetFood.FoodWeight;
     }
 
     public void SnapToTop(Food target)
