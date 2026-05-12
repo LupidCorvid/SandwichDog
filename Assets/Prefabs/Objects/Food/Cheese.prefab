@@ -334,12 +334,13 @@ MonoBehaviour:
   objOwner: {fileID: 0}
   canGetDirty: 1
   canGetClean: 0
-  amountToDirtyPerSecond: 0.1
+  amountToDirtyPerSecond: 0.05
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
   currentSpread: 0
   possibleSpreads: {fileID: 0}
+  foodWeight: 1
   smokeVFX: {fileID: 0}
   isCookable: 1
   isOvercooked: 0
@@ -350,7 +351,6 @@ MonoBehaviour:
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 0.735849, g: 0.33671314, b: 0.0597009, a: 0}
-  foodParent: {fileID: 0}
   isStackable: 1
   isStackBase: 0
   stackBase: {fileID: 0}

@@ -11,6 +11,9 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Food : ObjClass
 {
+    [SerializeField] protected float foodWeight = 1.0f;
+    public float FoodWeight => foodWeight;
+
     // === SPREADS === //
     private GameObject topSpread;
     private GameObject bottomSpread;
@@ -41,7 +44,6 @@ public class Food : ObjClass
     private Color burntColor = Color.black;
 
     // === STACKABILITY === //
-    [HideInInspector] public Food foodParent;
     [SerializeField] public bool isStackable;
     [SerializeField] private bool isStackBase;
     [SerializeField] private SandwichBase stackBase;
@@ -85,48 +87,6 @@ public class Food : ObjClass
         }
     }
 
-    // this is probably scuffed with the null return but it'll do
-    public virtual FoodRequirement AttemptRemoveFoodFromRecipe(List<FoodRequirement> recipeFoods)
-    {
-        FoodRequirement potentialReq = null;
-
-        for (int i = 0; i < recipeFoods.Count; i++)
-        {
-            if (recipeFoods[i].food.Equals(this))
-            {
-                FoodRequirement reqToReturn = recipeFoods[i];
-                recipeFoods.RemoveAt(i);
-                return reqToReturn;
-            }
-            if (recipeFoods[i].food.BaseInfoEquals(this))
-            {
-                potentialReq = recipeFoods[i];
-            }
-        }
-        if (potentialReq != null)
-        {
-            recipeFoods.Remove(potentialReq);
-        }
-
-        return potentialReq;
-    }
-
-    public virtual float GetFoodWeight()
-    {
-        return 1.0f;
-    }
-
-    public virtual float AttemptScoreFood(List<FoodRequirement> recipeRequirements)
-    {
-        FoodRequirement foodRequirementMet = this.AttemptRemoveFoodFromRecipe(recipeRequirements);
-        // only applies pos influence if present in recipe
-        if (foodRequirementMet != null)
-        {
-            return ScoreFood(foodRequirementMet);
-        }
-        return 0.0f;
-    }
-
     public virtual float ScoreFood(FoodRequirement requirement)
     {
         float scoreSum = 0.0f;
@@ -137,30 +97,31 @@ public class Food : ObjClass
             if (requirement.spread == this.currentSpread)
             {
                 scoreSum += 1.0f;
-                Debug.Log("adding 1.0 from spread match");
-            } else { Debug.Log("adding 0.0 from spread match"); }
+                //Debug.Log("adding 1.0 from spread match");
+            }
+           //} else { Debug.Log("adding 0.0 from spread match"); }
             factorsScored += 1.0f;
         }
         if (requirement.isCooked)
         {
             scoreSum += Mathf.SmoothStep(0.0f, 1.0f, (cookAmount / timeToCook));
-            Debug.Log("adding " + Mathf.SmoothStep(0.0f, 1.0f, (cookAmount / timeToCook)) + " from cooking");
+            //Debug.Log("adding " + Mathf.SmoothStep(0.0f, 1.0f, (cookAmount / timeToCook)) + " from cooking");
             factorsScored += 1.0f;
 
             if (isOvercooked)
             {
                 scoreSum -= Mathf.SmoothStep(0.0f, 1.0f, overcookAmount);
-                Debug.Log("subtracting " + Mathf.SmoothStep(0.0f, 1.0f, overcookAmount) + " from overcooking");
+                //Debug.Log("subtracting " + Mathf.SmoothStep(0.0f, 1.0f, overcookAmount) + " from overcooking");
             }
         }
         if (canGetDirty)
         {
             scoreSum += Mathf.SmoothStep(0.0f, 1.0f, objCleanliness);
-            Debug.Log("adding " + Mathf.SmoothStep(0.0f, 1.0f, objCleanliness) + " from cleanliness");
+            //Debug.Log("adding " + Mathf.SmoothStep(0.0f, 1.0f, objCleanliness) + " from cleanliness");
             factorsScored += 1.0f;
         }
         float score = (scoreSum / factorsScored);
-        Debug.Log(this.objName + " has a score of " + score);
+        //Debug.Log(this.objName + " has a score of " + score);
 
         return score;
     }

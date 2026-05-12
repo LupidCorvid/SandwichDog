@@ -171,20 +171,6 @@ public class ObjClass : MonoBehaviour
         {
             Debug.Log(this.objName + " VS " + otherObj.objName);
             return this.objName == otherObj.objName &&
-                this.objType == otherObj.objType && this.currentSpread == otherObj.currentSpread;
-        }
-        return false;
-    }
-
-    public bool BaseInfoEquals(object other)
-    {
-        ObjClass otherObj = other as ObjClass;
-
-        Debug.Log("Obj Class Equals check");
-        if (otherObj)
-        {
-            Debug.Log(this.objName + " VS " + otherObj.objName);
-            return this.objName == otherObj.objName && 
                 this.objType == otherObj.objType;
         }
         return false;
