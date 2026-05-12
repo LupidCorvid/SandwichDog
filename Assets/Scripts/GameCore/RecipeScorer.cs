@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,6 +19,7 @@ public class RecipeScorer : MonoBehaviour
 
     //The objects the player brought to the end game area, added via end area OnTriggerEnter
     private List<Food> foodsToScore = new List<Food>();
+    private List<Sandwich> sandwiches = new List<Sandwich>(); // TODO(?) HACK way to store list of sandwiches in end zone
     private List<FoodRequirement> recipeRequirements;
 
     public TMP_Text recipeToMakeText;
@@ -56,7 +58,6 @@ public class RecipeScorer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         Food targetFood = other.GetComponent<Food>();
 
         if (!targetFood) return;
@@ -67,7 +68,21 @@ public class RecipeScorer : MonoBehaviour
             targetFood = targetFood.objOwner as Food;
         }
 
-        if (targetFood)
+        Sandwich targetSandwich = targetFood as Sandwich;
+        if (targetSandwich != null)
+        {
+            if (!sandwiches.Any(sandwich => ReferenceEquals(targetSandwich, sandwich)))
+            {
+                foreach (Food food in targetSandwich.foodOrder)
+                {
+                    Debug.Log(other.name + " HAS ENTERED END ZONE VIA SANDWICH");
+                    foodsToScore.Add(food);
+                }
+                sandwiches.Add(targetSandwich);
+            }
+            return;
+        }
+        else if (targetFood)
         {
             Debug.Log(other.name + " HAS ENTERED END ZONE");
             foodsToScore.Add(targetFood);
@@ -85,7 +100,13 @@ public class RecipeScorer : MonoBehaviour
             targetFood = targetFood.objOwner as Food;
         }
 
-        if (targetFood)
+        Sandwich targetSandwich = targetFood as Sandwich;
+        if (targetSandwich != null)
+        {
+            sandwiches.Remove(targetSandwich);
+            return;
+        }
+        else if (targetFood)
         {
             Debug.Log(other.name + " HAS LEFT THE END ZONE");
             foodsToScore.Remove(targetFood);
@@ -140,17 +161,17 @@ public class RecipeScorer : MonoBehaviour
 
         while (currRecipeIdx < recipeRequirements.Count)
         {
-            //Debug.Log("our curr recipe reqs are:");
-            //for (int i = 0; i < recipeRequirements.Count; i++)
-            //{
-            //    Debug.Log(recipeRequirements[i].food.name);
-            //}
-            //Debug.Log("our curr foods to score are:");
-            //for (int i = 0; i < foodsToScore.Count; i++)
-            //{
-            //    Debug.Log(foodsToScore[i].name);
-            //}
-            //Debug.Log("our curr recipe idx is: " + currRecipeIdx);
+            Debug.Log("our curr recipe reqs are:");
+            for (int i = 0; i < recipeRequirements.Count; i++)
+            {
+                Debug.Log(recipeRequirements[i].food.name);
+            }
+            Debug.Log("our curr foods to score are:");
+            for (int i = 0; i < foodsToScore.Count; i++)
+            {
+                Debug.Log(foodsToScore[i].name);
+            }
+            Debug.Log("our curr recipe idx is: " + currRecipeIdx);
 
             currReq = recipeRequirements[currRecipeIdx];
             bestScore = 0;
@@ -211,7 +232,7 @@ public class RecipeScorer : MonoBehaviour
                 recipeRequirements.RemoveAt(reqToRemoveIdx);
                 foodsToScore.RemoveAt(foodToRemoveIdx);
                 // account for going back if curr recipe was used in the match
-                if (reqToRemoveIdx == currRecipeIdx)
+                if (reqToRemoveIdx == currRecipeIdx && currRecipeIdx > 0)
                 {
                     currRecipeIdx--;
                 }
