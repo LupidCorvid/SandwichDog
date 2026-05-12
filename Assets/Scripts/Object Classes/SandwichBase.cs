@@ -12,20 +12,20 @@ public class SandwichBase : MonoBehaviour
     [SerializeField] GameObject emptySandwichObject;
     [SerializeField] public FoodStackCollider topStackCollider;
     [SerializeField] public FoodStackCollider bottomStackCollider;
-    private Sandwich sandwich;
+    private Sandwich sandwich = null;
     public void TryBuildSandwich(GameObject incomingObject, FoodStackCollider triggeredCollider)
     {
         //Debug.Log(other.gameObject.name + " definitely entered collider!");
         SandwichBase otherSandwichBase;
         incomingObject.TryGetComponent<SandwichBase>(out otherSandwichBase);
 
-        if (otherSandwichBase)
+        if (!this.sandwich && otherSandwichBase && !otherSandwichBase.sandwich)
         {
             // prevent unintentional creation of sandwiches
-            if (!otherSandwichBase.BaseFood.inHand && !this.BaseFood.inHand) return;
+            //if (!otherSandwichBase.BaseFood.inHand && !this.BaseFood.inHand) return;
 
             // prevent forming purely bread sandwiches
-            if (otherSandwichBase.BaseFood.CurrentSpread == Spread.NO_SPREAD && this.BaseFood.CurrentSpread == Spread.NO_SPREAD) return;
+            //if (otherSandwichBase.BaseFood.CurrentSpread == Spread.NO_SPREAD && this.BaseFood.CurrentSpread == Spread.NO_SPREAD) return;
 
             // whichever sandwich base is moving more will relinquish ownership to the other
             if (this.BaseFood.RigidBody.linearVelocity.magnitude < otherSandwichBase.BaseFood.RigidBody.linearVelocity.magnitude)
@@ -53,6 +53,9 @@ public class SandwichBase : MonoBehaviour
                         closestOtherCollider = otherSandwichBase.bottomStackCollider;
                     }
 
+                    Debug.Log(this.name + " has called BuildSandwich on " + otherSandwichBase.name);
+                    this.enabled = false;
+                    otherSandwichBase.isInitializing = true;
                     otherSandwichBase.BuildSandwich(otherSandwichBase, this.BaseFood, closestOtherCollider);
                     this.DisableBothTriggers();
                 }
@@ -63,22 +66,23 @@ public class SandwichBase : MonoBehaviour
 
         if (!targetFood) return;
         if (!targetFood.isStackable) return;
-        if (!targetFood.inHand && !this.BaseFood.inHand) return;
+        //if (!targetFood.inHand && !this.BaseFood.inHand) return;
+        if (!targetFood.enabled) return;
         if (sandwich)
         {
             if (targetFood.transform.IsChildOf(sandwich.transform)) return;
         }
 
-        if (!sandwich && !isInitializing)
+        if (sandwich && sandwich.isStackable)
+        {
+            //Debug.Log("sandwich exists");
+            sandwich.AddToSandwich(targetFood);
+
+        }
+        else if (!sandwich && !isInitializing)
         {
             isInitializing = true;
             BuildSandwich(this, targetFood, triggeredCollider);
-        }
-        else if (sandwich)
-        {
-            Debug.Log("sandwich exists");
-            sandwich.AcquireChild(targetFood);
-
         }
         // TODO setup so that position starts to lerp in update
     }
