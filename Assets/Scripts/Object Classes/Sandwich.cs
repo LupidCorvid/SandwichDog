@@ -96,8 +96,8 @@ public class Sandwich : Food
         //    0.0f)
         //    , Space.Self);
 
-        sandwichBase.BaseFood.foodParent = this;
-        targetFood.foodParent = this;
+        sandwichBase.BaseFood.objOwner = this;
+        targetFood.objOwner = this;
 
         SnapToTop(targetFood);
         this.RigidBody.WakeUp();
@@ -113,7 +113,7 @@ public class Sandwich : Food
         targetFood.TransferAndDisableRigidBodiesTo(this);
         targetFood.transform.SetParent(this.transform, true);
 
-        targetFood.foodParent = this;
+        targetFood.objOwner = this;
 
         SnapToTop(targetFood);
         this.RigidBody.WakeUp();
