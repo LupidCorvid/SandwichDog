@@ -68,7 +68,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stackCollider: {fileID: 1816911305113296994}
-  emptySandwichObject: {fileID: 4766069664014610040, guid: e887bdb896bb6174b917b945f33356b7, type: 3}
   sandwichBase: {fileID: 8449596220253142055}
   timeToSnap: 0
   timeSpentSnapping: 0
@@ -448,7 +447,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stackCollider: {fileID: 5520592698932627217}
-  emptySandwichObject: {fileID: 4766069664014610040, guid: e887bdb896bb6174b917b945f33356b7, type: 3}
   sandwichBase: {fileID: 8449596220253142055}
   timeToSnap: 0
   timeSpentSnapping: 0
@@ -619,12 +617,14 @@ MonoBehaviour:
   objName: TestTomatoBase
   objSettings: {fileID: 11400000, guid: c6dc87bd12cfbb74e956bd9870cb3e46, type: 2}
   overrideGlobalSettings: 1
+  objOwner: {fileID: 0}
   canGetDirty: 0
   canGetClean: 0
   amountToDirtyPerSecond: 0.1
   amountToCleanPerSecond: 0
   dirtMaterial: {fileID: 2100000, guid: e983a1c6986e17149be43a771555eb95, type: 2}
   canHaveSpreads: 0
+  currentSpread: 0
   possibleSpreads: {fileID: 0}
   smokeVFX: {fileID: 0}
   isCookable: 0
@@ -636,6 +636,7 @@ MonoBehaviour:
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 0, g: 0, b: 0, a: 0}
+  foodParent: {fileID: 0}
   isStackable: 1
   isStackBase: 0
   stackBase: {fileID: 0}
@@ -829,5 +830,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseFood: {fileID: 2836815545867167559}
+  emptySandwichObject: {fileID: 4766069664014610040, guid: e887bdb896bb6174b917b945f33356b7, type: 3}
   topStackCollider: {fileID: 5090447128212603053}
   bottomStackCollider: {fileID: 3096497373507951353}

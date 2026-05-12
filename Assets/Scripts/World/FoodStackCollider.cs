@@ -29,7 +29,7 @@ public class FoodStackCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        sandwichBase.TryBuildSandwich(other.gameObject, this);
+        if (sandwichBase.enabled) sandwichBase.TryBuildSandwich(other.gameObject, this);
     }
 
     private void FixedUpdate()
