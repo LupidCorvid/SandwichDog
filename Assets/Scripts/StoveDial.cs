@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Audio;
 
 
 //This script is specialized for the Stove Dials
@@ -21,10 +22,13 @@ public class StoveDial : MonoBehaviour
     public bool rotationEnabled = false;
 
     List<Material> materials;
+    AudioSource audioSource;
 
     void Awake()
     {
         cookingArea.GetComponent<CookCollider>().enabled = false;
+        audioSource = GetComponent<AudioSource>();
+
         flames.SetActive(false);
 
         materials = indicator.GetComponent<MeshRenderer>().materials.ToList();
