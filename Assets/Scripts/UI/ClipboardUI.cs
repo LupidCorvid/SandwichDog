@@ -102,27 +102,27 @@ public class ClipboardUI : MonoBehaviour
             {
                 if (recipeFood.ObjName == "Bread")
                 {
-                    instructionInfo += "Toast the " + recipeFood.name;
+                    instructionInfo += "Toast the " + recipeFood.name.ToLower();
                 }
                 else
                 {
-                    instructionInfo += "Cook the " + recipeFood.name;
+                    instructionInfo += "Cook the " + recipeFood.name.ToLower();
                 }
             }
 
             if (recipeReq.spread != Spread.NO_SPREAD)
             {
                 string spreadName = recipeReq.spread.ToString().Replace("_", " ").ToLower();
-                instructionInfo += "Spread the " + spreadName + " on the " + recipeFood.name;
+                instructionInfo += "Spread the " + spreadName + " on the " + recipeFood.name.ToLower();
             }
             if (recipeFood.SliceSource)
             {
-                instructionInfo  += "Chop the " + recipeFood.SliceSource.name;
+                instructionInfo  += "Chop the " + recipeFood.SliceSource.name.ToLower();
             }
 
             if (instructionInfo.Length == 0)
             {
-                instructionInfo += "Add the " + recipeFood.name;
+                instructionInfo += "Get the " + recipeFood.name.ToLower();
             }
 
             //PushNewInstruction(instructionMsg);
