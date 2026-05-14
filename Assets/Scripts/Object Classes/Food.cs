@@ -105,8 +105,8 @@ public class Food : ObjClass
         }
         if (requirement.isCooked)
         {
-            scoreSum += Mathf.SmoothStep(0.0f, 1.0f, (cookAmount / timeToCook));
-            //Debug.Log("adding " + Mathf.SmoothStep(0.0f, 1.0f, (cookAmount / timeToCook)) + " from cooking");
+            scoreSum += Mathf.SmoothStep(0.0f, 1.0f, ((cookAmount * timeToCook) / TimeToCook));
+            //Debug.Log("adding " + Mathf.SmoothStep(0.0f, 1.0f, (cookAmount * timeToCook) / TimeToCook)) + " from cooking");
             factorsScored += 1.0f;
 
             if (isOvercooked)
