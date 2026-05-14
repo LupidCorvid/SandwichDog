@@ -517,7 +517,7 @@ MonoBehaviour:
   isBurnt: 0
   timeToCook: 30
   postCookGraceTime: 0
-  timeToBurn: 20
+  timeToBurn: 10
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 0.6509804, g: 0.3019608, b: 0, a: 0}

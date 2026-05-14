@@ -345,7 +345,7 @@ MonoBehaviour:
   isCookable: 1
   isOvercooked: 0
   isBurnt: 0
-  timeToCook: 10
+  timeToCook: 20
   postCookGraceTime: 5
   timeToBurn: 10
   cookAmount: 0
