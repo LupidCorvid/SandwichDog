@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using TMPro;
 using Unity.VisualScripting;
@@ -42,6 +43,8 @@ public class Instruction
 
 public class ClipboardUI : MonoBehaviour
 {
+    private const int MIN_INSTRUCT_LEN = 3;
+
     //private GameObject instructionTemplateObj;
     //private Instruction instructionTemplate;
 
@@ -61,6 +64,10 @@ public class ClipboardUI : MonoBehaviour
         // canvas height / (instruction height+space between instructs) = num instructions per page
         //maxNumLinesPerPage = (int)(LayoutUtility.GetPreferredHeight((RectTransform)clipboardCanvas.transform) / instructionTemplate.Text.preferredHeight);
 
+    }
+
+    private void Start()
+    {
         LoadRecipeToClipboard(GameplayManager.Instance.gameLevel.levelRecipe);
     }
 
@@ -76,46 +83,66 @@ public class ClipboardUI : MonoBehaviour
 
     private void LoadRecipeToClipboard(Recipe_SO recipeToLoad)
     {
+        List<string> instructions = new List<string>();
         int instructionNum = 1;
-        string instructionMsg = "";
+        string clipboardText = "";
 
         //instructionsHeader.text = recipeToLoad.name;
 
         foreach (FoodRequirement recipeReq in recipeToLoad.requiredFood)
         {
+            string fullInstruction = "";
+            string instructionInfo = "";
+
             Food recipeFood = recipeReq.food;
 
-            instructionMsg += instructionNum.ToString() + ". ";
+            fullInstruction += instructionNum.ToString() + ". ";
 
             if (recipeReq.isCooked)
             {
-                instructionMsg += "Cook the " + recipeFood.name;
+                if (recipeFood.ObjName == "Bread")
+                {
+                    instructionInfo += "Toast the " + recipeFood.name;
+                }
+                else
+                {
+                    instructionInfo += "Cook the " + recipeFood.name;
+                }
             }
 
             if (recipeReq.spread != Spread.NO_SPREAD)
             {
                 string spreadName = recipeReq.spread.ToString().Replace("_", " ").ToLower();
-                instructionMsg += "Spread " + spreadName + " on the " + recipeFood.name;
+                instructionInfo += "Spread the " + spreadName + " on the " + recipeFood.name;
             }
             if (recipeFood.SliceSource)
             {
-                instructionMsg += "Chop the " + recipeFood.SliceSource.name;
+                instructionInfo  += "Chop the " + recipeFood.SliceSource.name;
             }
 
             //PushNewInstruction(instructionMsg);
-            instructionMsg += "\n";
-            instructionNum++;
+            if (instructionInfo.Length > 0)
+            {
+                // only add novel instructions
+                if (!instructions.Any(instruction => instruction == instructionInfo))
+                {
+                    instructions.Add(instructionInfo);
+                    fullInstruction += instructionInfo;
+                    clipboardText += fullInstruction + "\n";
+                    instructionNum++;
+                }
+            }
         }
 
-        instructionMsg += "Construct the sandwich!";
-        instructionMsg += "\n";
+        clipboardText += "Construct the sandwich!";
+        clipboardText += "\n";
         instructionNum++;
 
 
-        instructionMsg += instructionNum.ToString() + ". ";
-        instructionMsg += "Deliver the food to your owner!";
+        clipboardText += instructionNum.ToString() + ". ";
+        clipboardText += "Deliver the food to your owner!";
 
-        instructionsHeader.text = instructionMsg;
+        instructionsHeader.text = clipboardText;
     }
 
     //private void PushNewInstruction(string instruction)

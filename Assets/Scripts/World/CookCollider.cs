@@ -62,7 +62,7 @@ public class FoodCooker : TimerCollider<Food>
 
     protected override void TickTimer(Food food, float timePassed)
     {
-        Debug.Log("food sear cook");
+        //Debug.Log("food sear cook");
         food.Cook(timePassed * heatLevel * cookMultiplier);
     }
 

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419e3f6578aeeb44ea81e2bdbcdfbf0b, type: 3}
+  m_Name: Lvl_3_Recipe
+  m_EditorClassIdentifier: 
+  requiredFood:
+  - food: {fileID: 1055270508630881268, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
+    spread: 0
+    isCooked: 0
+  - food: {fileID: 5904644210900341687, guid: 53a18e9d008885c4badc4977b7d4babd, type: 3}
+    spread: 0
+    isCooked: 0
+  - food: {fileID: 4259475890410242438, guid: 5831f17a4228d0744a578e361389351f, type: 3}
+    spread: 0
+    isCooked: 1
+  - food: {fileID: 1055270508630881268, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
+    spread: 0
+    isCooked: 0
+  - food: {fileID: 1055270508630881268, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
+    spread: 0
+    isCooked: 0

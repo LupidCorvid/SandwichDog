@@ -35,9 +35,6 @@ public class RecipeScorer : MonoBehaviour
         displayText.text = "";
         scoreText.text = "";
 
-        if (GameplayManager.Instance.currentLevel == 1) recipeToMakeText.text = "Make a PBJ!";
-        else if (GameplayManager.Instance.currentLevel == 2) recipeToMakeText.text = "Make a Grilled Cheese!";
-
         timer = waitTimeBeforeScoring;
 
         foreach (GameObject button in postScoreButtons)
@@ -49,6 +46,11 @@ public class RecipeScorer : MonoBehaviour
     private void Start()
     {
         recipeRequirements = new List<FoodRequirement>(GameplayManager.Instance.gameLevel.levelRecipe.requiredFood);
+
+        if (GameplayManager.Instance.currentLevel == 1) recipeToMakeText.text = "Make a PBJ!";
+        else if (GameplayManager.Instance.currentLevel == 2) recipeToMakeText.text = "Make a Grilled Cheese!";
+        else if (GameplayManager.Instance.currentLevel == 3) recipeToMakeText.text = "Make a Chicken Sandwich!";
+
     }
 
     private void OnEnable()

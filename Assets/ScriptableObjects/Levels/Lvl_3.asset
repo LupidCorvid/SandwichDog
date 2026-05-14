@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 452515afe16c6dc42bdf3e3cc3505ff4, type: 3}
-  m_Name: Lvl_2
+  m_Name: Lvl_3
   m_EditorClassIdentifier: 
-  levelNumber: 2
+  levelNumber: 3
   hasTutorialInfo: 1
   levelObjects: {fileID: 0}
-  levelRecipe: {fileID: 11400000, guid: bbcec2c9f2fe7d14099379dc94709da3, type: 2}
-  nextLevel: {fileID: 11400000}
+  levelRecipe: {fileID: 11400000, guid: ff681ae9d7a4a9c4a9974fce18ac858e, type: 2}
+  nextLevel: {fileID: 0}
   firstLevel: {fileID: 11400000, guid: 5033a3432df9b594a9aea6f07df38de4, type: 2}
