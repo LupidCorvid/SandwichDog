@@ -68,6 +68,7 @@ public class StoveDial : MonoBehaviour
         {
             burnerOn = true;
             cookingArea.SetActive(true);
+            flames.SetActive(true);
             indicator.GetComponent<MeshRenderer>().material = materials[1];
 
             //indicator.GetComponent<MeshRenderer>().material = indicator.GetComponent<MeshRenderer>().materials[1];
