@@ -231,6 +231,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 549260605306834584}
+  - {fileID: 6821134395715620487}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5343230833234234282
@@ -521,16 +522,47 @@ MonoBehaviour:
   cookAmount: 0
   overcookAmount: 0
   cookedColor: {r: 0.6509804, g: 0.3019608, b: 0, a: 0}
-  isStackable: 0
+  isStackable: 1
   isStackBase: 0
   stackBase: {fileID: 0}
-  topPoint: {fileID: 0}
+  topPoint: {fileID: 6821134395715620487}
   debugFoodToSnapTo: {fileID: 0}
   isSliceable: 0
   numCutsNeeded: 0
   slicedResultObject: {fileID: 0}
   wasSliced: 0
   sliceSource: {fileID: 0}
+--- !u!1 &4566568095269999095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6821134395715620487}
+  m_Layer: 0
+  m_Name: ChickenTopPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6821134395715620487
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566568095269999095}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.068, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1512689921320302151}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8600460518966912734
 GameObject:
   m_ObjectHideFlags: 0
