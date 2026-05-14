@@ -9,7 +9,9 @@ using UnityEngine.Audio;
 
 public class StoveDial : MonoBehaviour
 {
-    public GameObject cookingArea;
+    [SerializeField] GameObject cookingArea;
+    //[SerializeField] CookCollider cookCollider;
+
     public GameObject flames;
     public GameObject indicator;
 
@@ -24,19 +26,19 @@ public class StoveDial : MonoBehaviour
     List<Material> materials;
     AudioSource audioSource;
 
-    void Awake()
+    public void Awake()
     {
-        cookingArea.GetComponent<CookCollider>().enabled = false;
         audioSource = GetComponent<AudioSource>();
 
         flames.SetActive(false);
+        cookingArea.SetActive(false);
 
         materials = indicator.GetComponent<MeshRenderer>().materials.ToList();
         materials.Insert(0, indicator.GetComponent<MeshRenderer>().materials[0]);
         materials.Insert(1, indicator.GetComponent<MeshRenderer>().materials[1]);
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         if (rotationEnabled)
         {
@@ -49,7 +51,7 @@ public class StoveDial : MonoBehaviour
 
     //Makes sure the dial doesn't turn too far
     //TODO: test this
-    void KeepDialInBounds(float curr)
+    public void KeepDialInBounds(float curr)
     {
         //Undershot (wrap around from 360)
         if (curr > 360 - errorWindow * 5 && curr < 360 - errorWindow * 2) gameObject.transform.localEulerAngles = new Vector3(gameObject.transform.localEulerAngles.x, gameObject.transform.localEulerAngles.y, lowerBound - .5f);
@@ -58,15 +60,14 @@ public class StoveDial : MonoBehaviour
         else if (curr > maxRotation) gameObject.transform.localEulerAngles = new Vector3(gameObject.transform.localEulerAngles.x, gameObject.transform.localEulerAngles.y, maxRotation - 1);
     }
 
-    void CheckToTurnOnStove(float curr)
+    private void CheckToTurnOnStove(float curr)
     {
         //Turn on burner
         //180 +- error
         if (curr > (upperBound - errorWindow) && curr < (upperBound + errorWindow) && !burnerOn)
         {
             burnerOn = true;
-            cookingArea.GetComponent<CookCollider>().enabled = true;
-            flames.SetActive(true);
+            cookingArea.SetActive(true);
             indicator.GetComponent<MeshRenderer>().material = materials[1];
 
             //indicator.GetComponent<MeshRenderer>().material = indicator.GetComponent<MeshRenderer>().materials[1];
@@ -77,7 +78,7 @@ public class StoveDial : MonoBehaviour
         if (curr < (lowerBound + errorWindow) || curr > (360 - errorWindow) && burnerOn)
         {
             burnerOn = false;
-            cookingArea.GetComponent<CookCollider>().enabled = false;
+            cookingArea.SetActive(false);
             flames.SetActive(false);
             indicator.GetComponent<MeshRenderer>().material = materials[0];
         }
