@@ -516,7 +516,7 @@ MonoBehaviour:
   isOvercooked: 0
   isBurnt: 0
   timeToCook: 30
-  postCookGraceTime: 0
+  postCookGraceTime: 5
   timeToBurn: 10
   cookAmount: 0
   overcookAmount: 0
