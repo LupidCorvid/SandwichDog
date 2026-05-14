@@ -120,6 +120,11 @@ public class ClipboardUI : MonoBehaviour
                 instructionInfo  += "Chop the " + recipeFood.SliceSource.name;
             }
 
+            if (instructionInfo.Length == 0)
+            {
+                instructionInfo += "Add the " + recipeFood.name;
+            }
+
             //PushNewInstruction(instructionMsg);
             if (instructionInfo.Length > 0)
             {
@@ -134,6 +139,7 @@ public class ClipboardUI : MonoBehaviour
             }
         }
 
+        clipboardText += instructionNum.ToString() + ". ";
         clipboardText += "Construct the sandwich!";
         clipboardText += "\n";
         instructionNum++;

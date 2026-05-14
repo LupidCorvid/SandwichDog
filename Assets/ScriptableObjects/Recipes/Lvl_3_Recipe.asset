@@ -15,6 +15,9 @@ MonoBehaviour:
   requiredFood:
   - food: {fileID: 1055270508630881268, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
     spread: 0
+    isCooked: 1
+  - food: {fileID: 2302849158592332308, guid: 82432f1bddfade843a50340d0e979077, type: 3}
+    spread: 0
     isCooked: 0
   - food: {fileID: 5904644210900341687, guid: 53a18e9d008885c4badc4977b7d4babd, type: 3}
     spread: 0
@@ -24,7 +27,4 @@ MonoBehaviour:
     isCooked: 1
   - food: {fileID: 1055270508630881268, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
     spread: 0
-    isCooked: 0
-  - food: {fileID: 1055270508630881268, guid: abc9e301c863d1a44ba7bce3210e37a5, type: 3}
-    spread: 0
-    isCooked: 0
+    isCooked: 1
