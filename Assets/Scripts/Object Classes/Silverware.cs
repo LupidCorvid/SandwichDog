@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.Audio;
 
 public class Silverware : ObjClass
 {
@@ -25,6 +26,7 @@ public class Silverware : ObjClass
             if (this.HasSpread && !foodObj.HasSpread)
             {
                 otherObject.AddSpread(this.currentSpread, this.transform);
+                gameObject.GetComponent<AudioSource>().Play();
             }
             if (foodObj.IsSliceable && this.isSlicer)
             {
