@@ -17,6 +17,7 @@ public class ContainerCollider<T> : MonoBehaviour
         T script = other.gameObject.GetComponentInChildren<T>();
 
         if (!script) return;
+        if (!script.enabled) return;
         if (!CanAddItem(script)) return;
 
         if (!items.Any(item => ReferenceEquals(item, script))) ;
@@ -30,6 +31,7 @@ public class ContainerCollider<T> : MonoBehaviour
     {
         T script = other.gameObject.GetComponentInChildren<T>();
         if (!script) return;
+        if (!script.enabled) return;
 
         items.Remove(script);
     }
