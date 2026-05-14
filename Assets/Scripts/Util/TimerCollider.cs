@@ -49,6 +49,11 @@ public class TimerCollider<T> : MonoBehaviour
         return false;
     }
 
+    protected virtual void OnTimerRemoved(T script)
+    {
+
+    }
+
     public void AddTimer(T script)
     {
         timers.Add(new Timer<T>(script));
@@ -58,6 +63,7 @@ public class TimerCollider<T> : MonoBehaviour
 
     public void RemoveTimer(Timer<T> timer)
     {
+        OnTimerRemoved(timer.GetObject());
         timer.GetObject().OnReceiveTimers -= this.RemoveObjectTimer;
         timer.GetObject().OnReceiveTimers -= this.AddObjectTimer;
         timers.Remove(timer);

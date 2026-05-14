@@ -30,6 +30,18 @@ class CookCollider : MonoBehaviour
         directCooker.heatLevel = heatLevel * directSearAmount;
         indirectCooker.heatLevel = heatLevel;
     }
+
+    public void OnDisable()
+    {
+        indirectCooker.enabled = false;
+        directCooker.enabled = false;
+    }
+
+    public void OnEnable()
+    {
+        indirectCooker.enabled = true;
+        directCooker.enabled = true;
+    }
 }
 
 public class CookwareCooker : TimerCollider<Cookware>
@@ -54,13 +66,19 @@ public class FoodCooker : TimerCollider<Food>
         food.Cook(timePassed * heatLevel * cookMultiplier);
     }
 
-    protected override bool ShouldRemoveTimer(Food food)
-    {
-        return food.IsBurnt;
-    }
-
     protected override bool CanAddTimer(Food food)
     {
         return food.IsCookable ? true : false;
+    }
+
+    protected override bool ShouldRemoveTimer(Food food)
+    {
+        //return food.IsBurnt; // TODO(?) HACK WAY TO ENSURE SMOKE CONTINUES TO GET ADDED/REMOVED
+        return false;
+    }
+
+    protected override void OnTimerRemoved(Food food)
+    {
+        food.RemoveSmoke();
     }
 }

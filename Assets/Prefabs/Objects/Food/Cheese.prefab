@@ -341,12 +341,12 @@ MonoBehaviour:
   currentSpread: 0
   possibleSpreads: {fileID: 0}
   foodWeight: 1
-  smokeVFX: {fileID: 0}
+  smokeVFXReference: {fileID: 6064021702640610610, guid: 53f324e9eca8cd048a75ca302707d9aa, type: 3}
   isCookable: 1
   isOvercooked: 0
   isBurnt: 0
   timeToCook: 10
-  postCookGraceTime: 0
+  postCookGraceTime: 5
   timeToBurn: 10
   cookAmount: 0
   overcookAmount: 0

@@ -19,7 +19,8 @@ public class Food : ObjClass
     private GameObject bottomSpread;
 
     // === COOKABILITY === //
-    [SerializeField] protected GameObject smokeVFX;
+    [SerializeField] protected GameObject smokeVFXReference;
+    private Smoke smoke = null;
 
     [SerializeField] protected bool isCookable;
     [SerializeField] protected bool isOvercooked;
@@ -153,23 +154,29 @@ public class Food : ObjClass
             cookAmount = Mathf.Clamp((cookAmount + (timePassed / timeToCook)), 0.0f, 1.0f);
             Color cookColor = Color.Lerp(cleanColor, cookedColor, cookAmount);
             objRenderer.material.SetColor("_BaseColor", cookColor);
-        }
-        else if (postCookGraceTime < 0.0f)
-        {
-            postCookGraceTime -= timePassed;
-        }
-        else if (overcookAmount < 1.0f)
-        {
-            isOvercooked = true;
-            overcookAmount = Mathf.Clamp((overcookAmount + (timePassed / timeToBurn)), 0.0f, 1.0f);
-            Color overcookColor = Color.Lerp(cookedColor, burntColor, overcookAmount);
-            objRenderer.material.SetColor("_BaseColor", overcookColor);
+            Debug.Log(cookAmount);
         }
         else
         {
-            isBurnt = true;
-            overcookAmount = 1.0f;
-            objRenderer.material.SetColor("_BaseColor", burntColor);
+            AddSmoke();
+
+            if (postCookGraceTime > 0.0f)
+            {
+                postCookGraceTime -= timePassed;
+            }
+            else if (overcookAmount < 1.0f)
+            {
+                isOvercooked = true;
+                overcookAmount = Mathf.Clamp((overcookAmount + (timePassed / timeToBurn)), 0.0f, 1.0f);
+                Color overcookColor = Color.Lerp(cookedColor, burntColor, overcookAmount);
+                objRenderer.material.SetColor("_BaseColor", overcookColor);
+            }
+            else
+            {
+                isBurnt = true;
+                overcookAmount = 1.0f;
+                objRenderer.material.SetColor("_BaseColor", burntColor);
+            }
         }
     }
 
@@ -187,6 +194,26 @@ public class Food : ObjClass
                 return;
             }
             GameplayManager.Instance.SwapOutObj(this.gameObject, slicedResultObject);
+        }
+    }
+
+    private void AddSmoke()
+    {
+        if (smoke == null)
+        {
+            // add smoke, *do not directly parent it to this food*
+            GameObject smokeVFX = Instantiate(smokeVFXReference);
+            smoke = smokeVFX.GetComponent<Smoke>();
+            smoke.InitializeSmoke(this);
+        }
+    }
+
+    public void RemoveSmoke()
+    {
+        if (smoke != null)
+        {
+            Destroy(smoke.gameObject);
+            smoke = null;
         }
     }
 }
