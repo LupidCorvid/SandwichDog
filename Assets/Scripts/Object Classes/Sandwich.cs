@@ -157,8 +157,14 @@ public class Sandwich : Food
 
         float currOriginToTargetTop = (source.transform.position - target.topPoint.position).sqrMagnitude;
         float currOriginToTargetOrigin = (source.transform.position - target.transform.position).sqrMagnitude;
-        Vector3 targetHeight = new Vector3(0.0f, Mathf.Abs(target.topPoint.transform.localPosition.y - target.transform.localPosition.y), 0.0f);
-        Vector3 sourceHeight = new Vector3(0.0f, Mathf.Abs(source.topPoint.transform.localPosition.y - source.transform.localPosition.y), 0.0f);
+        Vector3 targetHeight = new Vector3(0.0f, Mathf.Abs(target.topPoint.transform.localPosition.y), 0.0f);
+        Vector3 sourceHeight = new Vector3(0.0f, Mathf.Abs(source.topPoint.transform.localPosition.y), 0.0f);
+
+        //Debug.Log("TARG SOURCE G: " + target.transform.position.y);
+        //Debug.Log("TARG SOURCE L: " + target.transform.localPosition.y);
+        //Debug.Log("TARG TOP G: " + target.topPoint.position.y);
+        //Debug.Log("TARG TOPL: " + target.topPoint.localPosition.y);
+        //Debug.Log("TARG HEIGHT: " + targetHeight.y);
 
         Vector3 distanceToMove = Vector3.zero;
 
