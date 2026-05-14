@@ -802,7 +802,7 @@ MonoBehaviour:
   timeToBurn: 10
   cookAmount: 0
   overcookAmount: 0
-  cookedColor: {r: 0.6509434, g: 0.30031347, b: 0, a: 0}
+  cookedColor: {r: 0.8901961, g: 0.59607846, b: 0.34117648, a: 0}
   isStackable: 1
   isStackBase: 1
   stackBase: {fileID: 110813168775492774}
