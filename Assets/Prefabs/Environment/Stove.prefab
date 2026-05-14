@@ -1432,7 +1432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a3cbd82ddff5a47b934732dc9aa922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 2521934850067660897, guid: 17cbd069d2d639b4382509b4bd925808, type: 3}
   maxVolume: 0.3
   range: 5
   innerRange: 1
@@ -9451,7 +9451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cookingArea: {fileID: 4912033942349226031}
-  flames: {fileID: 7061409718369822170}
+  flames: {fileID: 3733448278896409202}
   indicator: {fileID: 5566984288623230445}
   rotationEnabled: 0
 --- !u!82 &3916601203748083156
